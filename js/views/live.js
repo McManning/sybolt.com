@@ -130,12 +130,6 @@ define([
                     $('#live-offline').hide();
                     $('#live-player').show();
 
-                    flowplayer(function (api, root) { 
-                        api.bind("ready", function () { 
-                            root.off("click"); 
-                        }); 
-                    });
-                    
                     if (!window.$f('live-player') || !window.$f('live-player').isLoaded()) {
                         // If we're not loaded yet, configure a new player instance
                                     
@@ -147,12 +141,9 @@ define([
                                 provider: "rtmp",
                                 autoPlay: true
                             },
-                            /*onError: function (errorCode, errorMessage) {
-                                alert(errorMessage);
+                            onBeforePause: function() {
+                                return false;
                             },
-                            onBufferEmpty: function() {
-                                alert('bufemp');
-                            },*/
                             plugins: {
                                 rtmp: {
                                     url: "flowplayer.rtmp-3.2.12.swf",
@@ -168,7 +159,7 @@ define([
                                     
                                     // Control hiding 
                                     all: false,
-                                    play: true,
+                                    play: false,
                                     volume: true,
                                     mute: true,
                                     time: false,
