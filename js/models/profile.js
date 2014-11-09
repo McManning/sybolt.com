@@ -10,8 +10,14 @@ define([
         
         defaults: {
             name: 'Unknown',
+            ip: '',
             avatar: 'default_avatar.png',
             online: false
+        },
+        
+        initialize: function(attributes, options) {
+            this.cid = this.id;
+            console.log('NEW PROFILE: ', attributes);
         }
     });
     

@@ -15,16 +15,26 @@ define([
         urlRoot: 'http://mumble.sybolt.com:25554/live',
         
         defaults: {
-            pollingInterval: 5000,
+            polling_interval: 5000,
         },
         
         initialize: function() {
         
             this.polling = false;
             this.publisher = new ProfileModel();
-            this.viewersCollection = new ProfilesCollection();
+            this.viewers = new ProfilesCollection();
             
-            _.bindAll(this);
+            // Get underscore to force our onFetch to stay in scope of the model when
+            // called via setTimeout
+            _.bindAll(this, 'executePolling', 'onFetch', 'onFetchError');
+        },
+        
+        isPublishing: function() {
+            return !this.hasError() && this.get('publishing') === true;
+        },
+        
+        hasError: function() {
+            return this.get('error') !== undefined;
         },
         
         /* Methods for the model constantly poll for updates from the server */
@@ -39,12 +49,22 @@ define([
         },
         
         executePolling: function() {
-            this.fetch({success: this.onFetch});
+            this.fetch({
+                success: this.onFetch,
+                error: this.onFetchError
+            });
+        },
+        
+        onFetchError: function(xhr) {
+            this.set('error', 'Error while syncing to Live API');
+            
+            // Delegate to onFetch so we can keep polling
+            this.onFetch();
         },
         
         onFetch: function() {
             if (this.polling) {
-                setTimeout(this.executePolling, this.get('pollingInterval'));
+                setTimeout(this.executePolling, this.get('polling_interval'));
             }
             
             // Debug model changes
@@ -57,19 +77,28 @@ define([
          * custom changes to sub-models and collections.
          */
         parse: function(response, xhr) {
-            
+
             if ('publisher' in response) {
-                this.publisher.parse(response.publisher, xhr);
+                this.publisher.set(response.publisher);
+            } else {
+                this.publisher.set('online', false);
             }
             
-            if ('viewers' in response) {
-                this.viewersCollection.parse(response.clients, xhr);
+            if ('clients' in response) {
+                // Merge our new ProfileModels with the viewers, firing
+                // off add/remove/change events as necessary.
+                var profiles = this.viewers.parse(response.clients);
+                this.viewers.set(profiles);
+            } else {
+                // Clear viewers
+                this.viewers.reset();
             }
             
             return {
                 publishing: response.publishing,
                 rtmp_url: response.rtmp_url,
-                stream_path: response.stream_path
+                stream_path: response.stream_path,
+                error: response.error
             };
         }
         

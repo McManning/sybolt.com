@@ -19,13 +19,46 @@ define([
         
         initialize: function() {
             this.model = new LiveModel();
+            this.model.bind('change:publishing', this.onPublish, this); 
+            this.model.bind('change:error', this.onError, this);
             
             // Sub-views associated with our Live page
             // Each acting independently of the main page.
-            this.liveViewersView = new LiveViewersView();
-            this.liveScheduleView = new LiveScheduleView();
+            this.liveViewersView = new LiveViewersView({model: this.model });
+            this.liveScheduleView = new LiveScheduleView({model: this.model });
             
             $(window).on('resize', this.onWindowResize);
+            
+            this.model.startPolling();
+        },
+        
+        onPublish: function() {
+            console.log('ON PUBLISH: ', this.model.get('publishing'));
+            
+            if (this.model.get('publishing') === true) {
+                // Turn on the stream
+                this.startRtmpPlayback(
+                    this.model.get('stream_path'), 
+                    this.model.get('rtmp_url')
+                );
+                
+            } else {
+                // Shut down the stream
+                this.stopPlayback();
+            }
+        },
+        
+        onError: function() {
+            console.log('ON ERROR: ', this.model.get('error'));
+            
+            if (this.model.get('error') !== undefined) {
+                // Kill playback and show the error message
+                this.showPlayerError(this.model.get('error'));
+                
+            } else {
+                // Hide error
+                this.stopPlayback();
+            }
         },
         
         close: function() {
@@ -118,7 +151,8 @@ define([
 
             if (!$f('live-player') || !$f('live-player').isLoaded()) {
                 // If we're not loaded yet, configure a new player instance
-                            
+                console.log('Initializing player');
+                
                 $f('live-player', "http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf", {
                     clip: {
                         url: streamPath,
@@ -163,24 +197,16 @@ define([
                     }
                 });
                 
+                // FORCE clip playback (as sometimes it doesn't auto-play when loaded)
+                $f('live-player').play({url: streamPath});
+                
             } else if (!$f('live-player').isPlaying()) {
                 // @todo source switching, if the new stream_path is different
+                console.log('Loading Source playback');
                 
                 // If it's already loaded, just play the specified stream
                 $f('live-player').play({url: streamPath});
             }
-            
-            // @todo update viewer count and icons
-            /*if (response.clients.length < 1) { 
-                viewersString = "NO VIEWERS";
-            } else if (response.clients.length == 1) {
-                viewersString = "1 VIEWER";
-            } else {
-                viewersString = response.clients.length + " VIEWERS";
-            }
-            $('div.schedule > h1').html(viewersString);
-            */
-                    
         },
         
         /**
