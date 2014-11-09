@@ -35,7 +35,7 @@ define([
             
             if (!Backbone.history.start({
                 pushState: true, 
-                root: '/sybolt-backbone/'
+                root: '/' // '/sybolt-backbone/'
             })) {
                 console.log('Initial url does not match in router');
             }
