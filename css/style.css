@@ -39,6 +39,15 @@ a:focus {
     text-decoration: none;
 }
 
+#sybolt-app {
+    min-height: 100%;
+    position: relative;
+}
+
+#content {
+    padding-bottom: 150px;
+}
+
 @media (max-width: 920px) {   
     body {
         font-size: 1em;
@@ -130,12 +139,13 @@ div.header-content > div.header-logo {
 ************************************************/
 
 div#footer {
+    position: absolute;
+    bottom: 0;
     height: 150px;
     width: 100%;
     background: #2e2c2a url('/img/footer-logo.png') no-repeat;
     background-position: right;
     border-top: 2px solid grey;
-    position: relative;
 }
 
 div#footer > div.footer-content {
