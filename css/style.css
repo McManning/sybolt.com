@@ -115,14 +115,17 @@ div.header-content > div.header-page {
 
 div.header-content > div.header-logo {
     margin: 0 auto;
-    width: 55px;
+    width: 38px;
     height: 55px;
     padding: 10px;
     overflow: hidden;
     background: url("/img/header-logo.png") 
                 no-repeat scroll 50% 12px 
                 rgba(0, 0, 0, 0);
+    background-position: right;
 }
+
+
 
 @media (max-width: 920px) {
     div.header-content > div.header-name {
