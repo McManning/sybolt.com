@@ -36,6 +36,9 @@ define([
         
         render: function() {
             
+            // Reconfigure our layout of the header and footer
+            App.headerView.setStyle('live');
+            
             this.$el.html(this.template({
                 // vars here...
             }));

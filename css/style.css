@@ -125,8 +125,6 @@ div.header-content > div.header-logo {
     background-position: right;
 }
 
-
-
 @media (max-width: 920px) {
     div.header-content > div.header-name {
         padding-left: 20px;
@@ -136,6 +134,21 @@ div.header-content > div.header-logo {
         display: none;
     }
 }
+
+/* Style overrides */
+
+div#header.live-style > div.header-background {
+    opacity: 0;
+}
+
+div#header.live-style > div.header-content {
+    max-width: 100%;
+}
+
+div#header.live-style > div.header-content > div.header-logo {
+    margin: 0 10px;
+}
+
 
 /***********************************************
                     Footer

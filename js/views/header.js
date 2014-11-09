@@ -26,7 +26,13 @@ define([
         setStyle: function(style) {
             console.log('Setting style to ' + style);
             
+            // Swap style CSS
+            this.$el
+                .removeClass(this.style + '-style')
+                .addClass(style + '-style');
+            
             this.style = style;
+            
             this.render();
             return this;
         }
