@@ -1,0 +1,169 @@
+
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700,700italic,900,400italic,300");
+
+
+/***********************************************
+                    Global       
+************************************************/
+
+html, body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    
+    height: 100%;
+}
+
+body {
+    background: #D9D1C7;
+    font: 1.2em 'Lato', Arial;
+    color: #2e2c2a; 
+}
+
+h1 {
+    font-weight: 400;
+    font-size: 2.3em;
+}
+
+a {
+    text-decoration: underline;
+    color: #2e2c2a;
+}
+
+a:hover,
+a:focus {
+    color: #685475;
+    text-decoration: none;
+}
+
+/***********************************************
+                    Header
+************************************************/
+
+div#header {
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    margin-bottom: 0;
+    height: 60px;
+}
+
+div.header-background {
+    background: #2e2c2a;
+    position: absolute;
+    height: 60px;
+    width: 100%;
+    opacity: 0;
+    
+    -webkit-transition: 0.3s opacity;
+       -moz-transition: 0.3s opacity;
+            transition: 0.3s opacity;
+}
+
+div.header-background > div.logo-background {
+    border-radius: 100%;
+    background: #2e2c2a;
+    margin: 0 auto;
+    width: 55px;
+    height: 55px;
+    padding: 10px;
+}
+
+div.header-content {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+}
+
+div.header-content > div.header-name {
+    color: #E6E6E6;
+    position: absolute;
+    left: 0;
+    top: 15px;
+    font-size: 25px;
+    padding-left: 50px;
+}
+
+div.header-content > div.header-page {
+    color: #E6E6E6;
+    position: absolute;
+    right: 0;
+    top: 15px;
+    font-size: 25px;
+    padding-right: 10px;
+}
+
+div.header-content > div.logo-minecraft {
+    margin: 0 auto;
+    width: 55px;
+    height: 55px;
+    padding: 10px;
+    overflow: hidden;
+    background: url("sybolt-minecraft.png") 
+                no-repeat scroll 50% 12px 
+                rgba(0, 0, 0, 0);
+}
+
+/***********************************************
+                    Footer
+************************************************/
+
+
+div#footer > div.footer-content {
+    width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+div#footer h1 {
+    font: 20px verdana, sans-serif;
+    color: white;
+    text-align: center;
+    padding: 0;
+}
+
+div#footer p {
+    font-size: 0.8em;
+    color: white;
+    margin: 0;
+}
+
+div.footer-content > div.about-page {
+    width: 250px;
+    text-align: justify;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 82px;
+}
+div.footer-content > div.about-site {
+    width: 300px;  text-align: justify;
+    display: inline-block;
+    vertical-align: top;
+}
+
+div.footer-content > div.share {
+    width: 250px;  
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 82px;
+}
+
+div.footer-content > div.share > .share-icon {
+    width: 60px;
+    height: 60px;
+    background: rgb(113, 180, 218);
+    display: inline-block;
+    margin: 0 5px;
+}
+
+
+/***********************************************
+                    /live         
+************************************************/
+
+
