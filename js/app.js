@@ -2,9 +2,9 @@
 require.config({
     //baseUrl: '../',
     paths: {
-        jquery: 'libs/jquery-2.1.1.min',
-        underscore: 'libs/underscore-min',
-        backbone: 'libs/backbone-min',
+        jquery: 'libs/jquery-2.1.1',
+        underscore: 'libs/underscore',
+        backbone: 'libs/backbone',
         text: 'libs/text',
         templates: '../templates',
         flowplayer: '//releases.flowplayer.org/js/flowplayer-3.2.13'
@@ -27,7 +27,7 @@ define([
 ], function($, _, Backbone, Router, HeaderView, FooterView) {
     'use strict';
     
-    var App = {
+    window.App = {
         
         initialize: function() {
         
