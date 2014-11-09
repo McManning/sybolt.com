@@ -143,11 +143,9 @@ define([
                                     scrubber: true,
                                     scrubberHeightRatio: 0.1,
                                     scrubberBarHeightRatio: 0.1,
-                                    bufferColor: '#ff0000',
                                     sliderColor: '#ffffff',
-                                    progressColor: '#ffffff',
-                                    buttonColor: '#ffffff'
-                                },
+                                    progressColor: '#ffffff'
+                                }
                                 
                             },
                             canvas: {
@@ -182,8 +180,8 @@ define([
                     $('#live-offline').show();
                     
                     // Stop playback
-                    if ($f('live-player')) {
-                        $f('live-player').stop();
+                    if (window.$f('live-player')) {
+                        window.$f('live-player').stop();
                     }
                     
                     // @todo update viewer count and icons
@@ -199,8 +197,8 @@ define([
                         .html('Connection Error: Could not connect to the Sybolt Live API');
           
                 // Stop playback
-                if ($f('live-player')) {
-                    $f('live-player').stop();
+                if (window.$f('live-player')) {
+                    window.$f('live-player').stop();
                 }
             });
         }
