@@ -1,4 +1,17 @@
 
 <h1>Hello world! (Test view)</h1>
-<a href="home">Go home</a>
+<ul>
+    <% var i = 0; %>
+    <% _.each(profiles, function(profile) { %>
+    <li>
+        <a href="<%= profile.get("avatar") %>" class="<%= (++i > 1) ? "hidden" : "" %>">
+            <%= profile.get("name") %>
+        </a>
+    </li>
+    <% }); %>
+</ul>
 
+<a id="testLink">Test Event</a><br/>
+
+<a href="home">home</a>, 
+<a href="live">Live</a>
