@@ -71,11 +71,38 @@ define([
         
         onWindowResize: function() {
             
-            $('#live-player-container')
-                .css('max-width', $(this).height() * 1.778);
-            
-            $('#player-container')
-                .height($(this).width() / 1.778);
+          //  $('#player-container')
+           //     .height($(window).width() / 1.778);
+                
+          //  $('#live-player-container')
+           //     .css('max-width', $('#sybolt-app').height() * 1.778);
+           
+            var wh = $(window).height();
+            var ww = $(window).width();
+
+            if ((ww / wh) > 1.7778) {
+                // it's widescreen, max height to window height
+                $('#player-container')
+                    .height(wh)
+                    .width(ww);
+                    
+                // Inner video player must maintain aspect ratio
+                $('#live-player-container')
+                    .height(wh)
+                    .width(wh * 1.7778);
+                    
+            } else {
+                // If smaller, ensure the container has a 1.7778 ratio
+                $('#player-container')
+                    .height(ww / 1.7778)
+                    .width(ww);
+                    
+                // Inner video player matches container dimensions
+                $('#live-player-container')
+                    .height(ww / 1.7778)
+                    .width(ww);
+            }
+
         },
         
         updateLiveStatus: function() {
@@ -102,6 +129,12 @@ define([
                     $('#live-error').hide();
                     $('#live-offline').hide();
                     $('#live-player').show();
+
+                    flowplayer(function (api, root) { 
+                        api.bind("ready", function () { 
+                            root.off("click"); 
+                        }); 
+                    });
                     
                     if (!window.$f('live-player') || !window.$f('live-player').isLoaded()) {
                         // If we're not loaded yet, configure a new player instance
