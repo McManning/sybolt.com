@@ -119,7 +119,7 @@ div.header-content > div.header-logo {
     height: 55px;
     padding: 10px;
     overflow: hidden;
-    background: url("img/header-logo.png") 
+    background: url("/img/header-logo.png") 
                 no-repeat scroll 50% 12px 
                 rgba(0, 0, 0, 0);
 }
