@@ -7,7 +7,7 @@ define([
     'use strict';
     
     var ProfilesCollection = Backbone.Collection.extend({
-        url: "/sybolt-backbone/testprofiles.json", //"/api/v1/testprofiles",
+        url: "/testprofiles.json", //"/api/v1/testprofiles",
         model: ProfileModel
     });
     
