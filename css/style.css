@@ -39,6 +39,12 @@ a:focus {
     text-decoration: none;
 }
 
+@media (max-width: 920px) {   
+    body {
+        font-size: 1em;
+    }
+}
+
 /***********************************************
                     Header
 ************************************************/
@@ -57,7 +63,7 @@ div.header-background {
     position: absolute;
     height: 60px;
     width: 100%;
-    opacity: 0;
+    /* opacity: 0; */
     
     -webkit-transition: 0.3s opacity;
        -moz-transition: 0.3s opacity;
@@ -65,7 +71,8 @@ div.header-background {
 }
 
 div.header-background > div.logo-background {
-    border-radius: 100%;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
     background: #2e2c2a;
     margin: 0 auto;
     width: 55px;
@@ -97,21 +104,39 @@ div.header-content > div.header-page {
     padding-right: 10px;
 }
 
-div.header-content > div.logo-minecraft {
+div.header-content > div.header-logo {
     margin: 0 auto;
     width: 55px;
     height: 55px;
     padding: 10px;
     overflow: hidden;
-    background: url("sybolt-minecraft.png") 
+    background: url("img/header-logo.png") 
                 no-repeat scroll 50% 12px 
                 rgba(0, 0, 0, 0);
+}
+
+@media (max-width: 920px) {
+    div.header-content > div.header-name {
+        padding-left: 20px;
+    }
+    
+    div.header-content > div.header-page {
+        display: none;
+    }
 }
 
 /***********************************************
                     Footer
 ************************************************/
 
+div#footer {
+    height: 150px;
+    width: 100%;
+    background: #2e2c2a url('/img/footer-logo.png') no-repeat;
+    background-position: right;
+    border-top: 2px solid grey;
+    position: relative;
+}
 
 div#footer > div.footer-content {
     width: 1000px;
@@ -161,6 +186,26 @@ div.footer-content > div.share > .share-icon {
     margin: 0 5px;
 }
 
+@media (max-width: 1024px) {    
+    div.footer > .footer-content {
+        width: 100%;
+    }
+    
+    /* Footer is a bit wider than content, so drop a section */
+    div.about-page {
+        display: none;
+    }
+}
+
+@media (max-width: 920px) {
+    div.footer-content > div.about-site {
+        display: none;
+    }
+    
+    div.footer-content > div.share {
+        margin: 0;
+    }
+}
 
 /***********************************************
                     /live         
