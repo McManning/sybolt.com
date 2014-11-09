@@ -6,7 +6,14 @@ require.config({
         underscore: 'libs/underscore-min',
         backbone: 'libs/backbone-min',
         text: 'libs/text',
-        templates: '../templates'
+        templates: '../templates',
+        flowplayer: '//releases.flowplayer.org/js/flowplayer-3.2.13'
+    },
+    shim: {
+        // Non-AMD scripts wrapped with the shim
+        'flowplayer': {
+            exports: 'Flowplayer'
+        }
     }
 });
 
