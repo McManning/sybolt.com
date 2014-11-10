@@ -66,9 +66,6 @@ define([
             if (this.polling) {
                 setTimeout(this.executePolling, this.get('polling_interval'));
             }
-            
-            // Debug model changes
-            console.log(this);
         },
         
         /**
@@ -81,6 +78,7 @@ define([
             if ('publisher' in response) {
                 this.publisher.set(response.publisher);
             } else {
+                // Clear publisher
                 this.publisher.set('online', false);
             }
             

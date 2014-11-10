@@ -19,8 +19,11 @@ define([
         
         initialize: function() {
             this.model = new LiveModel();
-            this.model.bind('change:publishing', this.onPublish, this); 
-            this.model.bind('change:error', this.onError, this);
+            this.model
+                .on('change:publishing', this.onPublish, this)
+                .on('change:error', this.onError, this);
+            
+            this.model.publisher.on('change', this.onUpdatePublisher, this);
             
             // Sub-views associated with our Live page
             // Each acting independently of the main page.
@@ -32,6 +35,23 @@ define([
             this.model.startPolling();
         },
         
+        /**
+         * Event listener for when the stream publisher updates.
+         * This should update the UI display of the person publishing
+         */
+        onUpdatePublisher: function(profile) {
+            
+            if (profile.get('online') === true) {
+                // @todo impl. For now, a simple update of the publisher's name.
+                this.$('.live-publisher').html(profile.get('name'));
+                
+            } else {
+                // Hide publisher
+                this.$('.live-publisher').html('');
+                
+            }
+        },
+            
         onPublish: function() {
             console.log('ON PUBLISH: ', this.model.get('publishing'));
             
@@ -145,9 +165,9 @@ define([
         startRtmpPlayback: function(streamPath, rtmpUrl) {
             
             // Hide any error messages, and activate our player
-            $('#live-error').hide();
-            $('#live-offline').hide();
-            $('#live-player').show();
+            $('#live-error').addClass('hidden');
+            $('#live-offline').addClass('hidden');
+            $('#live-player-container').removeClass('hidden');
 
             if (!$f('live-player') || !$f('live-player').isLoaded()) {
                 // If we're not loaded yet, configure a new player instance
@@ -217,10 +237,10 @@ define([
          */ 
         showPlayerError: function(error) {
             // Show an error message
-            $('#live-offline').hide();
-            $('#live-player').hide();
+            $('#live-offline').addClass('hidden');
+            $('#live-player-container').addClass('hidden');
             $('#live-error')
-                .show()
+                .removeClass('hidden')
                 .find('h1')
                     .html('Connection Error: ' + error);
       
@@ -238,9 +258,9 @@ define([
             // @todo stop calling this if we're already offline
         
             // Hide any error/player, and show the generic offline message
-            $('#live-error').hide();
-            $('#live-player').hide();
-            $('#live-offline').show();
+            $('#live-error').addClass('hidden');
+            $('#live-player-container').addClass('hidden');
+            $('#live-offline').removeClass('hidden');
             
             // Stop playback
             if ($f('live-player')) {

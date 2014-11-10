@@ -2,11 +2,13 @@
 define([
     'jquery',
     'underscore',
-    'backbone'
-], function($, _, Backbone) {
+    'backbone',
+    'text!templates/live/schedule.html'
+], function($, _, Backbone, liveScheduleTemplate) {
     'use strict';
     
     var LiveScheduleView = Backbone.View.extend({
+        template: _.template(liveScheduleTemplate),
         
         initialize: function() {
             // Collection stuff
@@ -18,7 +20,9 @@ define([
         
         render: function() {
             
-            this.$el.html('Schedule (inline html)!');
+            this.$el.html(this.template({
+                // ...
+            }));
             
             return this;
         }

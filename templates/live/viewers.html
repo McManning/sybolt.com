@@ -1,2 +1,18 @@
 
-Viewers template!
+<div class="content-left">
+    <% if (viewers.length < 1) { %>
+        <h1 class="full-width">NO VIEWERS</h1>
+    <% } else if (viewers.length === 1) { %>
+        <h1 class="full-width">1 VIEWER</h1>
+    <% } else { %>
+        <h1 class="full-width"><%= viewers.length %> VIEWERS</h1>
+    <% } %>
+
+    <div class="residents-container">
+        <% _.each(viewers, function(profile) { %>            
+            <div class="head-icon"><img src="heads/head-64_jamacavoy.png"></div>
+        <% }); %>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
