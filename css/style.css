@@ -342,6 +342,10 @@ div.profile-icon img {
     background: white;
 }
 
+div.profile-icon.small {
+    padding: 3px;
+}
+
 div.profile-icon.small img {
     width: 32px;
     height: 32px;
@@ -425,8 +429,11 @@ div#content > div.live-publisher {
     position: absolute;
     top: 0;
     right: 0;
-    background: red;
     margin: 10px;
+}
+
+div#content > div.live-publisher > div.profile-icon {
+    margin: 0px;
 }
 
 

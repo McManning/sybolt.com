@@ -43,11 +43,14 @@ define([
             
             if (profile.get('online') === true) {
                 // @todo impl. For now, a simple update of the publisher's name.
-                this.$('.live-publisher').html(profile.get('name'));
+                this.$('.live-publisher')
+                    .removeClass('hidden');
+                    //.html(profile.get('name'));
                 
             } else {
                 // Hide publisher
-                this.$('.live-publisher').html('');
+                this.$('.live-publisher')
+                    .addClass('hidden');
                 
             }
         },
