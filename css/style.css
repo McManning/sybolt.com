@@ -269,7 +269,7 @@ div.content-left {
 div.content-left > h1 {
     border-bottom: 4px solid #2e2c2a;
     max-width: 80%;
-    box-shadow: 0 2px 0 #ccc;
+    /*box-shadow: 0 2px 0 #ccc;*/
 }
 
 div.content-left > h1.full-width {
@@ -285,7 +285,7 @@ div.content-right {
 div.content-right > h1 {
     border-bottom: 4px solid #2e2c2a;          
     width: 80%;
-    box-shadow: 0 2px 0 #ccc;
+    /*box-shadow: 0 2px 0 #ccc;*/
     text-align: right;
     float: right;
 }

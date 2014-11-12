@@ -1,2 +1,173 @@
 
-HOME!
+<style>
+    
+    #home-welcome {
+        padding-top: 80px;
+        position: relative;
+    }
+    
+    .launcher {
+        width: 350px;
+        height: 200px;
+        border: 2px solid #817A73;
+        border-radius: 3px;
+        margin-bottom: 40px;
+    }
+    
+    svg#sybolt-logo {
+        position: absolute;
+        top: 200px;
+        right: 0;
+        z-index: -1;
+    }
+    
+    svg#sybolt-logo path.moon {
+        transform-origin: 41.0% 41.5%;
+        transform: rotateZ(0deg);
+        
+        transition-duration: 0.8s;
+        transition-property: transform;
+    }
+    
+    svg#sybolt-logo path.moon:hover {
+        transform: rotateZ(360deg);
+    }
+    
+figure {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    cursor: pointer;
+    margin: 0;
+}
+    
+figure.effect-apollo {
+	background: #2e2c2a;
+}
+
+figure.effect-apollo img {
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+	-webkit-transform: scale3d(1.05,1.05,1);
+	transform: scale3d(1.05,1.05,1);
+    opacity: 0.80;
+}
+
+figure.effect-apollo figcaption::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
+    background: rgba(255,255,255,0.5);
+    content: '';
+    -webkit-transition: -webkit-transform 0.6s;
+    transition: transform 0.6s;
+    -webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-100%,0);
+    transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-150%,0);
+}
+
+figure.effect-apollo p {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	margin: 4em 1em;
+	padding: 0 1em;
+	max-width: 150px;
+	border-right: 4px solid #fff;
+	text-align: right;
+	opacity: 0;
+	-webkit-transition: opacity 0.35s;
+	transition: opacity 0.35s;
+    color: white;
+}
+
+figure.effect-apollo h1 {
+    margin: 0.3em 0.5em;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: white;
+    font-size: 1.8em;
+}
+
+figure.effect-apollo:hover img {
+	-webkit-transform: scale3d(1,1,1);
+	transform: scale3d(1,1,1);
+    opacity: 0.50;
+}
+
+figure.effect-apollo:hover figcaption::before {
+	-webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,150%,0);
+	transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,150%,0);
+}
+
+figure.effect-apollo:hover p {
+	opacity: 1;
+	-webkit-transition-delay: 0.1s;
+	transition-delay: 0.1s;
+}
+
+
+</style>
+
+<div id="home-welcome" class="content-left">
+    <h1>WELCOME TO SYBOLT</h1>
+    
+    <figure class="launcher effect-apollo">
+        <img src="/img/launch-minecraft.png"/>
+        <figcaption>
+            <h1>MINECRAFT</h1>
+            <p>Misadventures of a few fearless explorers</p>
+            <a href="#">View more</a>
+        </figcaption>			
+    </figure>
+    
+    <figure class="launcher effect-apollo">
+        <img src="/img/launch-live.png"/>
+        <figcaption>
+            <h1>LIVE</h1>
+            <p>When life gives you lemons, tell life to shove it</p>
+            <a href="#">View more</a>
+        </figcaption>			
+    </figure>
+    
+    <figure class="launcher effect-apollo">
+        <img src="/img/launch-markfeet.png"/>
+        <figcaption>
+            <h1>COMING SOON</h1>
+            <p>Whatever this is, it will certainly be strange</p>
+            <a href="#">View more</a>
+        </figcaption>			
+    </figure>
+    
+        
+    <svg
+       xmlns:dc="http://purl.org/dc/elements/1.1/"
+       xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+       xmlns:svg="http://www.w3.org/2000/svg"
+       xmlns="http://www.w3.org/2000/svg"
+       width="505"
+       height="520"
+       id="sybolt-logo"
+       version="1.1"
+       viewbox="0 0 505 520">
+      <g
+         class="world"
+         transform="translate(-122,-255)">
+        <path
+           class="ring"
+           d="m 362.63594,292.72156 c -132.35109,0 -239.65625,107.27391 -239.65625,239.625 0,132.35109 107.30516,239.65625 239.65625,239.65625 132.35109,0 239.625,-107.30516 239.625,-239.65625 0,-132.35109 -107.27391,-239.625 -239.625,-239.625 z m 1.78125,11.0625 c 125.64478,0 227.5,102.17948 227.5,228.21875 0,126.03927 -101.85522,228.21875 -227.5,228.21875 -125.64478,0 -227.5,-102.17948 -227.5,-228.21875 0,-126.03927 101.85522,-228.21875 227.5,-228.21875 z"
+           style="fill:#c9c1b7;fill-opacity:1;stroke:none" />
+        <path
+           class="sky"
+           d="m 371.91719,305.90906 c -125.05305,0 -226.4375,101.38445 -226.4375,226.4375 0,125.05305 101.38445,226.4375 226.4375,226.4375 125.05305,0 226.4375,-101.38445 226.4375,-226.4375 0,-125.05305 -101.38445,-226.4375 -226.4375,-226.4375 z m 14.28125,48.21875 c 79.09506,0 143.21875,64.12369 143.21875,143.21875 0,79.09506 -64.12369,143.21875 -143.21875,143.21875 -79.09506,0 -143.21875,-64.12369 -143.21875,-143.21875 0,-79.09506 64.12369,-143.21875 143.21875,-143.21875 z"
+           style="fill:#a59a94;fill-opacity:1;stroke:none" />
+        <path
+           class="moon"
+           d="m 552.6957,327.75281 -58.6391,58.98627 c 29.49716,28.46876 47.84547,68.43823 47.84547,112.67041 0,86.45426 -70.08501,156.53928 -156.53928,156.53928 -43.91059,0 -83.58055,-18.0929 -112.00765,-47.21426 l -57.25045,57.56605 c 43.4394,45.18289 104.4941,73.31467 172.13009,73.31467 131.87262,0 238.78552,-106.88134 238.78552,-238.75396 0,-68.13323 -28.54919,-129.60318 -74.3246,-173.10846 z"
+           style="fill:#c9c1b7;fill-opacity:1;stroke:none" />
+      </g>
+    </svg>
+
+</div>
