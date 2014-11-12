@@ -27,6 +27,9 @@ define([
         
         render: function() {
             
+            // Reconfigure our layout of the header and footer
+            App.headerView.setStyle('default');
+            
             var data = {};
             var compiled = this.template(data);
             

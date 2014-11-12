@@ -1,7 +1,58 @@
 
-<h1>404</h1>
-<p>
-Are you sure you wanted <%= location %> ... 
-</p>
-<a href="home">Go home</a>
+<style>
+    .not-found {
+        padding-top: 80px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .not-found > h1 {
+        font-size: 10em;
+        margin: 0;
+    }
+    
+    .additional-info {
+        margin: 3em auto;
+        border: 2px solid #2e2c2a;
+        width: 400px;
+        background: white;
+        border-radius: 3px;
+        padding: 1em;
+    }
+    
+    .additional-info h2 {
+        margin: 0 0 1em 0;
+    }
+    
+    div.slant-a {
+        -webkit-transform: rotateZ(10deg);
+        -moz-transform: rotateY(10deg);
+        -o-transform: rotateY(10deg);
+        -ms-transform: rotateY(10deg);
+        display: inline-block;
+    }
+        
+    div.slant-b {
+        -webkit-transform: rotateZ(-11deg);
+        -moz-transform: rotateY(-11deg);
+        -o-transform: rotateY(-11deg);
+        -ms-transform: rotateY(-11deg);
+        display: inline-block;
+    }
+    
+</style>
 
+<div class="not-found">
+
+    <h1><div class="slant-a">4</div>0<div class="slant-b">4</div></h1>
+    <p>
+    Looks like you're in the wrong place, bud.
+    </p>
+    <a href="home">Go home</a>
+
+    <div class="additional-info">
+        <h2>Additional Information</h2>
+        <strong>Request Url</strong> <%= location %>
+    </div>
+    
+</div>
