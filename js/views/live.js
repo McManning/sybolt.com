@@ -108,7 +108,11 @@ define([
                 .renderSubview(this.liveViewersView, '.viewers')
                 .renderSubview(this.liveScheduleView, '.schedule');
             
-            // Rescale players
+            // Note the call here happens twice because the first call
+            // will end up resizing the browser past the window height, thus forcing
+            // a scrollbar to appear if not already, and changing the actual dimensions.
+            // The second call is made to correct the player size based on these new dimensions.
+            this.onWindowResize();
             this.onWindowResize();
             
             return this;
