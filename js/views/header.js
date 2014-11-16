@@ -13,6 +13,15 @@ define([
         template: _.template(headerTemplate),
         style: 'default',
         
+        events: {
+            "click .header-logo": "goHomeAction"
+        },
+        
+        goHomeAction: function() {
+            // Navigate back to the home page
+            App.router.navigate("home", {trigger: true});
+        },
+        
         render: function() {
             
             var data = {style: this.style};
@@ -26,14 +35,22 @@ define([
         setStyle: function(style) {
             console.log('Setting style to ' + style);
             
+            // Perform an animated transition, rather than re-rendering
+            
             // Swap style CSS
             this.$el
                 .removeClass(this.style + '-style')
                 .addClass(style + '-style');
             
+            if (style == 'live') {
+                this.$('.header-logo').css('margin-left', '35px');
+            } else {
+                this.$('.header-logo').css('margin-left', '');
+            }
+            
             this.style = style;
             
-            this.render();
+            //this.render();
             return this;
         }
     });
