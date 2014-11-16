@@ -180,7 +180,10 @@ define([
                 // If we're not loaded yet, configure a new player instance
                 console.log('Initializing player');
                 
-                $f('live-player', "http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf", {
+                $f('live-player', {
+                    src:"http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf",
+                    wmode: "opaque" // This allows the HTML to hide the flash content
+                }, {
                     clip: {
                         url: streamPath,
                         live: true,
