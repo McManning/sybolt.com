@@ -85,8 +85,35 @@ define([
             if ('clients' in response) {
                 // Merge our new ProfileModels with the viewers, firing
                 // off add/remove/change events as necessary.
-                var profiles = this.viewers.parse(response.clients);
-                this.viewers.set(profiles);
+                var merged = this.viewers.set(response.clients, {parse: true, merge:true, remove: false});
+                
+                // Bug workaround: Removals via collection.set are causing an issue where collection.length
+                // is no longer models.length (that is, something was deleted from the collection and left 
+                // untracked). Not really finding anything online about this, and I seem to be using collection
+                // as documented by Backbone examples. But in any case, it works by not using the built-in
+                // remove logic in collection.set and instead creating our own queue for removal after the merge.
+                
+                var toRemove = [];
+                
+                // Go through current cached clients and add to the remove 
+                // queue if they aren't in our updated list of clients
+                this.viewers.each(function(model) {
+                    var found = false;
+                    
+                    for (var i in response.clients) {
+                        if (response.clients[i].id == model.id) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!found) {
+                        toRemove.push(model);
+                    }
+                });
+                
+                this.viewers.remove(toRemove);
+                
             } else {
                 // Clear viewers
                 this.viewers.reset();
