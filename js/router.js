@@ -15,37 +15,50 @@ define([
     
         routes: {
             '': 'home',
-            'test': 'test',
+            ':section(/:subsection)': 'generic',
+            /*'test': 'test',
             'live': 'live',
             'home': 'home',
+            'minecraft': 'minecraft',
+            'minecraft/history': 'minecraft_history',*/
             'test/:slug': 'testslug',
             
             
             // Default (unrecognized route)
             '*actions': 'notfound'
         },
-        
-        home: function() {
-            require(['views/home', 'app'], function(HomeView, App) {
+
+        /**
+         * Generic route that'll take any one or two-level flat url and 
+         * route it to the appropriate view. 
+         */
+        generic: function(section, subsection) {
+
+            // translate the request into a view js file
+            var view = 'views/' + section;
+            if (subsection) {
+                view += '/' + subsection;
+            } 
+            else { // Without a subsection, assume index.
+                view += '/index';
+            }
+
+            // Require the desired view
+            // TODO: Catch script load errors. 
+            require([view, 'app'], function(View, App) {
+
+                if (View) {
+                    App.setContentView(new View());
+                } 
+                else {
+
+                    // Invalid view, go to the 404 page.
+                    require(['views/notfound', 'app'], function(NotFoundView, App) {
             
-                console.log('loading home view');
-                App.setContentView(new HomeView());
-            });
-        },
-        
-        live: function() {
-            require(['views/live', 'app'], function(LiveView, App) {
-            
-                console.log('loading live view');
-                App.setContentView(new LiveView());
-            });
-        },
-        
-        test: function() {
-            require(['views/test', 'app'], function(TestView, App) {
-            
-                console.log('loading test view');
-                App.setContentView(new TestView());
+                        console.log('loading 404 view');
+                        App.setContentView(new NotFoundView());
+                    });
+                }
             });
         },
         

@@ -3,8 +3,14 @@
     Primary LESS stylesheet for Sybolt
 */
 
+// Import a CSS reset to clear some default browser styles
+@import "reset.css";
+
 // Import for the legacy style (to be converted later)
 @import "legacy_style.css";
 
+@import "mixins.less";
+
 // Sybolt Live page styles
-@import "live.less"
+@import "live.less";
+

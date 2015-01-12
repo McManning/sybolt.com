@@ -8,7 +8,7 @@ define([
     'models/live',
     'views/live/viewers',
     'views/live/schedule',
-    'text!templates/live.html'
+    'text!templates/live/index.html'
 ], function($, _, Backbone, App, Flowplayer, LiveModel,
             LiveViewersView, LiveScheduleView, liveTemplate) {
             

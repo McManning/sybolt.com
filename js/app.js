@@ -78,6 +78,28 @@ define([
             // @todo whatever post-processing that we must perform after changing the page
         }
     };
+
+    // Create a custom view for commonly used functionality
+    App.View = Backbone.View.extend({
+        
+        /** 
+         * Optionally overridable to clean up event hooks/subviews 
+         */
+        close: function() {
+            this.remove(); // Destroy this
+        },
+        
+        /**
+         * Render a sub-view within a specific selector of this view. 
+         * Useful for our main render() call to also cascade render children.
+         */
+        renderSubview: function(view, selector) {
+        
+            // See: http://ianstormtaylor.com/rendering-views-in-backbonejs-isnt-always-simple/
+            view.setElement(this.$(selector)).render();
+            return this;
+        }
+    });
     
     App.initialize();
     
