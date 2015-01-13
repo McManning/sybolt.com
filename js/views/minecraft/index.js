@@ -19,6 +19,9 @@ define([
             
             $(window).on('resize.calico-hero', _.bind(this.onWindowResize, this));
             $(window).on('scroll.minecraft-header', _.bind(this.onWindowScroll, this));
+
+            // Since we're a full page view, force the window to the top.
+            $(window).scrollTop(0);
         },
 
         close: function() {

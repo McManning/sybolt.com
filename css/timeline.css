@@ -1,0 +1,441 @@
+
+div.header-background {
+    background: #2e2c2a;
+    position: absolute;
+    height: 60px;
+    width: 100%;
+    opacity: 1;
+}
+
+div.timeline-billboard {
+  height: 220px;
+  width: 100%;
+  background: #D9D1C7;
+}
+
+.timeline-summary::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -10px;
+    margin-bottom: -7px;
+    
+    width: 0; 
+	height: 0; 
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
+	
+	border-top: 7px solid white;
+}
+
+#timeline {
+  position: relative;
+  padding: 0;
+  width: 100%;
+  
+}
+
+.timeline-start {
+    position: absolute;    
+    max-width: 900px;  
+    margin: 0 auto;
+    padding-bottom: 5em;
+    top: -15px;
+    left: 50%;
+}
+
+.timeline-end {
+    position: relative;    
+    max-width: 900px;  
+    margin: 0 auto;
+    padding-top: 4em;
+    margin-bottom: -5px;
+    z-index: 1001;
+}
+
+.timeline-end .timeline-img img {
+    width: 56px;
+    height: 32px;
+    margin-left: -28px;
+    margin-top: -20px;
+}
+
+.timeline-start .timeline-img {
+  width: 85px; /* 40px; */
+  height: 85px; /* 40px; */
+  margin-left: -43px; /* NOTHING */
+}
+
+.timeline-end .timeline-img {
+  width: 80px; /* 40px; */
+  height: 80px; /* 40px; */
+  margin-left: -40px; /* NOTHING */
+}
+
+.parallax.hoth::before, 
+.parallax.swagcraft::before, 
+.parallax.franken::before, 
+.parallax.calico::before, 
+.parallax.broville::before {
+  /* this is the vertical line */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%; 
+  height: 100%;
+  width: 4px;
+  background: #FFFFFF;
+  margin-left: -4px;
+}
+
+.timeline-block {
+  position: relative;
+  margin: 4em 0; /* 2em 0; */
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 4em;
+  margin-bottom: 4em;
+}
+.timeline-block:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+/* Non-mobile only */
+@media (min-width: 920px) {
+  .timeline-block.right .timeline-content {
+    float: right;
+  }
+  .timeline-block.right .timeline-content::before {
+    top: 24px;
+    left: auto;
+    right: 100%;
+    border-color: transparent;
+    border-right-color: white;
+  }
+  .timeline-block.right .timeline-content {
+    float: right;
+  }
+  .timeline-block.right .timeline-content .timeline-date {
+    left: auto;
+    right: 126%;
+    text-align: right;
+  }
+} /* end non mobile only */
+
+.timeline-img {
+  position: absolute;
+  top: 0;
+  left: 50%; /* 0; */
+  width: 55px; /* 40px; */
+  height: 55px; /* 40px; */
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+  
+  margin-left: -30px; /* NOTHING */
+}
+
+.timeline-img img {
+  display: block;
+  width: 32px;
+  height: 32px;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  margin-left: -16px;
+  margin-top: -16px;
+}
+
+.timeline-img.timeline-war img {
+    /* Slightly larger than the other icons */
+    width: 34px;
+    height: 34px;
+    margin-left: -17px;
+    margin-top: -17px;
+}
+
+.timeline-start .timeline-img img {
+    width: 64px;
+    height: 64px;
+    margin-left: -32px;
+    margin-top: -32px;
+}
+
+.timeline-img.timeline-war {
+  background: #c03b44;
+}
+.timeline-img.timeline-faith {
+    background: #70DCF7;
+}
+.timeline-img.timeline-sun {
+    background: #93c5ff;
+}
+.timeline-img.timeline-green {
+  background: #75ce66;
+}
+.timeline-img.timeline-red {
+  background: #c03b44;
+}
+.timeline-img.timeline-yellow {
+  background: #f0ca45;
+}
+
+.timeline-content {
+  position: relative;
+  margin-left: 0; /* 60px; */
+  background: white;
+  border-radius: 0.25em;
+  padding: 1.6em; /* 1em; */
+  box-shadow: 0 3px 0 #BEBEBE;
+  width: 37%; /* NOTHING */
+}
+
+.timeline-content::before {
+  content: '';
+  position: absolute;
+  top: 20px; /* 16px; */
+  right: 100%;
+  height: 0;
+  width: 0;
+  border: 7px solid transparent;
+  border-right: 7px solid white;
+  
+  left: 100%; /* NOTHING */
+  border-color: transparent; /* NOTHING */
+  border-left-color: white; /* NOTHING */
+}
+
+.timeline-content:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.timeline-content h2 {
+    margin: 0;
+    margin-bottom: 0.5em;
+    font-size: 1.6em;
+}
+
+.timeline-content p {
+    margin: 0;
+}
+
+.timeline-content .timeline-date {
+  display: inline-block;
+  float: left;
+  padding: 0.5em 1em;
+  opacity: .7;
+  
+  position: absolute; /* NOTHING */
+    
+  width: 15%; /* NOTHING */
+    
+  left: 126%; /* NOTHING */
+  top: 6px; /* NOTHING */
+  background: black;
+  color: white;
+}
+
+
+/* Parallax background logic */
+
+div.parallax {
+    /* min-height: 400px; */
+    position: relative;
+    padding: 1px 0;
+    box-sizing: border-box;  
+    box-shadow: 0 -1px 10px rgba(0, 0, 0, .7);
+}
+
+div.parallax .parallax-header, div.parallax .parallax-header-small {
+    background: black;
+    color: white;
+    opacity: 0.7;
+    display: inline-block;
+    margin-left: 2em;
+    padding: 0.1em 0.5em;
+    margin-bottom: 0.25em;
+    font-weight: 400;
+    font-size: 2.3em;
+    margin-top: 0.5em;
+}
+
+div.parallax .parallax-header-small {
+    margin: 0 7em;  
+    font-size: 0.8em;    
+    -webkit-transform: rotate(-16deg);
+}
+
+div.parallax.intro {
+    /* background: url('http://minecraft-delicious.com/wp-content/uploads/2012/12/minecraft-logo_7.jpg') no-repeat fixed; */
+    background-position: center top;
+    -webkit-background-size: cover;
+       -moz-background-size: cover;
+         -o-background-size: cover;
+            background-size: cover;
+			
+	padding-top: 60px;
+            
+    /* background-position-y: -100px; */
+    background: linear-gradient(#4D4946, #2e2c2a);
+}
+
+div.parallax.hoth {
+    background: url('/img/minecraft/timeline/hoth.png') no-repeat fixed;
+    background-position: center top;
+    -webkit-background-size: cover;
+       -moz-background-size: cover;
+         -o-background-size: cover;
+            background-size: cover;
+            
+}
+
+div.parallax.swagcraft {
+    background: url('/img/minecraft/timeline/cathedral.png') no-repeat fixed;
+    background-position: center top;
+    -webkit-background-size: cover;
+       -moz-background-size: cover;
+         -o-background-size: cover;
+            background-size: cover;
+}
+
+div.parallax.franken {
+    background: url('/img/minecraft/timeline/sybolt_tower.png') no-repeat fixed;
+    background-position: center top;
+    -webkit-background-size: cover;
+       -moz-background-size: cover;
+         -o-background-size: cover;
+            background-size: cover;
+}
+
+div.parallax.calico {
+    background: url('/img/minecraft/calico-hero.jpg') no-repeat fixed;
+    background-position: center top;
+    -webkit-background-size: cover;
+       -moz-background-size: cover;
+         -o-background-size: cover;
+            background-size: cover;
+}
+
+div.parallax.broville {
+    background: url('/img/minecraft/timeline/pillarmen.png') no-repeat fixed;
+    background-position: center top;
+    -webkit-background-size: cover;
+       -moz-background-size: cover;
+         -o-background-size: cover;
+            background-size: cover;
+}
+
+/* Mobile response */
+@media (max-width: 920px) {
+
+    .timeline-start {
+      top: -15px;
+      left: 0;
+    }
+    
+    .timeline-start .timeline-img {
+      width: 60px;
+      height: 60px;
+      margin-left: 10px; /* NOTHING */
+    }
+    
+    .timeline-end .timeline-img {
+      width: 60px;
+      height: 60px;
+      margin-left: 10px;
+    }
+
+    .parallax.hoth::before, 
+	.parallax.swagcraft::before, 
+	.parallax.franken::before, 
+	.parallax.calico::before, 
+	.parallax.broville::before {
+      left: 0;
+      margin-left: 38px; /* NOTHING */
+    }
+	
+    div.parallax .parallax-header {
+      /* margin-left: 5em; */
+    
+      font-size: 2em;
+      float:right;
+    
+      /* clear: right; */
+    }
+
+    div.parallax .parallax-header-small {
+        display: none;
+    }
+
+    .timeline-block {
+      /* margin: 2em 0; */
+    
+      width: 100%;
+    }
+    
+    .timeline-img {
+      left: 0;
+      width: 40px;
+      height: 40px;
+      margin-left: 20px; /* NOTHING */
+    
+      margin-top: 10px;
+    }
+
+    .timeline-img img {
+      width: 26px;
+      height: 26px;
+      margin-left: -13px;
+      margin-top: -13px;
+    }
+        
+    .timeline-img.timeline-war img {
+        /* Slightly larger than the other icons */
+        width: 24px;
+        height: 24px;
+        margin-left: -12px;
+        margin-top: -12px;
+    }
+
+    .timeline-start .timeline-img img {
+      width: 48px;
+      height: 48px;
+      margin-left: -24px;
+      margin-top: -24px;
+    }
+    
+    .timeline-end .timeline-img img {
+      width: 45px;
+      height: 26px;
+      margin-left: -22px;
+      margin-top: -15px;
+    }
+    
+    .timeline-block .timeline-content::before {
+        top: 24px;
+        left: auto;
+        right: 100%;
+        border-color: transparent;
+        border-right-color: white;
+    }
+
+    .timeline-content {
+        margin-left: 80px;
+    
+        width: auto;
+        margin-right: 1em;
+    }
+
+    .timeline-content .timeline-date {
+      /* Reset */
+      position: relative; /* NOTHING */
+      width: auto; /* NOTHING */
+      left: auto; /* NOTHING */
+      margin-top: 1em;
+    }
+}

@@ -4,15 +4,33 @@ define([
     'underscore',
     'backbone',
     'app',
-    'text!templates/minecraft/history.html'
+    'text!templates/minecraft/timeline.html'
 ], function($, _, Backbone, App, Template) {
     'use strict';
     
     var View = App.View.extend({
         template: _.template(Template),
         
+        events: {
+            "click .timeline-scroll-up": "scrollUp"
+        },
+        
         initialize: function() {
-            
+         
+            // Since we're a full page view, force the window to the top.
+            $(window).scrollTop(0);   
+        },
+        
+        /** 
+         * Action for clicking the arrow up at the bottom of the page.
+         * Performs a gradual scroll back to the top.
+         */
+        scrollUp: function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, 800);
+
+            return false;
         },
         
         render: function() {
