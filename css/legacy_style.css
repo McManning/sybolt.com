@@ -82,13 +82,13 @@ div#header {
     left: 0;
     z-index: 1030;
     margin-bottom: 0;
-    height: 50px;
+    height: 60px;
 }
 
 div.header-background {
     background: #2e2c2a;
     position: absolute;
-    height: 55px;
+    height: 60px;
     width: 100%;
     /* opacity: 0; */
     
@@ -102,7 +102,7 @@ div.header-background > div.logo-background {
     border-bottom-right-radius: 50%;
     background: #2e2c2a;
     margin: 0 auto;
-    width: 60px;
+    width: 55px;
     height: 55px;
     padding: 10px;
 }
@@ -146,10 +146,6 @@ div.header-logo {
     cursor: pointer;
 }
 
-div.header-logo img {
-    margin-left: -26px;
-}
-
 @media (max-width: 1060px) {
     div.header-content > div.header-name {
         padding-left: 20px;
@@ -179,6 +175,23 @@ div#header.live-style div.hexxader-logo {
     margin-left: 35px;
 }
 
+.header-logo .logo {
+    background: url('/img/default-logo.png');
+    margin-left: -26px;
+    width: 55px;
+    height: 52px;
+}
+
+#header.minecraft-style .logo {
+    background: url('/img/minecraft/logo.png');
+    margin-left: -26px;
+    width: 48px;
+    height: 48px;
+}
+
+#header.minecraft-style.transparent .header-background {
+    opacity: 0;
+}
 
 /***********************************************
                     Footer
@@ -381,65 +394,3 @@ div.profile-icon.small img {
                     /live         
 ************************************************/
 
-
-#player-container {
-    width: 100%;
-    max-height: 100%;
-    background: #2e2c2a;
-}
-
-#live-player-container {
-    width: 100%; /* 100vw; */ 
-    /* JS height: 56.25vw; */ /* 100/56.25 = 1.778 */
-    height: 100%;
-    background: #2e2c2a;
-    /* JS max-width: 177.78vh; */ /* 16/9 = 1.778 */
-    margin: auto;
-}
-
-#live-player {
-    width: 100%;
-    height: 100%;
-}
-
-#live-offline {
-    display: table;
-    width: 100%;
-    height: 100%;
-}
-
-#live-offline h1 {
-    margin: 0;
-    text-align: center;
-    color: white;
-    display: table-cell;
-    vertical-align: middle;
-}
-
-#live-error {
-    display: table;
-    width: 100%;
-    height: 100%;
-}
-
-#live-error h1 {
-    margin: 0;
-    text-align: center;
-    color: white;
-    display: table-cell;
-    vertical-align: middle;
-    
-    color: #ffa600;
-    font-size: 1.5em;
-}
-
-div#content > div.live-publisher {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 10px;
-}
-
-div#content > div.live-publisher > div.profile-icon {
-    margin: 0px;
-}

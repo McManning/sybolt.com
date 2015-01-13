@@ -1,0 +1,327 @@
+
+    div.logo-minecraft {
+        margin: 0 auto;
+        width: 55px;
+        height: 55px;
+        padding: 10px;
+        overflow: hidden;
+        background: url("sybolt-minecraft.png") no-repeat scroll 50% 12px rgba(0, 0, 0, 0);
+    }
+
+    div.content-container {
+        /* width: 900px; */
+        /* margin: 0 auto; */
+        position: relative; 
+    
+        width: 100%;
+        background: #D9D1C7;
+    }
+    
+    div.header-billboard {
+        padding-top: 0;
+    
+        /* overflow: hidden; */
+    }
+    
+    div.head-icon {
+        margin: 5px 15px;
+        padding: 5px;
+        display: inline-block;
+        background: #2e2c2a;
+        border-radius: 3px;
+    
+        line-height: 0;
+    }
+    
+    div.extra-people {
+        display: inline;
+    }
+    
+    div.head-icon img {
+        width: 64px;
+        height: 64px;
+        background: white;
+    }
+    
+    div.residents small {
+        display: block;
+        float: right;
+    
+        padding: 0.2em 0.5em 0 0;
+    }
+        
+    div.residents-background-bottom {
+        background: url('/img/minecraft/openworld-bottom.png') no-repeat;
+        height: 150px;
+        width: 900px;
+        margin: 0 auto;
+    }
+
+    div.server-status-icon {
+        float: left;
+        clear: both;
+        margin-left: 80px;
+        text-align: center;
+    }
+    
+    div.server-status-icon img {
+        width: 120px;
+        height: 120px;
+    }
+
+    div.server-info {
+        float: right;
+    
+    }
+
+    div.content-right {
+        width: 900px;
+        margin: 0 auto;
+    }
+
+    div.residents-container {
+        text-align: center;
+    
+        margin-top: 30px;
+        margin-left: 20px;
+        white-space: nowrap;
+    }
+
+    div.server-info > ul {
+        margin: 0;
+        list-style-type: none;
+        padding: 0;
+        width: 250px;
+    
+        line-height: 1.8em;
+        /* font-size: 1.2em; */
+        padding-right: 0.5em;
+    }
+
+    div.history-icon {
+        float: right;
+        margin-right: 80px;
+    
+        text-align: center;
+    }
+    
+    
+    div.history-icon img {
+        width: 120px;
+        height: 120px;
+    
+    }
+
+    div.event-log {
+        float: left;
+        clear: both;
+    
+        /* border: 1px solid red; */
+        width: 400px;
+    }
+    
+    div.event-log small {
+        padding-left: 0.5em;
+    }
+    
+    div.event-log li {
+        list-style-type: none;
+        /* white-space: nowrap; */
+    
+        padding-left: 34px;
+        min-height: 40px;
+    
+        padding-bottom: 10px;
+}
+    
+    div.event-log li > p {
+        /* padding-left: 32px; */
+        white-space: normal;
+        margin: 0;
+        /* display: inline-table; */
+        padding-bottom: 8px;
+    
+        padding-top: 10px;
+        padding-right: 12px;
+}
+    
+    div.event-log li > img {
+        width: 32px;
+        height: 32px;
+        vertical-align: middle;
+        margin: 4px;
+    
+    
+        margin-left: -36px;
+        float: left;
+    }
+    
+    div.event-log ul {
+        margin: 0;
+        padding: 0;
+    
+        padding-left: 0.5em;
+    }
+    
+    .pull-right {
+        float: right;
+    }
+    
+    div.dumb-event {
+        display: inline-block;
+        text-align: center;
+        margin: 5px 15px;
+    
+        line-height: 30px;
+}
+    div.dumb-event-icon {
+        margin: 15px 5px;
+        padding: 5px;
+        display: inline-block;
+        background: #2e2c2a;
+        border-radius: 3px;
+    
+        line-height: 0;
+}
+    
+    div.dumb-event-icon img {
+        width: 64px;
+        height: 64px;
+        background: #F7F0E7;
+    }
+    
+    div.dumb-event > h2 {
+        margin: 0;
+        font-size: 1em;
+    }
+    
+    
+    
+    div.events-container {
+        /* float: left; */
+        text-align: center;
+        /* width: 100%; */
+    }
+    
+    div.content-container-top {  
+        position: absolute;
+        bottom: 0;
+        /* height: 20%; */
+        background: #D9D1C7;
+        width: 100%;
+    
+        /* border-top: 2px solid #2e2c2a; */
+        /* padding-top: 20px; */
+}
+    
+    div.content-container-top > .content-left {
+    
+        background: url('/img/minecraft/openworld-top.png') no-repeat scroll 0 100%;
+        /* min-height: 139px; */
+}
+        
+    div.full-page {
+        width: 100%;
+        /* border: 1px solid green; */
+        /* padding-bottom: 200px; */
+        min-height: 480px;
+        /*height: 100%;*/
+        height: 100vh;
+        /* width: 100vw; */
+        position: relative;
+        overflow: hidden;
+    
+        /* overflow-x: hidden; */
+}
+    div.test-container {
+        /* border: 2px solid red; */
+        /* height: 100%; */
+        background: red;
+        /* margin-bottom: 0px; */
+        height: 80%;
+    }
+
+    /*
+    @media screen and (min-width : 1500px) {
+        div.header-billboard img {
+            height: auto;
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width : 1500px) {
+        div.header-billboard img {
+            display: none;
+        }
+    }
+    */
+    
+    img.calico {
+        /* max-width: 100%; */
+        /* width: 50%; */
+        /* height: auto; */
+        /* background-position-y: 100px; */
+        /* background: url('calico.png') 0 0; */
+        height: auto;
+        /* min-width: 100%; */
+        width: 100%;
+        /* padding-bottom: 20px; */
+        /* min-height: 500px; */
+    }
+    
+    div.centerer > img.calico {
+        width: 100%;
+        
+        display: block;
+        margin: 0 auto;
+    }
+    
+    div.centerer { /* Javascript-applied style to the Calico hero image */
+        width: 1672px;
+        height: 790px;
+        position: relative;
+        left: 50%;
+        top: 0;
+        margin-left: -836px;
+    }
+    
+    
+    div.content-right.dumb {
+        margin-bottom: 100px;
+    }
+    div.content-left {
+        width: 900px;
+        
+        margin: 0 auto;
+    }
+    div.content-right.information {
+        margin-bottom: 80px;
+        /* margin-top: 100px; */
+    
+        background: url("/img/minecraft/hol.png") no-repeat scroll 290px 40px;
+        min-height: 290px;
+}
+    
+/* BACKGROUND IMAGES */
+
+div.content-left.history {
+    background: url('/img/minecraft/sheeploving.png') no-repeat scroll 20px 20px;
+    min-height: 350px;
+}
+
+div.scroll-down {
+    margin: 0 auto;
+    margin-top: -52px;
+    width: 60px;
+    height: 60px;
+    background: red;
+}
+
+
+a.scroll-up {
+    display: block;
+    margin: 0 auto;
+    width: 72px;
+    height: 60px;
+    background: url('/img/minecraft/scroll-up.png') no-repeat;
+}
