@@ -13,6 +13,7 @@ from sqlalchemy import event # For event.listens_for decorator
 
 import json
 
+
 # Import types
 
 # Define models.
