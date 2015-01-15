@@ -1,0 +1,87 @@
+<br/>
+<br/>
+<br/>
+<br/>
+
+<div class="content-left help">
+    <p>
+        Some sort of informational/help stuff here.
+    </p>
+</div>
+
+<div class="content-left">
+    <h1 class="full-width">MY IDENTITIES</h1>
+
+    <button class="">New Identity</button>
+
+    <div class="identity sybolt-identity">
+        <img class="avatar" src="#"/>
+
+        <div class="summary">
+            <h2>Chase</h2>
+            <p>Sybolt identity (non-deletable) blah blah blah</p>
+        </div>
+
+        <a href="#" title="Edit this identity">Edit</a>
+
+        <div class="edit-identity">
+
+            <form>
+                <label for="username">Username</label>
+                <input type="text" name="username" readonly="readonly" value="Chase"></input>
+
+                <label for="email">Email</label>
+                <input type="text" name="email" value="cmcmanning@gmail.com"></input>
+
+                <label for="public-email">Allow other users to see my email</label>
+                <input type="checkbox" name="public-email" value="yes"></input>
+
+                <label for="public-email">Send me email about upcoming Sybolt bullshit</label>
+                <input type="checkbox" name="public-email" value="yes" checked="checked"></input>
+
+
+
+                <label for="verification">New Password</label>
+                <input type="password" name="password"></input>
+
+                <label for="password2">New Password (again)</label>
+                <input type="password" name="password2"></input>
+
+                <input type="submit" value="Save"/>
+            </form>
+        </div>
+    </div>
+
+
+    <% _.each([0,1,2,3,4], function(i) { %> 
+
+    <div class="identity">
+        <img class="avatar" src="#"/>
+
+        <div class="summary">
+            <h2>Username <%= i %></h2>
+            <p>Some sort of summarizing information about this identity</p>
+        </div>
+
+        <a href="#" title="Delete this identity">X</a>
+        <a href="#" title="Edit this identity">Edit</a>
+
+        <div class="edit-identity">
+
+            <form>
+                <label for="username">Username</label>
+                <input type="text" name="username" value="Username <%= i %>"></input>
+
+                <label for="verification">Verification</label>
+                <input type="text" readonly="readonly" name="verification" value="W4TCH|M4K3R5"></input>
+
+                <input type="submit" value="Save"/>
+            </form>
+        </div>
+    </div>
+
+    <% }); // _.each %>
+
+    <button class="alert-red">Delete My Account</button>
+
+</div>

@@ -16,7 +16,15 @@
         width: 100%;
         background: #D9D1C7;
     }
-    
+
+    .content-left.history > h1 {
+        margin-bottom: 0.5em;
+    }
+
+    .content-right.information > h1 {
+        margin-bottom: 0.5em;
+    }
+
     div.header-billboard {
         padding-top: 0;
     

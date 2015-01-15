@@ -4,12 +4,16 @@ define([
     'underscore',
     'backbone',
     'app',
-    'text!templates/home/index.html'
+    'text!templates/profile/index.html'
 ], function($, _, Backbone, App, Template) {
     'use strict';
     
     var View = App.View.extend({
         template: _.template(Template),
+        
+        events: {
+            //"click .scroll-up": "scrollUp"
+        },
         
         initialize: function() {
             
@@ -18,14 +22,12 @@ define([
         render: function() {
             
             // Reconfigure our layout of the header and footer
-            App.headerView.setStyle('home');
-            App.headerView.showNavigation();
+            App.headerView.setStyle('default');
             
-            var data = {};
-            var compiled = this.template(data);
-            
-            this.$el.html(compiled);
-            
+            this.$el.html(this.template({
+                // vars here...
+            }));
+
             return this;
         }
     });

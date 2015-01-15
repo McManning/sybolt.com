@@ -26,44 +26,43 @@
     display: table;
     width: 100%;
     height: 100%;
-}
 
-#live-offline h1 {
-    margin: 0;
-    text-align: center;
-    color: white;
-    display: table-cell;
-    vertical-align: middle;
+    h1 {
+        margin: 0;
+        text-align: center;
+        color: white;
+        display: table-cell;
+        vertical-align: middle;
+    }
 }
 
 #live-error {
     display: table;
     width: 100%;
     height: 100%;
+
+    h1 {
+        margin: 0;
+        text-align: center;
+        color: white;
+        display: table-cell;
+        vertical-align: middle;
+        
+        color: #ffa600;
+        font-size: 1.5em;
+    }
 }
 
-#live-error h1 {
-    margin: 0;
-    text-align: center;
-    color: white;
-    display: table-cell;
-    vertical-align: middle;
-    
-    color: #ffa600;
-    font-size: 1.5em;
-}
-
-div#content > div.live-publisher {
+#content > div.live-publisher {
     position: absolute;
     top: 0;
     right: 0;
     margin: 10px;
-}
 
-div#content > div.live-publisher > div.profile-icon {
-    margin: 0px;
+    .profile-icon {
+        margin: 0px;
+    }
 }
-
 
 /***********************************************
              /live Schedule Cards      
@@ -82,16 +81,18 @@ div.schedule-card {
     .title { // Top title card
         height: 64px;
         width: 100%;
-        margin-bottom: 15px;
+        margin-bottom: 5px;
 
         background: #ECE6DD;
-        .BoxShadowHelper(2);
+        border: 1px solid #ACA69F;
+
+        /*.BoxShadowHelper(2);
         .transition(all 250ms);
 
         &:hover {
             .BoxShadowHelper(3);
             .transform(translateY(-5px));
-        }
+        }*/
 
         h2 { // Movie date
             margin: 0;
@@ -117,6 +118,9 @@ div.schedule-card {
         position: relative;
 
         background: #ECE6DD;
+        border: 1px solid #ACA69F;
+
+        /*
         .BoxShadowHelper(2);
         .transition(all 250ms);
 
@@ -124,6 +128,7 @@ div.schedule-card {
             .BoxShadowHelper(3);
             .transform(translateY(-5px));
         }
+        */
 
         .poster { // Movie poster (IMDb sourced)
             float: left;

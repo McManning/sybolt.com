@@ -1,0 +1,407 @@
+
+div#header {
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    margin-bottom: 0;
+    height: 60px;
+}
+
+div.header-background {
+    background: #2e2c2a;
+    position: absolute;
+    height: 60px;
+    width: 100%;
+    /* opacity: 0; */
+    
+    -webkit-transition: 0.3s opacity;
+       -moz-transition: 0.3s opacity;
+            transition: 0.3s opacity;
+}
+
+div.header-background > div.logo-background {
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    background: #2e2c2a;
+    margin: 0 auto;
+    width: 56px;
+    height: 56px;
+    padding: 10px;
+}
+
+div.header-content {
+    /* max-width: 900px; */
+    margin: 0 auto;
+    position: relative;
+}
+
+div.header-content > div.header-name {
+    color: #E6E6E6;
+    position: absolute;
+    left: 0;
+    top: 15px;
+    font-size: 25px;
+    padding-left: 50px;
+}
+
+div.header-logo {
+    margin: 0 50%;
+    width: 1px;
+    height: 52px;
+    padding: 10px 0;
+    /* overflow: hidden; */
+    
+    -webkit-transition: 2s all;
+       -moz-transition: 2s all;
+         -o-transition: 2s all;
+            transition: 2s all;
+    
+    cursor: pointer;
+}
+
+@media (max-width: 1060px) {
+    div.header-content > div.header-name {
+        padding-left: 20px;
+    }
+}
+
+/* Style overrides */
+
+div#header.live-style {
+    /* Unfix the header to scroll with content */
+    position: absolute;
+}
+
+div#header.live-style div.header-background {
+    opacity: 0;
+}
+
+div#header.live-style div.header-content {
+    width: 100%;
+}
+
+div#header.live-style div.hexxader-logo {
+    margin-left: 35px;
+}
+
+.header-logo .logo {
+    background: url('/img/default-logo.png');
+    margin-left: -26px;
+    width: 55px;
+    height: 52px;
+}
+
+#header.minecraft-style .logo {
+    background: url('/img/minecraft/logo.png');
+    margin-left: -24px;
+    width: 48px;
+    height: 48px;
+}
+
+#header.minecraft-style.transparent .header-background {
+    opacity: 0;
+}
+
+// If the header opens, turn off opacity always, regardless
+// of what underlying element says otherwise
+#header.open .header-background {
+    opacity: 1 !important; // TODO: Not !important. Think about it more...
+}
+
+#header.home-style {
+    .header-background {
+        height: 100vh;
+    }
+
+    #mmm-hamburgers {
+        display: none;
+    }
+}
+
+.header-navigation {
+
+    .transition(1s  cubic-bezier(0.68, -0.3, 0.265, 1.3));
+
+    margin: 0;
+    margin-top: -330px;
+
+    &.open {
+        margin-top: -30px;
+    }
+
+    background: #2e2c2a; /* Old browsers */
+    background: -moz-linear-gradient(top,  #111010 0%, #2e2c2a 77%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#111010), color-stop(77%,#2e2c2a)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #111010 0%,#2e2c2a 77%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #111010 0%,#2e2c2a 77%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #111010 0%,#2e2c2a 77%); /* IE10+ */
+    background: linear-gradient(to bottom,  #111010 0%,#2e2c2a 77%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#111010', endColorstr='#2e2c2a',GradientType=0 ); /* IE6-9 */
+
+    color: #E6E6E6;
+    height: 330px;
+
+    // Link list of available pages
+    .pages {
+        float: right;
+        text-align: right;
+        margin-top: 42px;
+
+        h1 {
+            font-size: 2.5em;
+            padding: 7px 14px;
+            font-weight: 600;
+        }
+
+        a {
+            text-decoration: none;
+            color: #E6E6E6;
+            display: block;
+
+            padding: 5px 14px;
+
+            &:last-child {
+                padding-bottom: 0;
+            }
+        }
+
+        img {
+            width: 36px;
+            height: 36px;
+            margin-left: 14px;
+            background: #FFFFFF;
+        }
+    }
+
+    // Summary of the current page 
+    .current-page {
+        display: none;
+        float: left;
+        margin-top: 42px;
+
+        h1 {
+            font-size: 2.5em;
+            padding: 7px 14px;
+            font-weight: 600;
+        }
+
+        a {
+            text-decoration: none;
+            color: #E6E6E6;
+
+            padding: 7px 14px;
+        }
+
+        img {
+            width: 36px;
+            height: 36px;
+            margin-right: 14px;
+            background: #FFFFFF;
+        }
+    }
+
+    // Login form
+    .login {
+        float: left;
+        margin-top: 42px;
+
+        h1 {
+            font-size: 2.5em;
+            padding: 7px 14px;
+            font-weight: 600;
+        }
+
+        a {
+            text-decoration: none;
+            color: #E6E6E6;
+
+            padding: 7px 14px;
+        }
+
+        form {
+            padding-left: 14px;
+        }
+
+        label {
+            display: block;
+
+            font-size: 1.2em;
+            padding-top: 0.5em;
+        }
+        
+        input[type="text"], input[type="password"] {
+            display: block;
+            margin: 0.5em 0;
+            background: none;
+
+            border: 1px solid #4D4B49;
+            font-size: 1.2em;
+            padding-top: 0.5em;
+
+            font: 1.4em 'Lato', Arial;
+
+            color: #FFFFFF;
+            border-radius: 4px;
+            opacity: 0.7;
+            padding: 0.25em;
+            .transition(all 0.2s ease-in-out);
+            outline: none;
+            /* box-shadow: 0 0 5px 2px #685475; */
+            /* border: 1px solid #685475; */
+
+            &:focus {
+                box-shadow: 0 0 0 2px #977FA6;
+                border: 1px solid #977FA6;
+            }
+        }
+
+        input[type="submit"], input[type="button"] {
+
+            background: none;
+            border: 1px solid #977FA6;
+            color: #977FA6;
+
+            /* #685475 E6E6E6 #977FA6 */
+            
+            font-size: 1em;
+            padding: 6px 8px 4px 8px;
+            margin: 0.25em;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background: #685475;
+            border: 1px solid #685475;
+            color: #E6E6E6;
+        }
+
+        input[type="button"] {
+            border: none;
+            
+        }
+
+
+        input[type="button"]:hover {
+            color: #E6E6E6;
+        }
+
+    }
+}
+
+
+#header h2 {
+    font-size: 1.8em;
+    font-weight: 400;
+    display: inline-block;
+    transition: all 0.25s;
+    opacity: 0;
+    margin-right: -50px;
+
+    transition-delay: 0.55s;
+
+    vertical-align: bottom;
+    margin-bottom: 4px;
+}
+
+#header.open h2 {
+    margin-right: 0;
+    opacity: 1;
+}
+
+.header-page {
+    position: absolute;
+    right: 0;
+    top: 8px;
+    padding-right: 14px;
+
+    img {
+        width: 32px;
+        height: 32px;
+        margin-left: 15px;
+        border: 2px solid #E6E6E6;
+        border-radius: 2px;
+    }
+
+    a {
+        text-decoration: none;
+        color: #E6E6E6;
+    }
+}
+
+#mmm-hamburgers {
+    width: 40px;
+    height: 28px;
+    position: relative;
+
+    .transform(rotate(0deg));
+    .transition(.2s); // ease-in-out);
+
+    float: left;
+    margin: 14px 15px;
+    cursor: pointer;
+
+    &:hover {
+        span {
+            background: #FFFFFF;
+        }
+
+        span:nth-child(1) {
+            top: 0px;
+        }
+
+        span:nth-child(3) {
+            top: 28px;
+        }
+    }
+
+    span {
+        display: block;
+        position: absolute;
+        height: 4px;
+        width: 100%;
+        background: #E6E6E6;
+        border-radius: 9px;
+        opacity: 1;
+        left: 0;
+
+        .transform(rotate(0deg));
+        .transition(.2s);
+
+        &:nth-child(1) {
+            top: 2px;
+        }
+
+        &:nth-child(2) {
+            top: 14px;
+        }
+
+        &:nth-child(3) {
+            top: 26px;
+        }
+    }
+
+    &.open {
+        span {
+            &:nth-child(1) {
+                top: 18px;
+                .transform(rotate(135deg));  
+            }
+
+            &:nth-child(2) {
+                opacity: 0;
+                left: -60px;
+            }
+
+            &:nth-child(3) {
+                top: 18px;
+                .transform(rotate(-135deg));
+            }
+        }
+    }
+
+}
+
+
+

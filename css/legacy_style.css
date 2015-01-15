@@ -73,127 +73,6 @@ a:focus {
 }
 
 /***********************************************
-                    Header
-************************************************/
-
-div#header {
-    position: fixed;
-    right: 0;
-    left: 0;
-    z-index: 1030;
-    margin-bottom: 0;
-    height: 60px;
-}
-
-div.header-background {
-    background: #2e2c2a;
-    position: absolute;
-    height: 60px;
-    width: 100%;
-    /* opacity: 0; */
-    
-    -webkit-transition: 0.3s opacity;
-       -moz-transition: 0.3s opacity;
-            transition: 0.3s opacity;
-}
-
-div.header-background > div.logo-background {
-    border-bottom-left-radius: 50%;
-    border-bottom-right-radius: 50%;
-    background: #2e2c2a;
-    margin: 0 auto;
-    width: 55px;
-    height: 55px;
-    padding: 10px;
-}
-
-div.header-content {
-    /* max-width: 900px; */
-    margin: 0 auto;
-    position: relative;
-}
-
-div.header-content > div.header-name {
-    color: #E6E6E6;
-    position: absolute;
-    left: 0;
-    top: 15px;
-    font-size: 25px;
-    padding-left: 50px;
-}
-
-div.header-content > div.header-page {
-    color: #E6E6E6;
-    position: absolute;
-    right: 0;
-    top: 15px;
-    font-size: 25px;
-    padding-right: 10px;
-}
-
-div.header-logo {
-    margin: 0 50%;
-    width: 1px;
-    height: 52px;
-    padding: 10px 0;
-    /* overflow: hidden; */
-    
-    -webkit-transition: 2s all;
-       -moz-transition: 2s all;
-         -o-transition: 2s all;
-            transition: 2s all;
-    
-    cursor: pointer;
-}
-
-@media (max-width: 1060px) {
-    div.header-content > div.header-name {
-        padding-left: 20px;
-    }
-    
-    div.header-content > div.header-page {
-        display: none;
-    }
-}
-
-/* Style overrides */
-
-div#header.live-style {
-    /* Unfix the header to scroll with content */
-    position: absolute;
-}
-
-div#header.live-style div.header-background {
-    opacity: 0;
-}
-
-div#header.live-style div.header-content {
-    width: 100%;
-}
-
-div#header.live-style div.hexxader-logo {
-    margin-left: 35px;
-}
-
-.header-logo .logo {
-    background: url('/img/default-logo.png');
-    margin-left: -26px;
-    width: 55px;
-    height: 52px;
-}
-
-#header.minecraft-style .logo {
-    background: url('/img/minecraft/logo.png');
-    margin-left: -26px;
-    width: 48px;
-    height: 48px;
-}
-
-#header.minecraft-style.transparent .header-background {
-    opacity: 0;
-}
-
-/***********************************************
                     Footer
 ************************************************/
 
@@ -306,7 +185,7 @@ div.content-right {
 div.content-right > h1 {
     border-bottom: 4px solid #2e2c2a;          
     width: 80%;
-    /*box-shadow: 0 2px 0 #ccc;*/
+    /* box-shadow: 0 2px 0 #ccc; */
     text-align: right;
     float: right;
 }
@@ -388,9 +267,3 @@ div.profile-icon.small img {
         height: 32px;
     }
 }
-
-
-/***********************************************
-                    /live         
-************************************************/
-

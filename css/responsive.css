@@ -1,0 +1,199 @@
+
+/* Responsive behavior for phones/tablets */
+
+@media (max-width: 1024px) {
+    
+    /* Footer is a bit wider than content, so drop a section */
+
+    div.footer > .footer-content {
+        width: 100%;
+    }
+    
+    div.about-page {
+        display: none;
+    }
+}
+
+@media (max-width: 500px) {
+    div.residents-container > div.extra-people {
+        display: none;
+    }
+    
+    div.header-billboard.centerer {
+        width: 1020px;
+        position: relative;
+        left: 50%;
+        top: 0;
+        margin-left: -510px;
+    }
+}
+
+@media (max-width: 630px) {
+    
+    /* Half step for right floated icons */
+    div.event-log {
+        width: 100%;
+    }
+    
+    div.history-icon {
+        width: 100%;
+        margin: 0;
+        text-align: center;
+    }
+    
+    div.server-info {
+        width: 100%;
+    }
+    
+    div.server-info > ul {
+        margin: 0 auto;
+        padding: 0 0.5em;
+    }
+    
+    div.server-status-icon {
+        width:100%;
+        margin:0;
+        text-align: center;
+    }
+
+    
+}
+
+@media (max-width: 920px) {
+    
+    body {
+        font-size: 1em}
+    
+    /* Header adjustments */
+    div.header-name {
+        padding-left: 20px;
+    }
+    
+    div.header-login {
+        display: none;
+    }
+
+    div.residents-container {
+        margin: 0;
+        white-space: nowrap;
+    
+    }
+
+    div.content-container-top > .content-left {
+
+        /* background: url('openworld-top.png') no-repeat scroll 0 100%; */
+        /* min-height: 139px; */
+
+
+        background: none;
+    }
+
+    div.residents-background-bottom {
+        /* background: url('openworld-bottom.png') no-repeat; */
+        /* background-size: contain; */
+        /* height: 50px; */
+        /* width: 100%; */
+        /* margin: 0 auto; */
+    
+        display: none;
+    }
+    
+    div.head-icon {
+        margin: 0 10px;
+        padding: 3px;
+        display: inline-block;
+        background: #2e2c2a;
+        border-radius: 3px;
+        line-height: 0;
+    
+    }
+    
+    div.head-icon img {
+        width: 32px;
+        height: 32px;
+        background: white;
+    }
+    
+    div.content-left > h1 {
+        font-size: 1.8em;
+    
+        padding-left: 0.25em;
+    }
+
+    div.content-left {
+        /* width: 600px; */
+        margin: 0;
+    
+        width: 100%;
+    }
+    
+    div.content-right {
+        width: 100%;
+        margin: 0;
+    }
+       
+    div.content-right > h1 {
+        font-size: 1.8em;
+    
+        padding-right: 0.25em;
+}
+
+
+    div.content-left.history {
+        background-position: -180px 20px;
+    }
+    
+    div.content-right.information {
+        background-position: -40px 40px;
+    }
+
+    
+    div.server-status-icon img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    div.content-right.information {
+        margin-bottom: 0;   
+    }
+
+
+    div.content-right.dumb {
+        margin-bottom: 20px;
+    }
+    
+    div.dumb-event-icon {
+        margin: 0;
+        padding: 3px;
+        display: inline-block;
+        background: #2e2c2a;
+        border-radius: 3px;
+    
+        line-height: 0;
+    }
+    
+    div.dumb-event-icon img {
+        width: 32px;
+        height: 32px;
+        background: #F7F0E7;
+    }
+ 
+    div.dumb-event > h2 {
+        margin: 0;
+        font-size: 1em;
+    }
+
+    div.dumb-event > .event-info {
+        font-size:0.8em
+    }
+
+    /* Footer */
+    
+    div.about-site {
+        display: none;
+    }
+    
+    div.share {
+        margin: 0;
+    }
+}

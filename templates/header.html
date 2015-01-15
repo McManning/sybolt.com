@@ -1,4 +1,37 @@
 
+<!-- Main navigation pane -->
+
+<div class="header-navigation">
+
+    <div class="current-page">
+        <h1>Currently On</h1>
+        <a href="/minecraft"><img src="#"/><h2>MINECRAFT</h2></a>
+    </div>
+
+    <div class="login">
+        <h1>Login</h1>
+        <form>
+            <fieldset>
+                <label for="username">USERNAME</label>
+                <input name="username" type="text" value="" />
+                <label for="password">PASSWORD</label>
+                <input name="password" type="password" value="" />
+                <input type="button" value="REGISTER" />
+                <input type="submit" value="LOGIN" />
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="pages">
+        <h1>Pages</h1>
+        <a href="/minecraft"><h2>MINECRAFT</h2><img src="#"/></a>
+        <a href="/projects"><h2>PROJECTS</h2><img src="#"/></a>
+        <a href="/live"><h2>LIVE</h2><img src="#"/></a>
+        <a href="/mumble"><h2>MUMBLE</h2><img src="#"/></a>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
 <div class="header-background">
     <div class="logo-background">
     
@@ -6,8 +39,15 @@
 </div>
 
 <div class="header-content">
-    <div class="header-name"></div>
+    <div id="mmm-hamburgers">
+        <!-- Modified by CSS nth-child magic -->
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
     <div class="header-logo"><div class="logo"></div></div>
-    <div class="header-page"></div>
+    <div class="header-page">
+        <a href="/profile"><h2>PROFILE</h2><img src="/img/default-profile-icon.png"/></a>
+    </div>
 </div>
 
