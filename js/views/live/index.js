@@ -29,10 +29,26 @@ define([
             // Each acting independently of the main page.
             this.liveViewersView = new LiveViewersView({model: this.model });
             this.liveScheduleView = new LiveScheduleView({model: this.model });
-            
-            $(window).on('resize', this.onWindowResize);
-            
+                     
+            $(window).on('resize.live-feed', _.bind(this.onWindowResize, this));
+            $(window).on('scroll.live-feed', _.bind(this.onWindowScroll, this));
+
             this.model.startPolling();
+
+        },
+        
+        close: function() {
+            $(window).off('resize.live-feed');
+            $(window).off('scroll.live-feed');
+
+            // Destroy sub views
+            this.liveViewersView.close();
+            this.liveScheduleView.close();
+            
+            // TODO: Remove this placement. Transparent transitions should be general purpose
+            $('#header').removeClass('transparent'); // In case they leave the page prior to scrolling
+
+            this.remove();
         },
         
         /**
@@ -84,15 +100,18 @@ define([
             }
         },
         
-        close: function() {
+        /**
+         * Modify the opacity of the header based on our current scroll position
+         */
+        onWindowScroll: function() {
+            /* Unused, we have a fixed header .. :\
+            var scrollTop = $(window).scrollTop();
             
-            $(window).off('resize', this.onWindowResize);
-            
-            // Destroy sub views
-            this.liveViewersView.close();
-            this.liveScheduleView.close();
-            
-            this.remove(); // Destroy this
+            if (scrollTop < 100) {
+                $('#header').removeClass('transparent');
+            } else {
+                $('#header').addClass('transparent');
+            }*/
         },
         
         render: function() {
@@ -160,6 +179,8 @@ define([
                     .width(ww);
             }
 
+            // Also fire off the scroll watcher to check for any positional changes
+            this.onWindowScroll();
         },
         
         /**

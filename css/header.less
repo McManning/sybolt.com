@@ -90,23 +90,6 @@ div.header-content > div.header-name {
 
 /* Style overrides */
 
-div#header.live-style {
-    /* Unfix the header to scroll with content */
-    position: absolute;
-}
-
-div#header.live-style div.header-background {
-    opacity: 0;
-}
-
-div#header.live-style div.header-content {
-    width: 100%;
-}
-
-div#header.live-style div.hexxader-logo {
-    margin-left: 35px;
-}
-
 .header-logo .logo {
     background: url('/img/default-logo.png');
     margin-left: -26px;
@@ -138,25 +121,34 @@ div#header.live-style div.hexxader-logo {
 }
 
 // TODO: Let transparent work for any style, not just MC
-div#header.minecraft-style.transparent, #header.minecraft-style.transparent .logo-background {
+#header.transparent.closed, #header.transparent.closed .logo-background {
     background: none;
 }
 
-// TODO: Let transparent work for any style, not just MC
-div#header.minecraft-style.transparent.open {
-    background: #2e2c2a; /* Old browsers */
-    background: -moz-linear-gradient(top,  #111010 0%, #2e2c2a 77%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#111010), color-stop(77%,#2e2c2a)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #111010 0%,#2e2c2a 77%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #111010 0%,#2e2c2a 77%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #111010 0%,#2e2c2a 77%); /* IE10+ */
-    background: linear-gradient(to bottom,  #111010 0%,#2e2c2a 77%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#111010', endColorstr='#2e2c2a',GradientType=0 ); /* IE6-9 */
+#header {
+
+    &.live-style {
+        // Unfix the header to scroll with content
+        position: absolute;
+
+        // When closed, hide backgrounds. Uses the same rules as
+        // transparent (which should honestly be a class applied to minecraft-style,
+        // if we can get it to stick...)
+        &.closed {
+            background: none;
+            
+            .logo-background {
+                background: none;
+            }
+
+            // Hide logo as well
+            .header-logo {
+                display: none;
+            }
+        }
+    }
 }
 
-#header.open.minecraft-style.transparent.open .logo-background {
-    background: #2e2c2a;
-}
 
 .header-content {
 
@@ -261,9 +253,8 @@ div#header.minecraft-style.transparent.open {
 
             font: 1.4em 'Lato', Arial;
 
-            color: #FFFFFF;
+            color: #BEBEBE;
             border-radius: 4px;
-            opacity: 0.7;
             padding: 0.25em;
             .transition(all 0.2s ease-in-out);
             outline: none;
@@ -276,35 +267,35 @@ div#header.minecraft-style.transparent.open {
             }
         }
 
-        input[type="submit"], input[type="button"] {
+        button {
 
             background: none;
-            border: 1px solid #977FA6;
+            border: none;
+            outline: none;
             color: #977FA6;
 
-            /* #685475 E6E6E6 #977FA6 */
-            
-            font-size: 1em;
-            padding: 6px 8px 4px 8px;
-            margin: 0.25em;
+            font: 1em 'Lato', Arial;
+            padding: 4px 8px;
             border-radius: 4px;
             cursor: pointer;
+
+            &:hover {
+                color: #E6E6E6; 
+            }
+
+            // Button style: Purple edge/background on hover
+            &.bordered {
+                border: 1px solid #977FA6;
+
+                &:hover {
+                    background: #685475;
+                    border: 1px solid #685475;
+                }
+            }
         }
 
-        input[type="submit"]:hover {
-            background: #685475;
-            border: 1px solid #685475;
-            color: #E6E6E6;
-        }
-
-        input[type="button"] {
-            border: none;
-            
-        }
-
-
-        input[type="button"]:hover {
-            color: #E6E6E6;
+        .controls {
+            text-align: right;
         }
 
     }
@@ -444,6 +435,7 @@ svg#sybolt-logo {
         display: none;
     }
 
+/*
     .ring {
         fill: #34312F !important; // TODO Remove from element.style
     }
@@ -455,6 +447,7 @@ svg#sybolt-logo {
     .moon {
         fill: #34312F !important; // TODO Remove from element.style
     }
+*/
 }
 /*
 svg#sybolt-logo path.moon {

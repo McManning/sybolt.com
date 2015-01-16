@@ -6,7 +6,7 @@ define([
     'text!templates/header.html'
 ], function($, _, Backbone, headerTemplate) {
     'use strict';
-    
+
     var HeaderView = Backbone.View.extend({
         
         el: $('#header'),
@@ -15,9 +15,43 @@ define([
         
         events: {
             "click .header-logo": "goHomeAction",
-            "click #mmm-hamburgers": "toggleNavigation"
+            "click #mmm-hamburgers": "toggleNavigation",
+            "click .new-user-button": "onNewUserClick",
+            "click .login-button": "onLoginClick"
         },
         
+        onNewUserClick: function() {
+            
+            // Toggle visiblity of the registration section of the form
+            $('.register-fields').toggleClass('hidden');
+
+            // Adjust button text based on form visibility
+            if ($('.register-fields').hasClass('hidden')) {
+                $('.new-user-button').html('NEW HERE?');
+                $('.login-button').html('LOGIN');
+            } 
+            else {
+                $('.new-user-button').html('NEVERMIND!');
+                $('.login-button').html('REGISTER');
+            }
+
+            return false;
+        },
+
+        onLoginClick: function() {
+
+            if ($('.register-fields').hasClass('hidden')) {
+                // If registration fields are hidden, submit login for existing user
+                alert('Login no worko');
+            }
+            else {
+                // Submit login as a new user
+                alert('Registration no worko');
+            }
+
+            return false;
+        },
+
         goHomeAction: function() {
             // Navigate back to the home page
             App.router.navigate("home", {trigger: true});
@@ -25,17 +59,21 @@ define([
         },
 
         toggleNavigation: function() {
-            $('#header').toggleClass('open');
 
-            // TODO: Reduce these to just checking for #header.open
-            $('.header-navigation').toggleClass('open');
-            $('#mmm-hamburgers').toggleClass('open');
+            // Delegate to hide/show so we can apply additional rules 
+            // on events if necessary
+            if ($('#header').hasClass('open')) {
+                this.hideNavigation();
+            } else {
+                this.showNavigation();
+            }
 
             return false;
         },
 
         showNavigation: function() {
             $('#header').addClass('open');
+            $('#header').removeClass('closed');
 
             // TODO: Reduce these to just checking for #header.open
             $('.header-navigation').addClass('open');
@@ -50,6 +88,14 @@ define([
             // TODO: Reduce these to just checking for #header.open
             $('.header-navigation').removeClass('open');
             $('#mmm-hamburgers').removeClass('open');
+
+            // Wait until the closing animation is complete until we consider
+            // ourselves closed
+            //$('#header').delay(2000).addClass('closed');
+
+            window.setTimeout(function(){
+                $('#header').addClass('closed');
+            }, 500);
 
             return false;
         },
@@ -73,12 +119,6 @@ define([
             this.$el
                 .removeClass(this.style + '-style')
                 .addClass(style + '-style');
-            
-            if (style == 'live') {
-                this.$('.header-logo').css('margin-left', '35px');
-            } else {
-                this.$('.header-logo').css('margin-left', '');
-            }
             
             this.style = style;
 
