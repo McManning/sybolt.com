@@ -99,6 +99,7 @@ define([
             
             // Reconfigure our layout of the header and footer
             App.headerView.setStyle('live');
+            App.footerView.setStyle('default');
             
             this.$el.html(this.template({
                 // vars here...

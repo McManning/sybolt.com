@@ -19,6 +19,8 @@ define([
             
             // Reconfigure our layout of the header and footer
             App.headerView.setStyle('home');
+            App.footerView.setStyle('home');
+            
             App.headerView.showNavigation();
             
             var data = {};

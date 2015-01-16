@@ -23,6 +23,7 @@ define([
             
             // Reconfigure our layout of the header and footer
             App.headerView.setStyle('default');
+            App.footerView.setStyle('default');
             
             this.$el.html(this.template({
                 // vars here...

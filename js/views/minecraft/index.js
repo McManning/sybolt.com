@@ -27,6 +27,10 @@ define([
         close: function() {
             $(window).off('resize.calico-hero');
             $(window).off('scroll.minecraft-header');
+
+            // TODO: Remove this placement. Transparent transitions should be general purpose
+            $('#header').removeClass('transparent'); // In case they leave the page prior to scrolling
+
             this.remove();
         },
         
@@ -86,6 +90,7 @@ define([
             
             // Reconfigure our layout of the header and footer
             App.headerView.setStyle('minecraft');
+            App.footerView.setStyle('default');
             
             this.$el.html(this.template({
                 // vars here...

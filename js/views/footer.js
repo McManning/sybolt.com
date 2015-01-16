@@ -41,8 +41,19 @@ define([
             this.centerTitle = title;
             this.centerMessage = message;
             return this;
-        }
+        },
         
+        setStyle: function(style) {
+            // Perform an animated transition, rather than re-rendering
+            
+            // Swap style CSS
+            this.$el
+                .removeClass(this.style + '-style')
+                .addClass(style + '-style');
+
+            this.style = style;
+            return this;
+        }
     });
     
     return FooterView;
