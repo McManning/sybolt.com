@@ -6,6 +6,8 @@ require.config({
         underscore: 'libs/underscore',
         backbone: 'libs/backbone',
         text: 'libs/text',
+        verify: 'libs/verify',
+        notify: 'libs/notify-custom',
         templates: '../templates',
         flowplayer: '//releases.flowplayer.org/js/flowplayer-3.2.13'
     },
@@ -13,6 +15,76 @@ require.config({
         // Non-AMD scripts wrapped with the shim
         'flowplayer': {
             exports: 'Flowplayer'
+        },
+        'notify': {
+            deps: ['jquery'],
+            init: function($) {
+                // config stuff...
+            }
+        },
+        'verify': {
+            deps: ['jquery', 'notify'],
+            init: function($, notifyScoped) {
+                // Configure verify.js for a sybolt style
+                // TODO: Perform this configuration elsewhere? It needs to be done whenever
+                // verify.js is first generated...
+                $.verify({
+                    debug: false,
+                    autoInit: true,
+                    validationEventTrigger: "blur", // Name of the event triggering field validation
+                    scroll: true, // Automatically scroll viewport to the first error
+                    focusFirstField: true,
+                    hideErrorOnChange: false,
+                    skipHiddenFields: true,
+                    skipDisabledFields: true,
+                    showPrompt: true,
+                    prompt: function(element, text, opts) {
+
+                        //element.siblings(".tip").html(text || '');
+                        /*console.log('VALIDATION ERROR: ' + text);
+
+                        var selector = 'label[for="' + element.attr('name') + '"]';
+                        console.log(selector);
+
+                        element.siblings(selector)
+                            .find('span.error-notice')
+                                .html(text || '');*/
+                        /*
+                            Notify setup:
+                                
+                        */
+                        console.log('VALIDATION ERROR: ' + text);
+                        $.notify(element, text, {
+                            position: 'right',
+                            autoHide: false,
+                            showAnimation: 'fadeIn',
+                            showDuration: 400,
+                            hideAnimation: 'fadeOut',
+                            hideDuration: 400,
+                            gap: 10 // padding between element and notification
+                        });
+                    }
+                });
+    
+                // Custom password-confirm (second password input) verifier. 
+                // Reason this is not a rule group is that the main login form
+                // switches between login/register modes. In login mode, it doesn't
+                // behave well with one input being a group with another hidden input.
+                $.verify.addRules({
+                    newPasswordConfirm: function(r) {
+                        // Assumption is that r is the second password field, and the first to
+                        // compare against is just named "password" within the same form
+                        var first = r.form.find('input[name="password"]').val();
+                        var second = r.val();
+
+                        if (first !== second) {
+                            return "Passwords do not match";
+                        }
+
+                        return true;
+                    }
+                });
+            }
         }
     }
 });
