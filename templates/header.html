@@ -4,35 +4,41 @@
 <div class="logo-background"></div>
 <div class="header-content">
 
-    <div class="current-page">
+    <div class="current-page hidden">
         <h1>Currently On</h1>
-        <a href="/minecraft"><img src="#"/><h2>MINECRAFT</h2></a>
+        <a href="#"><img src="#"/><h2>I HAVE NO IDEA</h2></a>
     </div>
 
-    <div class="login">
+    <div class="login hidden">
         <h1>Login</h1>
         <form class="login-form">
-            <fieldset>
-                <label for="username">USERNAME</label>
-                <input id="username" name="username" type="text" value="" data-validate="required,min(4)" />
+            <label for="username">USERNAME</label>
+            <input id="username" name="username" type="text" value="" data-validate="required,min(4)" />
 
-                <label for="password">PASSWORD</label>
-                <input id="password" name="password" type="password" value="" data-validate="required,min(8)" />
+            <label for="password">PASSWORD</label>
+            <input id="password" name="password" type="password" value="" data-validate="required,min(8)" />
 
-                <div class="register-fields hidden">
-                    <label for="password2">PASSWORD (AGAIN)</label>
-                    <input id="password2" name="password2" type="password" value="" data-validate="required,min(8),newPasswordConfirm" />
+            <div class="register-fields hidden">
+                <label for="password2">PASSWORD (AGAIN)</label>
+                <input id="password2" name="password2" type="password" value="" data-validate="required,min(8),newPasswordConfirm" />
 
-                    <input id="agreement" name="agreement" type="checkbox" data-validate="agreement" />
-                    <label for="agreement">I AGREE TO MY <a href="#">TERMS OF SURRENDER</a></label>
-                </div>
-                <div class="controls">
-                    <!-- Since there's not a native "Submit" button, hitting enter on a form input will trigger
-                        the first button in the list. So we have to shuffle them a bit... -->
-                    <button class="login-button bordered">LOGIN</button>
-                    <button class="new-user-button">NEW HERE?</button>
-                </div>
-            </fieldset>
+                <input id="agreement" name="agreement" type="checkbox" data-validate="agreement" />
+                <label for="agreement">I AGREE TO MY <a href="#">TERMS OF SURRENDER</a></label>
+            </div>
+            <div class="controls">
+                <!-- Since there's not a native "Submit" button, hitting enter on a form input will trigger
+                    the first button in the list. So we have to shuffle them a bit... -->
+                <button type="submit" class="login-button bordered">LOGIN</button>
+                <button type="button" class="new-user-button">NEW HERE?</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="profile">
+        <h1>Hi Chase</h1>
+        <form class="">
+
+            <button type="button" class="bordered">LOGOUT</button>
         </form>
     </div>
 

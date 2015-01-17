@@ -213,6 +213,27 @@ div.header-content > div.header-name {
         }
     }
 
+    // Profile form (when we're already logged in)
+    .profile {
+        float: left;
+        margin-top: 42px;
+
+        h1 {
+            font-size: 2.5em;
+            padding: 7px 14px;
+            font-weight: 600;
+        }
+
+        a {
+            color: #E6E6E6;
+        }
+
+        form {
+            padding-left: 14px;
+        }
+
+    }
+
     // Login form
     .login {
         float: left;
@@ -269,40 +290,13 @@ div.header-content > div.header-name {
             }
         }
 
-        button {
-
-            background: none;
-            border: none;
-            outline: none;
-            color: #977FA6;
-
-            font: 1em 'Lato', Arial;
-            padding: 4px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-
-            &:hover {
-                color: #E6E6E6; 
-            }
-
-            // Button style: Purple edge/background on hover
-            &.bordered {
-                border: 1px solid #977FA6;
-
-                &:hover {
-                    background: #685475;
-                    border: 1px solid #685475;
-                }
-            }
-
-            /* We need to float the button to swap with the other form-toggle button. 
-                This technically needs to be higher up in the DOM than the other (for the
-                enter key to trigger this first) but it needs to be rendered on the right
-                of the previous button(s).
-            */
-            &.login-button {
-                float: right;
-            }
+        /* We need to float the button to swap with the other form-toggle button. 
+            This technically needs to be higher up in the DOM than the other (for the
+            enter key to trigger this first) but it needs to be rendered on the right
+            of the previous button(s).
+        */
+        .login-button {
+            float: right;
         }
 
         .controls {
