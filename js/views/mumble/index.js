@@ -62,7 +62,7 @@ define([
             }));
 
             // Configure Isotope for the container
-            this.isotope = new Isotope( $('.isotope-container')[0], {
+            this.isotope = new window.Isotope( $('.isotope-container')[0], {
                 itemSelector: '.isotope-item',
                 layoutMode: 'packery',
                 stamp: '.stamp'

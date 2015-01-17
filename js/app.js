@@ -8,8 +8,8 @@ require.config({
         text: 'libs/text',
         verify: 'libs/verify',
         notify: 'libs/notify-custom',
-        isotope: 'libs/isotope.pkgd',
-        packerymode: 'libs/packery-mode.pkgd',
+        isotope: 'libs/isotope.pkgd.no-amd',
+        packerymode: 'libs/packery-mode.pkgd.no-amd',
         templates: '../templates',
         flowplayer: '//releases.flowplayer.org/js/flowplayer-3.2.13'
     },
@@ -22,6 +22,18 @@ require.config({
             deps: ['jquery'],
             init: function($) {
                 // Config stuff...
+            }
+        },
+        'isotope': { // No-AMD mod to resolve AMD require issues
+            deps: ['jquery'],
+            init: function($) {
+
+            }
+        },
+        'packerymode': { // No-AMD mod to work with no-amd modded Isotope
+            deps: ['jquery', 'isotope'],
+            init: function($, Isotope) {
+
             }
         },
         'verify': {
