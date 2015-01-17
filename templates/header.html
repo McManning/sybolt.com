@@ -11,19 +11,26 @@
 
     <div class="login">
         <h1>Login</h1>
-        <form>
+        <form class="login-form">
             <fieldset>
                 <label for="username">USERNAME</label>
-                <input name="username" type="text" value="" />
+                <input id="username" name="username" type="text" value="" data-validate="required,min(4)" />
+
                 <label for="password">PASSWORD</label>
-                <input name="password" type="password" value="" />
+                <input id="password" name="password" type="password" value="" data-validate="required,min(8)" />
+
                 <div class="register-fields hidden">
                     <label for="password2">PASSWORD (AGAIN)</label>
-                    <input name="password2" type="password" value="" />
+                    <input id="password2" name="password2" type="password" value="" data-validate="required,min(8),newPasswordConfirm" />
+
+                    <input id="agreement" name="agreement" type="checkbox" data-validate="agreement" />
+                    <label for="agreement">I AGREE TO MY <a href="#">TERMS OF SURRENDER</a></label>
                 </div>
                 <div class="controls">
-                    <button class="new-user-button">NEW HERE?</button>
+                    <!-- Since there's not a native "Submit" button, hitting enter on a form input will trigger
+                        the first button in the list. So we have to shuffle them a bit... -->
                     <button class="login-button bordered">LOGIN</button>
+                    <button class="new-user-button">NEW HERE?</button>
                 </div>
             </fieldset>
         </form>

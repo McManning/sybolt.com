@@ -225,10 +225,7 @@ div.header-content > div.header-name {
         }
 
         a {
-            text-decoration: none;
             color: #E6E6E6;
-
-            padding: 7px 14px;
         }
 
         form {
@@ -265,6 +262,11 @@ div.header-content > div.header-name {
                 box-shadow: 0 0 0 2px #977FA6;
                 border: 1px solid #977FA6;
             }
+
+            &.error {
+                box-shadow: 0 0 0 2px #FF0000;
+                border: 1px solid #FF0000;
+            }
         }
 
         button {
@@ -292,10 +294,20 @@ div.header-content > div.header-name {
                     border: 1px solid #685475;
                 }
             }
+
+            /* We need to float the button to swap with the other form-toggle button. 
+                This technically needs to be higher up in the DOM than the other (for the
+                enter key to trigger this first) but it needs to be rendered on the right
+                of the previous button(s).
+            */
+            &.login-button {
+                float: right;
+            }
         }
 
         .controls {
             text-align: right;
+            padding-top: 0.5em;
         }
 
     }

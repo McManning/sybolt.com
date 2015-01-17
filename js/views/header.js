@@ -3,9 +3,12 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!templates/header.html'
+    'text!templates/header.html',
+    'verify'
 ], function($, _, Backbone, headerTemplate) {
     'use strict';
+
+
 
     var HeaderView = Backbone.View.extend({
         
@@ -29,10 +32,12 @@ define([
             if ($('.register-fields').hasClass('hidden')) {
                 $('.new-user-button').html('NEW HERE?');
                 $('.login-button').html('LOGIN');
+
             } 
             else {
                 $('.new-user-button').html('NEVERMIND!');
                 $('.login-button').html('REGISTER');
+
             }
 
             return false;
@@ -41,12 +46,22 @@ define([
         onLoginClick: function() {
 
             if ($('.register-fields').hasClass('hidden')) {
-                // If registration fields are hidden, submit login for existing user
-                alert('Login no worko');
+                // If registration fields are hidden, run one more validator pass.
+                // If all looks good on the front end, pass to the server for a login attempt.
+                $('form.login-form').validate(function(success) {
+                    if (success) {
+                        alert('Login no worko');
+                    }
+                });
             }
             else {
-                // Submit login as a new user
-                alert('Registration no worko');
+                // If registration fields are visible, run one more validator pass.
+                // If all looks good on the front end, pass to the server for a registration attempt.
+                $('form.login-form').validate(function(success) {
+                    if (success) {
+                        alert('Register no worko');
+                    }
+                });
             }
 
             return false;
@@ -106,6 +121,9 @@ define([
             var compiled = this.template(data);
             
             this.$el.html(compiled);
+
+            // Hook verify.js to the login form, if it exists
+            $('form.login-form').verify();
             
             return this;
         },
