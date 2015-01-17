@@ -16,21 +16,15 @@ define([
         routes: {
             '': 'home',
             ':section(/:subsection)': 'generic',
-            /*'test': 'test',
-            'live': 'live',
-            'home': 'home',
-            'minecraft': 'minecraft',
-            'minecraft/history': 'minecraft_history',*/
             'test/:slug': 'testslug',
-            
-            
+
             // Default (unrecognized route)
             '*actions': 'notfound'
         },
 
         /**
          * Generic route that'll take any one or two-level flat url and 
-         * route it to the appropriate view. 
+         * route it to the appropriate view.
          */
         generic: function(section, subsection) {
 

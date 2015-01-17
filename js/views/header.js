@@ -8,8 +8,6 @@ define([
 ], function($, _, Backbone, headerTemplate) {
     'use strict';
 
-
-
     var HeaderView = Backbone.View.extend({
         
         el: $('#header'),
@@ -17,8 +15,8 @@ define([
         style: 'default',
         
         events: {
-            "click .header-logo": "goHomeAction",
-            "click #mmm-hamburgers": "toggleNavigation",
+            "click .header-logo": "onHeaderLogoClick",
+            "click #mmm-hamburgers": "onHamburgerClick",
             "click .new-user-button": "onNewUserClick",
             "click .login-button": "onLoginClick"
         },
@@ -67,7 +65,12 @@ define([
             return false;
         },
 
-        goHomeAction: function() {
+        onHamburgerClick: function() {
+            this.toggleNavigation();
+            return false;
+        },
+
+        onHeaderLogoClick: function() {
             // Navigate back to the home page
             App.router.navigate("home", {trigger: true});
             return false;

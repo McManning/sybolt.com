@@ -8,6 +8,8 @@ require.config({
         text: 'libs/text',
         verify: 'libs/verify',
         notify: 'libs/notify-custom',
+        isotope: 'libs/isotope.pkgd',
+        packerymode: 'libs/packery-mode.pkgd',
         templates: '../templates',
         flowplayer: '//releases.flowplayer.org/js/flowplayer-3.2.13'
     },
@@ -19,7 +21,7 @@ require.config({
         'notify': {
             deps: ['jquery'],
             init: function($) {
-                // config stuff...
+                // Config stuff...
             }
         },
         'verify': {
