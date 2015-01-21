@@ -2,16 +2,17 @@
 require.config({
     //baseUrl: '../',
     paths: {
-        jquery: 'libs/jquery-2.1.1',
-        underscore: 'libs/underscore',
-        backbone: 'libs/backbone',
-        text: 'libs/text',
-        verify: 'libs/verify',
-        notify: 'libs/notify-custom',
-        isotope: 'libs/isotope.pkgd.no-amd',
-        packerymode: 'libs/packery-mode.pkgd.no-amd',
-        templates: '../templates',
-        flowplayer: '//releases.flowplayer.org/js/flowplayer-3.2.13'
+        'jquery': 'libs/jquery-2.1.1',
+        'underscore': 'libs/underscore',
+        'backbone': 'libs/backbone',
+        'text': 'libs/text',
+        'verify': 'libs/verify',
+        'notify': 'libs/notify-custom',
+        'isotope': 'libs/isotope.pkgd.no-amd',
+        'packerymode': 'libs/packery-mode.pkgd.no-amd',
+        'jquery.select2': 'libs/select2',
+        'templates': '../templates',
+        'flowplayer': '//releases.flowplayer.org/js/flowplayer-3.2.13'
     },
     shim: {
         // Non-AMD scripts wrapped with the shim
@@ -20,15 +21,11 @@ require.config({
         },
         'notify': {
             deps: ['jquery'],
-            init: function($) {
-                // Config stuff...
-            }
+            exports: '$.notify'
         },
         'isotope': { // No-AMD mod to resolve AMD require issues
             deps: ['jquery'],
-            init: function($) {
-
-            }
+            exports: '$.isotope'
         },
         'packerymode': { // No-AMD mod to work with no-amd modded Isotope
             deps: ['jquery', 'isotope'],
