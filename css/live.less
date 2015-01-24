@@ -70,13 +70,34 @@
 
 div.schedule {
     padding-bottom: 1em;
+
+    .nav {
+        margin: 24px 24px 10px 24px;
+        text-align: center;
+
+        #next-month {
+            float: right;
+        }
+
+        #this-month {
+            font-size: 1.5em;
+        }
+
+        #last-month {
+            float: left;
+        }
+    }
+}
+
+div.schedule-card-container {
+    display: inline;
 }
 
 div.schedule-card {
     max-width: 480px;
     width: 480px;
     display: inline-block;
-    margin: 50px;
+    margin: 24px;
 
     .title { // Top title card
         height: 64px;
@@ -97,6 +118,8 @@ div.schedule-card {
         h2 { // Movie date
             margin: 0;
             margin-left: 8px;
+            font-size: 1.5em;
+            padding-top: 2px;
         }
 
         p { // Movie title
@@ -112,6 +135,22 @@ div.schedule-card {
         }
     }
 
+    .editor {
+        width: 100%;
+        font-size: 16px;
+        position: relative;
+        background: #ECE6DD;
+        border: 1px solid #ACA69F;
+
+        form {
+            padding: 1em;
+
+            .controls {
+                float: right;
+            }
+        }
+    }
+
     .details { // Movie details card
         width: 100%;
         font-size: 16px;
@@ -119,6 +158,10 @@ div.schedule-card {
 
         background: #ECE6DD;
         border: 1px solid #ACA69F;
+
+        // Fixed height for movie poster + content
+        height: 178px;
+        overflow: hidden;
 
         /*
         .BoxShadowHelper(2);
@@ -149,7 +192,7 @@ div.schedule-card {
 
             .picked-by {
                 padding-left: 1em;
-                margin-bottom: 0.5em;
+                margin-bottom: 2em;
             }
 
             .links {
@@ -162,7 +205,7 @@ div.schedule-card {
                     display: inline-block;
                     padding-left: 1em;
 
-                    .youtube {
+                    .trailer {
                         // TODO: Prefix with a sprite
                     }
 

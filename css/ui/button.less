@@ -1,0 +1,97 @@
+
+@light-purple: #977FA6;
+@purple: #685475;
+@green: #09AD7E;
+@grey: #D0D0D0;
+@primary: #D9D1C7;
+@secondary: #2E2C2A;
+@light-grey: #E6E6E6;
+@red: #9D2B2B;
+
+button {
+    background: none;
+    border: none;
+    outline: none;
+    .transition(all 0.1s ease-in-out);
+
+    font: 1em 'Lato', Arial;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    // Normal style (secondary color)
+    color: @secondary;
+
+    &:hover {
+       color: @purple;
+    }
+    
+    &.bordered {
+        border: 1px solid darken(@secondary, 5%);
+
+        &:hover {
+            background: @secondary;
+            color: @light-grey; 
+        }
+    }
+
+    // Purple theme
+    &.purple {
+        color: @light-purple;
+
+        &:hover {
+           color: @purple;
+        }
+
+        &.bordered {
+            border: 1px solid darken(@light-purple, 5%);
+
+            &:hover {
+                background: @light-purple;
+                color: @light-grey; 
+            }
+        }
+
+    }
+
+    // Green theme
+    &.green {
+        color: @green;
+
+        &:hover {
+            color: @purple; 
+        }
+
+        &.bordered {
+            border: 1px solid darken(@green, 5%);
+
+            &:hover {
+                background: @green;
+                color: @light-grey;
+            }
+        }
+    }
+
+    // Red theme
+    &.red {
+        color: @red;
+        //background: mix(@red, @primary, 10%);
+
+        &.bordered {
+            border: 1px solid darken(@red, 5%);
+
+            &:hover {
+                background: @red;
+            }
+        }
+
+        &:hover {
+            color: @light-grey; 
+        }
+    }
+
+    &.large {
+        font-size: 1.5em;
+    }
+
+}

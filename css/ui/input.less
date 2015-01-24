@@ -1,0 +1,107 @@
+
+label {
+    display: block;
+    font-size: 1.2em;
+    margin-top: 0.5em;
+}
+
+input[type="text"], input[type="password"], textarea {
+    display: block;
+    background: none;
+    vertical-align: top;
+
+    // Set box sizing to account for margin/padding when calculating size 
+    // (for things like setting width: 100%)
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+
+    border: 1px solid #4D4B49;
+    color: #4D4B49;
+    font: 1.4em 'Lato', Arial;
+
+    border-radius: 4px;
+    padding: 0.25em;
+    .transition(all 0.1s ease-in-out);
+    outline: none;
+    /* box-shadow: 0 0 5px 2px #685475; */
+    /* border: 1px solid #685475; */
+
+    &:focus {
+        box-shadow: 0 0 0 2px #977FA6;
+        border: 1px solid #977FA6;
+    }
+
+    &.error {
+        box-shadow: 0 0 0 2px #FF0000;
+        border: 1px solid #FF0000;
+    }
+
+    &[readonly] {
+        border: none;
+
+        &:focus {
+            box-shadow: none;
+            border: none;
+        }
+    }
+}
+
+.inverted {
+    input[type="text"], input[type="password"] {
+        color: #BEBEBE;
+    }
+}
+
+fieldset.full {
+
+    legend {
+        border-bottom: 1px solid white;
+        width: 15em;
+    }
+
+    div.text, div.textarea {
+        margin: 1em 0;
+
+        label {
+            display: inline-block;
+            width: 13em;
+        }
+
+        input[type="text"], input[type="password"], textarea {
+            display: inline-block;
+            width: 100%;
+        }
+
+        // Checkbox set within a text set (nested checkboxes for a text input)
+        div.checkbox {
+            margin-left: 16em;
+
+            label {
+                width: 24em;
+                font-size: 1em;
+            }
+        }
+    }
+
+}
+
+
+form.small {
+
+    label {
+        font-size: 0.8em;
+    }
+
+    input[type="text"], input[type="password"], textarea {
+
+        font: 1.0em 'Lato', Arial;
+        padding: 0.25em;
+    }
+
+    fieldset.full {
+        div.text, div.textarea {
+            margin: 0.5em 0;
+        }
+    }
+}

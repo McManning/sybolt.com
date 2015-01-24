@@ -12,76 +12,88 @@
 <div class="content-left">
     <h1 class="full-width">MY IDENTITIES</h1>
 
-    <button class="">New Identity</button>
-
-    <div class="identity sybolt-identity">
-        <img class="avatar" src="#"/>
-
-        <div class="summary">
-            <h2>Chase</h2>
-            <p>Sybolt identity (non-deletable) blah blah blah</p>
-        </div>
-
-        <a href="#" title="Edit this identity">Edit</a>
+    <div class="identity sybolt-identity inverted">
+        <img class="avatar" src="/img/default-profile-icon.png"/>
 
         <div class="edit-identity">
-
             <form>
-                <label for="username">Username</label>
-                <input type="text" name="username" readonly="readonly" value="Chase"></input>
+                <fieldset class="full">
+                    <div class="text">
+                        <label for="sybolt-username">USERNAME</label>
+                        <input type="text" id="sybolt-username" name="username" readonly="readonly" value="Chase"></input>
+                    </div>
 
-                <label for="email">Email</label>
-                <input type="text" name="email" value="cmcmanning@gmail.com"></input>
+                    <div class="text">
+                        <label for="email">EMAIL</label>
+                        <input type="text" id="email" name="email" value="" data-validate="email"></input>
 
-                <label for="public-email">Allow other users to see my email</label>
-                <input type="checkbox" name="public-email" value="yes"></input>
+                        <!-- Nested checkboxes, visible when email is !empty -->
+                        <div class="checkbox hidden">
+                            <input type="checkbox" id="public-email" name="public-email" value="yes"></input>
+                            <label for="public-email">ALLOW OTHER USERS TO SEE MY EMAIL ADDRESS</label>
+                        </div>
 
-                <label for="public-email">Send me email about upcoming Sybolt bullshit</label>
-                <input type="checkbox" name="public-email" value="yes" checked="checked"></input>
+                        <div class="checkbox hidden">
+                            <input type="checkbox" id="spam-emails" name="spam-emails" value="yes" checked="checked"></input>
+                            <label for="spam-emails">SEND ME EMAIL ABOUT UPCOMING SYBOLT BULLSHIT</label>
+                        </div>
+                    </div>
 
+                </fieldset>
 
+                <fieldset class="full">
+                    <legend>UPDATE PASSWORD</legend>
 
-                <label for="verification">New Password</label>
-                <input type="password" name="password"></input>
+                    <div class="text">
+                        <label for="verification">NEW PASSWORD</label>
+                        <input type="password" id="password" name="password"></input>
+                    </div>
 
-                <label for="password2">New Password (again)</label>
-                <input type="password" name="password2"></input>
+                    <div class="text">
+                        <label for="password2">NEW PASSWORD (AGAIN)</label>
+                        <input type="password" id="password2" name="password2"></input>
+                    </div>
+                </fieldset>
 
-                <input type="submit" value="Save"/>
+                <button class="bordered green">Save Changes</button>
+                <div class="clearfix"></div>
             </form>
         </div>
     </div>
 
+    <button class="add-identity bordered large"><strong>+</strong> ADD IDENTITY</button>
+    <div class="clearfix"></div>
 
     <% _.each([0,1,2,3,4], function(i) { %> 
 
     <div class="identity">
-        <img class="avatar" src="#"/>
+        <img class="avatar" src="/img/default-profile-icon.png"/>
 
-        <div class="summary">
-            <h2>Username <%= i %></h2>
-            <p>Some sort of summarizing information about this identity</p>
-        </div>
-
-        <a href="#" title="Delete this identity">X</a>
-        <a href="#" title="Edit this identity">Edit</a>
+        <!--a href="#" title="Delete this identity">X</a>
+        <a href="#" title="Edit this identity">Edit</a-->
 
         <div class="edit-identity">
-
             <form>
-                <label for="username">Username</label>
-                <input type="text" name="username" value="Username <%= i %>"></input>
+                <fieldset class="full">
+                    <div class="text">
+                        <label for="username">USERNAME</label>
+                        <input type="text" name="username" value="Username <%= i %>"></input>
+                    </div>
 
-                <label for="verification">Verification</label>
-                <input type="text" readonly="readonly" name="verification" value="W4TCH|M4K3R5"></input>
+                    <div class="text">
+                        <label for="verification-<% i %>">VERIFICATION</label>
+                        <input type="text" id="verification-<% i %>" name="verification-<% i %>" value="W4TCH|M4K3R5"></input>
+                    </div>
+                </fieldset>
 
-                <input type="submit" value="Save"/>
+                <button class="update-identity bordered green">Save Changes</button>
+                <div class="clearfix"></div>
             </form>
         </div>
     </div>
 
     <% }); // _.each %>
 
-    <button class="alert-red">Delete My Account</button>
+    <button class="delete-account bordered red large">Delete My Account</button>
 
 </div>
