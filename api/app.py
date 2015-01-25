@@ -37,6 +37,7 @@ class Application(tornado.web.Application):
             (r'/api/movienight/recommendation/([0-9]+)', movienight.handlers.RecommendationHandler),
             (r'/api/movienight/recommendation', movienight.handlers.RecommendationHandler),
             (r'/api/mumble/posts/page/([0-9]+)', mumble.handlers.MumblePostsHandler),
+            (r'/api/steam/authenticate', sybolt.handlers.SteamAuthHandler),
             # ...
             (r'(.*)', sybolt.handlers.NotFoundHandler)
         ]
