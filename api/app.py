@@ -19,6 +19,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 import sybolt.models
 import sybolt.handlers
 import movienight.handlers
+import mumble.handlers
 
 # Options
 define("port", default=8888, help="Port to run the process", type=int)
@@ -35,6 +36,7 @@ class Application(tornado.web.Application):
             (r'/api/live/schedule/year/([0-9]+)/month/([0-9]+)', movienight.handlers.LiveScheduleHandler),
             (r'/api/movienight/recommendation/([0-9]+)', movienight.handlers.RecommendationHandler),
             (r'/api/movienight/recommendation', movienight.handlers.RecommendationHandler),
+            (r'/api/mumble/posts/page/([0-9]+)', mumble.handlers.MumblePostsHandler),
             # ...
             (r'(.*)', sybolt.handlers.NotFoundHandler)
         ]
