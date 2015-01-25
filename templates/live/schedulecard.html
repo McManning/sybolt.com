@@ -5,7 +5,7 @@
         <img src="/img/default-profile-icon.png" />
         <h2><%- movie.date_fmt %></h2>
 
-        <% if (movie.title !== null) { %>
+        <% if (movie.title !== null && movie.title.length > 0) { %>
             <p><%- movie.title %></p>
         <% } else { %> 
             <p><i>Not yet announced</i></p>
@@ -15,7 +15,7 @@
     <!-- Card with poster, synopsis, and links -->
     <div class="details">
         <div class="poster-container">
-            <% if (movie.poster !== null) { %>
+            <% if (movie.poster !== null && movie.poster.length > 0) { %>
                 <img class="poster" src="<%- movie.poster %>" />
             <% } else { %>
                 <img class="poster" src="/img/movie-tba.png" />
@@ -23,25 +23,25 @@
         </div>
 
         <div class="content">
-            <% if (movie.synopsis !== null) { %>
+            <% if (movie.synopsis !== null && movie.synopsis.length > 0) { %>
             <strong>Synopsis</strong>
             <p class="synopsis">
                 <%- movie.synopsis %>
             </p>
             <% } %>
 
-            <% if (movie.user !== null) { %>  
+            <% if (movie.profile !== null && movie.profile.length > 0) { %>  
                 <strong>Picked By</strong>
                 <p class="picked-by">
-                    <%- movie.user %>
+                    <%- movie.profile %>
                 </p>
             <% } else { %>
                 <strong>Not yet assigned to a member</strong>
             <% } %>
 
             <ul class="links">
-                <% if (movie.trailer !== null) { %> <li><a class="trailer" href="<%- movie.trailer %>">Watch the Trailer</a></li> <% } %>
-                <% if (movie.imdb !== null) { %> <li><a class="imdb" href="<%- movie.imdb %>">View on IMDb</a></li> <% } %>
+                <% if (movie.trailer !== null && movie.trailer.length > 0) { %> <li><a class="trailer" href="<%- movie.trailer %>">Watch the Trailer</a></li> <% } %>
+                <% if (movie.imdb !== null && movie.imdb.length > 0) { %> <li><a class="imdb" href="<%- movie.imdb %>">View on IMDb</a></li> <% } %>
             </ul>
             <div class="clearfix"></div>
         </div>
@@ -52,28 +52,32 @@
         <form class="small">
             <fieldset class="full">
                 <div class="text">
-                    <label for="title-0">TITLE</label>
-                    <input type="text" id="title-0" name="title" value="<%- movie.title %>" />
+                    <label for="date-<%- movie.id %>">DATE</label>
+                    <input type="text" id="date-<%- movie.id %>" name="date" value="<%- movie.date %>" />
+                </div>
+                <div class="text">
+                    <label for="title-<%- movie.id %>">TITLE</label>
+                    <input type="text" id="title-<%- movie.id %>" name="title" value="<%- movie.title %>" />
                 </div>
                 <div class="textarea">
-                    <label for="synopsis-0">SYNOPSIS</label>
-                    <textarea id="synopsis-0" name="synopsis" rows="4"><%- movie.synopsis %></textarea>
+                    <label for="synopsis-<%- movie.id %>">SYNOPSIS</label>
+                    <textarea id="synopsis-<%- movie.id %>" name="synopsis" rows="4"><%- movie.synopsis %></textarea>
                 </div>
                 <div class="text">
-                    <label for="trailer-0">TRAILER</label>
-                    <input type="text" id="trailer-0" name="trailer" value="<%- movie.trailer %>" />
+                    <label for="trailer-<%- movie.id %>">TRAILER</label>
+                    <input type="text" id="trailer-<%- movie.id %>" name="trailer" value="<%- movie.trailer %>" />
                 </div>
                 <div class="text">
-                    <label for="imdb-0">IMDB</label>
-                    <input type="text" id="imdb-0" name="imdb" value="<%- movie.imdb %>" />
+                    <label for="imdb-<%- movie.id %>">IMDB</label>
+                    <input type="text" id="imdb-<%- movie.id %>" name="imdb" value="<%- movie.imdb %>" />
                 </div>
                 <div class="text">
-                    <label for="poster-0">POSTER</label>
-                    <input type="text" id="poster-0" name="poster" value="<%- movie.poster %>" />
+                    <label for="poster-<%- movie.id %>">POSTER</label>
+                    <input type="text" id="poster-<%- movie.id %>" name="poster" value="<%- movie.poster %>" />
                 </div>
                 <div class="text">
-                    <label for="user-0">USER</label>
-                    <input type="text" id="user-0" name="user" value="<%- movie.user %>" />
+                    <label for="profile-<%- movie.id %>">USER</label>
+                    <input type="text" id="profile-<%- movie.id %>" name="profile" value="<%- movie.profile %>" />
                 </div>
             </fieldset>
 

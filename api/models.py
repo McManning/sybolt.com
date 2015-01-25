@@ -2,7 +2,6 @@ import urllib2
 from StringIO import StringIO
 from PIL import Image
 from hashlib import md5
-from datetime import datetime
 
 # Load column data types
 from sqlalchemy import Column, String, Integer, Boolean, Date, DateTime, ForeignKey

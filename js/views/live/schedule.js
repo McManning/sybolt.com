@@ -20,12 +20,26 @@ define([
         },
 
         onClickNextMonth: function() {
-            alert('Next month! ' + this.next_month.link);
+
+            // Paginate to the next month's schedule
+            var self = this;
+            $.getJSON('http://localhost:8888' + this.next_month.link, function(data) {
+                console.log(data);
+                self.updateMovies(data);
+            });
+
             return false;
         },
 
         onClickLastMonth: function() {
-            alert('Last Month! ' + this.last_month.link);
+            
+            // Paginate to the last month's schedule
+            var self = this;
+            $.getJSON('http://localhost:8888' + this.last_month.link, function(data) {
+                console.log(data);
+                self.updateMovies(data);
+            });
+
             return false;
         },
 
@@ -39,16 +53,20 @@ define([
 
             var self = this;
             // Retrieve our current schedule
-            $.getJSON('/january-schedule.json', function(data) {
-                console.log(data);
-                self.updateMovies(data);
-            });
+            var now = new Date();
+            $.getJSON('http://localhost:8888/api/live/schedule/year/' + now.getFullYear() + '/month/' + (now.getMonth() + 1))
+                .success(function(json) {
+                    self.updateMovies(json);
+                })
+                .error(function() {
+                    alert('Error contacting API: Could not retrieve schedule.');
+                });
         },
 
         updateMovies: function(json) {
 
             this.theme = json.theme;
-            this.month = json.month;
+            this.this_month = json.title;
             this.next_month = json.links.next_month;
             this.last_month = json.links.last_month;
 
@@ -81,23 +99,23 @@ define([
         render: function() {
             this.rendered = true;
             
-            // Compile a list of movie IDs for our view to construct containers
-            var movieIds = [];
+            // Compile a list of movie dates for our view to construct containers
+            var movieDates = [];
             _.each(this.movieViews, function(view) {
-                movieIds.push(view.model.id);
+                movieDates.push(view.model.date);
             });
 
             this.$el.html(this.template({
                 theme: this.theme,
-                movie_ids: movieIds,
-                this_month: this.month,
-                next_month: (this.next_month) ? this.next_month.title : 'NOP',
-                last_month: (this.last_month) ? this.last_month.title : 'NOP'
+                movie_dates: movieDates,
+                this_month: this.this_month,
+                next_month: (this.next_month) ? this.next_month.title : null,
+                last_month: (this.last_month) ? this.last_month.title : null
             }));
 
             // Render each movie view into a container, designated by it's attached model.id
             _.each(this.movieViews, function(view) {
-                view.setElement(this.$('#schedule-card-' + view.model.id)).render();
+                view.setElement(this.$('#schedule-card-' + view.model.date)).render();
             }, this);
             
             return this;

@@ -1,5 +1,5 @@
 
-from datetime import datetime
+import datetime
 
 from sqlalchemy import Column, String, Integer, Boolean, Date, DateTime, ForeignKey
 from sqlalchemy.orm import relationship, backref, deferred
@@ -8,46 +8,53 @@ from sybolt.models import Base
 
 class MovieNight(Base):
     __tablename__ = 'movie_night'
-    __writable__ = ('title', 'trailer_url', 'imdb_url', 'poster_url', 'synopsis')
+    __writable__ = ('title', 'synopsis', 'trailer', 'imdb', 'poster')
 
     id = Column(Integer, primary_key=True)
-    date = Column(DateTime)
+    date = Column(Date)
 
     title = Column(String)
-    trailer_url = Column(String)
-    imdb_url = Column(String)
-    poster_url = Column(String)
     synopsis = Column(String)
+    trailer = Column(String)
+    imdb = Column(String)
+    poster = Column(String)
 
     # this.recommendations = list of Movie, and Movie.movie_night = MovieNight
-    recommendations = relationship('MovieRecommendation', backref="movie_night")
+    #recommendations = relationship('MovieRecommendation', backref="movie_night")
 
     # Person in charge of movie night this night
-    sybolt_profile_id = Column(Integer, ForeignKey('sybolt_profile.id'))
+    #sybolt_profile_id = Column(Integer, ForeignKey('sybolt_profile.id'))
 
     # this.profile = SyboltProfile, and SyboltProfile.movie_night = MovieNight
-    profile = relationship('SyboltProfile', backref="movie_night")
+    #profile = relationship('SyboltProfile', backref="movie_night")
+
+    # Temporarily made a flat string to be independent from sybolt_profiles
+    # at least until we start using them
+    profile = Column(String)
 
     def serialize(self):
+
         return dict(
             id = self.id,
             date = self.date.strftime('%Y-%m-%d'),
+            date_fmt = '%s %i' % (self.date.strftime('%B')[:3].upper(), self.date.day), # Formatted as FEB 3, MAR 14, etc
             title = self.title,
-            trailer_url = self.trailer_url,
-            imdb_url = self.imdb_url,
-            poster_url = self.poster_url,
             synopsis = self.synopsis,
-            recommendations = [r.serialize() for r in self.recommendations],
-            profile = self.profile.serialize()
+            trailer = self.trailer,
+            imdb = self.imdb,
+            poster = self.poster,
+            profile = self.profile
+            #recommendations = [r.serialize() for r in self.recommendations],
+            #profile = self.profile.serialize()
         )
 
-
+"""
 class MovieRecommendation(Base):
     __tablename__ = 'movie_recommendation'
     __writable__ = ('title', 'poster_url', 'movie_night_id')
 
     id = Column(Integer, primary_key=True)
-    created_time = Column(DateTime, default=datetime.now)
+    created_time = Column(DateTime, default=datetime.datetime.now)
     title = Column(String)
     poster_url = Column(String)
 
@@ -68,3 +75,4 @@ class MovieRecommendation(Base):
             movie_night_id = self.movie_night_id,
             profile = self.profile.serialize()
         )
+"""

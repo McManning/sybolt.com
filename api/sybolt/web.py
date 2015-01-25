@@ -9,7 +9,7 @@ class RestRequestHandler(tornado.web.RequestHandler):
 		self.set_header("Access-Control-Allow-Origin", "*")
 		# self.set_header("Access-Control-Allow-Credentials", "true")
 		self.set_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-		self.set_header("Access-Control-Allow-Headers", "x-requested-with") #, accept, authorization, origin")
+		self.set_header("Access-Control-Allow-Headers", "x-requested-with, accept, content-type") #, accept, authorization, origin")
 		
 		# Cannot use wildcard in Access-Control-Allow-Origin when credentials flag is true
 		# self.set_header("Access-Control-Allow-Origin", "http://localhost")

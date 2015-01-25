@@ -1,18 +1,32 @@
 
 <div class="content-left">
-    <h1 class"full-width">SCHEDULE</h1>
+    <h1 class="full-width">SCHEDULE</h1>
 
     <!--h2>THEME: <%- theme %></h2-->
 
     <div class="nav">
+        <% if (last_month !== null && last_month.length > 0) { %>
         <button id="last-month" type="button" class="bordered large"><%- last_month %> </button>
+        <% } %>
+
         <span id="this-month"><%- this_month %></span>
+
+        <% if (next_month !== null && next_month.length > 0) { %>
         <button id="next-month" type="button" class="bordered large"><%- next_month %></button>
+        <% } %>
     </div>
 
-    <!-- Render containers for each schedule-card to render in via their own views -->
-    <% _.each(movie_ids, function(id) { %>    
-    <div id="schedule-card-<%= id %>" class="schedule-card-container"></div>    
-    <% }); // .each(movie_ids) %>
+    <% if (movie_dates.length < 1) { %>
+        <div class="no-schedule">
+            <h1>No movies have been scheduled for this month</h1>
+        </div>
+    <% } else { %>
+
+        <!-- Render containers for each schedule-card to render in via their own views -->
+        <% _.each(movie_dates, function(date) { %>    
+        <div id="schedule-card-<%= date %>" class="schedule-card-container"></div>    
+        <% }); %>
+
+    <% } %>
 
 </div>

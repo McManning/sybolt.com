@@ -1,6 +1,5 @@
 
 import os
-from datetime import datetime
 
 # Tornado imports
 import tornado.auth
@@ -32,7 +31,8 @@ class Application(tornado.web.Application):
             (r'/api/profile/([0-9]+)', sybolt.handlers.ProfileHandler),
             (r'/api/profile', sybolt.handlers.ProfileHandler),
             (r'/api/authenticate', sybolt.handlers.AuthHandler),
-            (r'/api/movienight/date/([0-9\-]+)', movienight.handlers.MovieNightHandler),
+            (r'/api/live/schedule/id/([0-9]+)', movienight.handlers.LiveScheduleHandler),
+            (r'/api/live/schedule/year/([0-9]+)/month/([0-9]+)', movienight.handlers.LiveScheduleHandler),
             (r'/api/movienight/recommendation/([0-9]+)', movienight.handlers.RecommendationHandler),
             (r'/api/movienight/recommendation', movienight.handlers.RecommendationHandler),
             # ...
@@ -56,7 +56,7 @@ class Application(tornado.web.Application):
 
         # Prefill with some test data, for shits and giggles
         # TODO: Move this
-
+"""
         # Set up some testing profiles
         chase = sybolt.models.SyboltProfile(
             display_name='Chase', 
@@ -104,6 +104,7 @@ class Application(tornado.web.Application):
         self.db.add(movie_night)
 
         self.db.commit()
+"""
 
 def main():
     tornado.options.parse_command_line()

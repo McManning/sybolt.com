@@ -4,6 +4,8 @@ from datetime import datetime
 from sqlalchemy import Column, String, Integer, Boolean, Date, DateTime, ForeignKey
 from sqlalchemy.orm import relationship, backref, deferred
 
+from sqlalchemy import event # For event.listens_for decorator
+
 from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 

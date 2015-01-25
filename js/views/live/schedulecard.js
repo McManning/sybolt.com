@@ -63,7 +63,17 @@ define([
             // Re-render our model
             this.render();
 
-            // TODO: Post back to the web service 
+            // Post our serialized form to the web service behind the scenes as well
+            $.ajax({
+                type: 'POST', // TODO: Make this a PUT for RESTful-ness...
+                url: 'http://localhost:8888/api/live/schedule/id/' + this.model.id,
+                data: form.serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    alert('Posted!');
+                    console.log(response);
+                }
+            })
 
             return false;
         },
