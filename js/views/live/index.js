@@ -41,6 +41,8 @@ define([
             $(window).off('resize.live-feed');
             $(window).off('scroll.live-feed');
 
+            this.model.stopPolling();
+
             // Destroy sub views
             this.liveViewersView.close();
             this.liveScheduleView.close();
