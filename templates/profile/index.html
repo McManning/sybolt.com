@@ -63,66 +63,15 @@
     </div>
 
     <button class="add-identity bordered large"><strong>+</strong> ADD IDENTITY</button>
+    <button class="add-minecraft bordered"><strong>+</strong> MINECRAFT</button>
+    <button class="add-steam bordered"><strong>+</strong> STEAM</button>
+    <button class="add-mumble bordered"><strong>+</strong> MUMBLE</button>
+    <button class="add-gravitar bordered"><strong>+</strong> GRAVITAR</button>
+
     <div class="clearfix"></div>
 
-
-    <div class="identity minecraft">
-        <img class="avatar" src="/img/minecraft/heads/head-64_noligorithm.png"/>
-        
-        <div class="edit-identity">
-            <form>
-                <fieldset>
-                    <div class="text">
-                        <label for="username-0">USERNAME</label>
-                        <input type="text" id="username-0" name="username" value="Noligorithm"></input>
-                    </div>
-
-                    <div class="text">
-                        <label for="verification-0">VERIFICATION</label>
-                        <input type="text" id="verification-0" name="verification" value="W4TCH|M4K3R5"></input>
-                    </div>
-                </fieldset>
-
-                <div class="controls">
-                    <button class="delete-identity red">Delete Identity</button>
-                    <button class="update-identity bordered green">Save Changes</button>
-                </div>
-                <div class="clearfix"></div>
-            </form>
-        </div>
-    </div>
-
-
-    <% _.each([0,1,2,3,4], function(i) { %> 
-
-    <div class="identity">
-        <img class="avatar" src="/img/default-profile-icon.png"/>
-
-        <div class="edit-identity">
-            <form>
-                <fieldset>
-                    <div class="text">
-                        <label for="username-<%- i %>">USERNAME</label>
-                        <input type="text" id="username-<%- i %>" name="username" value="Username <%- i %>"></input>
-                    </div>
-
-                    <div class="text">
-                        <label for="verification-<%- i %>">VERIFICATION</label>
-                        <input type="text" id="verification-<%- i %>" name="verification" value="W4TCH|M4K3R5"></input>
-                    </div>
-                </fieldset>
-
-                <div class="controls">
-                    <button class="delete-identity red">Delete Identity</button>
-                    <button class="update-identity bordered green">Save Changes</button>
-                </div>
-                <div class="clearfix"></div>
-            </form>
-        </div>
-    </div>
-
-    <% }); // _.each %>
+    <!-- Container for identity views -->
+    <div class="identities"></div>
 
     <button class="delete-account bordered red large">Delete My Account</button>
-
 </div>
