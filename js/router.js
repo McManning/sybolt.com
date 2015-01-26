@@ -15,8 +15,8 @@ define([
     
         routes: {
             '': 'home',
+            'privacy': 'privacy',
             ':section(/:subsection)': 'generic',
-            'test/:slug': 'testslug',
 
             // Default (unrecognized route)
             '*actions': 'notfound'
@@ -56,20 +56,15 @@ define([
             });
         },
         
-        notfound: function() {
-            require(['views/notfound', 'app'], function(NotFoundView, App) {
-            
-                console.log('loading 404 view');
-                App.setContentView(new NotFoundView());
+        privacy: function() {
+            require(['views/privacy', 'app'], function(View, App) {
+                App.setContentView(new View());
             });
         },
         
-        testslug: function(slug) {
-        
-            require(['views/test'], function(TestView) {
-                
-                var testView = new TestView(slug);
-                testView.render();
+        notfound: function() {
+            require(['views/notfound', 'app'], function(View, App) {
+                App.setContentView(new View());
             });
         }
     });
