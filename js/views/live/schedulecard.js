@@ -66,7 +66,7 @@ define([
             // Post our serialized form to the web service behind the scenes as well
             $.ajax({
                 type: 'POST', // TODO: Make this a PUT for RESTful-ness...
-                url: 'http://localhost:8888/api/live/schedule/id/' + this.model.id,
+                url: 'http://local.sybolt.com:8888/api/live/schedule/id/' + this.model.id,
                 data: form.serialize(),
                 dataType: 'json',
                 success: function(response) {

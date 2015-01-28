@@ -23,7 +23,7 @@ define([
 
             // Paginate to the next month's schedule
             var self = this;
-            $.getJSON('http://localhost:8888' + this.next_month.link, function(data) {
+            $.getJSON('http://local.sybolt.com:8888' + this.next_month.link, function(data) {
                 console.log(data);
                 self.updateMovies(data);
             });
@@ -35,7 +35,7 @@ define([
             
             // Paginate to the last month's schedule
             var self = this;
-            $.getJSON('http://localhost:8888' + this.last_month.link, function(data) {
+            $.getJSON('http://local.sybolt.com:8888' + this.last_month.link, function(data) {
                 console.log(data);
                 self.updateMovies(data);
             });
@@ -54,7 +54,7 @@ define([
             var self = this;
             // Retrieve our current schedule
             var now = new Date();
-            $.getJSON('http://localhost:8888/api/live/schedule/year/' + now.getFullYear() + '/month/' + (now.getMonth() + 1))
+            $.getJSON('http://local.sybolt.com:8888/api/live/schedule/year/' + now.getFullYear() + '/month/' + (now.getMonth() + 1))
                 .success(function(json) {
                     self.updateMovies(json);
                 })
