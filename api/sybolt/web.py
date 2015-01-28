@@ -1,6 +1,11 @@
 
 import tornado.web
 import tornado.escape
+import functools
+import http.client
+from tornado.log import access_log, app_log, gen_log
+
+from sybolt.models import SyboltProfile
 
 class RestRequestHandler(tornado.web.RequestHandler):
 	def set_default_headers(self):
@@ -14,34 +19,6 @@ class RestRequestHandler(tornado.web.RequestHandler):
 		# Cannot use wildcard in Access-Control-Allow-Origin when credentials flag is true
 		# self.set_header("Access-Control-Allow-Origin", "http://localhost")
 	
-	def __get(self, path):
-		self.handle_request('get', path)
-
-	def __post(self, path):
-	
-		# basic authentication via POST
-		auth = self.get_argument('auth')
-		if auth != 'Manticore':
-			self.set_status(401)
-		else:
-			self.handle_request('post', path)
-
-	def __delete(self, path):
-		# @todo permission handling
-		self.handle_request('delete', path)
-
-	def __handle_request(self, method, path):
-		"""
-			Route all requests to proper handler methods 
-		"""
-		params = path.split('/')
-		method = method + '_' + params.pop(0)
-		
-		#try:
-		getattr(self, method)(params)
-		#except AttributeError:
-		#	self.write('Invalid action, no ' + method)
-	
 	def write_json(self, json):
 		self.set_header("Content-Type", "application/json")
 
@@ -52,4 +29,69 @@ class RestRequestHandler(tornado.web.RequestHandler):
 			self.write("%s(%s)" % (callback, encoded_json))
 		else:
 			self.write(encoded_json)
+
+	def set_current_user(self, sybolt_profile):
+		"""
+		Assign .current_user to a given SyboltProfile. 
+		This will generate a new hash for that profile, cache it, 
+		and provide a cookie for the end user. 
+		"""
+		if not sybolt_profile:
+			self.clear_cookie("user")
+		else:
+			access_log.info("Creating secure login for profile id=%i", sybolt_profile.id)
+
+			json = dict(
+				id=sybolt_profile.id,
+				hash='SOMEBULLSHIT'
+			)
+
+			self.set_secure_cookie("user", tornado.escape.json_encode(json))
+
+	def get_current_user(self):
+		"""
+		Return the SyboltProfile associated with the currently 
+		logged in user. Or None, if a user is not currently logged in. 
+		"""
+		# for now, just return the cookie
+		cookie = self.get_secure_cookie("user")
+
+		profile = None
+		if cookie:
+			# TODO: Obviously, make this shit waaaay more secure.
+			try:
+				data = tornado.escape.json_decode(cookie)
+
+				query = self.application.db.query(SyboltProfile)\
+					.filter(SyboltProfile.id == data['id'])\
+					.filter(SyboltProfile.last_login_ip == self.request.remote_ip)
+
+				profile = query.first()
+			except Exception as e:
+				app_log.error('Exception while setting current_user: %s', str(e))
+				profile = None
+
+		return profile
+
 		
+def require_auth(method):
+    """
+    Decorator for methods that require a user to be logged in. 
+    If a method is accessed without the user being logged in, this will
+    instead respond with a 403 UNAUTHORIZED.
+
+    TODO: Eventually this will also check the authentication level of the user.
+    (ie: Administrator, developer, guest, etc)
+    """
+    @functools.wraps(method)
+    def wrapper(self, *args, **kwargs):
+        if not self.current_user:
+        	#raise HTTPError(403)
+        	self.set_status(http.client.UNAUTHORIZED)
+	        return self.write_json(dict(
+	        	error=http.client.UNAUTHORIZED, 
+	        	message='This resource requires authentication.'
+	        ))
+
+        return method(self, *args, **kwargs)
+    return wrapper
