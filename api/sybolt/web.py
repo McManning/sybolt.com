@@ -3,6 +3,8 @@ import tornado.web
 import tornado.escape
 import functools
 import http.client
+import datetime
+
 from tornado.log import access_log, app_log, gen_log
 
 from sybolt.models import SyboltProfile
@@ -11,10 +13,10 @@ class RestRequestHandler(tornado.web.RequestHandler):
 	def set_default_headers(self):
 		# Enable CORS support for requests
 		# See http://stackoverflow.com/questions/5584923/a-cors-post-request-works-from-plain-javascript-but-why-not-with-jquery
-		self.set_header("Access-Control-Allow-Origin", "*")
-		# self.set_header("Access-Control-Allow-Credentials", "true")
+		self.set_header("Access-Control-Allow-Origin", "http://local.sybolt.com")
+		self.set_header("Access-Control-Allow-Credentials", "true")
 		self.set_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-		self.set_header("Access-Control-Allow-Headers", "x-requested-with, accept, content-type") #, accept, authorization, origin")
+		self.set_header("Access-Control-Allow-Headers", "Content-Type, *") # x-requested-with, accept, content-type, cookie") #, accept, authorization, origin")
 		
 		# Cannot use wildcard in Access-Control-Allow-Origin when credentials flag is true
 		# self.set_header("Access-Control-Allow-Origin", "http://localhost")
@@ -40,6 +42,7 @@ class RestRequestHandler(tornado.web.RequestHandler):
 		and provide a cookie for the end user. 
 		"""
 		if not sybolt_profile:
+			access_log.info("Clearing cookie")
 			self.clear_cookie("user")
 		else:
 			access_log.info("Creating secure login for profile id=%i", sybolt_profile.id)
@@ -48,8 +51,9 @@ class RestRequestHandler(tornado.web.RequestHandler):
 				id=sybolt_profile.id,
 				hash='SOMEBULLSHIT'
 			)
+			expires = datetime.datetime.utcnow() + datetime.timedelta(days=365)
 
-			self.set_secure_cookie("user", tornado.escape.json_encode(json))
+			self.set_secure_cookie("user", str(sybolt_profile.id)) #, domain='.local.sybolt.com', expires=expires) #tornado.escape.json_encode(json))
 
 	def get_current_user(self):
 		"""
@@ -63,10 +67,10 @@ class RestRequestHandler(tornado.web.RequestHandler):
 		if cookie:
 			# TODO: Obviously, make this shit waaaay more secure.
 			try:
-				data = tornado.escape.json_decode(cookie)
+				#data = tornado.escape.json_decode(cookie)
 
 				query = self.application.db.query(SyboltProfile)\
-					.filter(SyboltProfile.id == data['id'])\
+					.filter(SyboltProfile.id == int(cookie))\
 					.filter(SyboltProfile.last_login_ip == self.request.remote_ip)
 
 				profile = query.first()

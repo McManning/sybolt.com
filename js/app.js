@@ -154,6 +154,10 @@ define([
                 type: 'GET',
                 url: 'http://local.sybolt.com:8888/api/authenticate',
                 dataType: 'json',
+                crossDomain: true,
+                xhrFields: {
+                    withCredentials: true
+                },
                 success: function(json) {
                     console.log('success', json);
                     //var profile = new SyboltProfile(json);

@@ -49,12 +49,16 @@ define([
                 type: 'DELETE',
                 url: 'http://local.sybolt.com:8888/api/authenticate',
                 dataType: 'json',
+                crossDomain: true,
+                xhrFields: {
+                    withCredentials: true
+                },
                 success: function(json) {
                     console.log('success', json);
                     //var profile = new SyboltProfile(json);
                     window.App.clearProfile();
                 },
-                error: function(jqXHR) {
+                erxror: function(jqXHR) {
                     alert(jqXHR.responseJSON.message);
                     window.App.clearProfile();
                 }
@@ -77,6 +81,10 @@ define([
                             url: 'http://local.sybolt.com:8888/api/authenticate',
                             data: form.serialize(),
                             dataType: 'json',
+                            crossDomain: true,
+                            xhrFields: {
+                                withCredentials: true
+                            },
                             success: function(json) {
                                 console.log('success', json);
                                 //var profile = new SyboltProfile(json);
