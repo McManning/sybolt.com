@@ -9,6 +9,12 @@
         <a href="#"><img src="#"/><h2>I HAVE NO IDEA</h2></a>
     </div>
 
+    <% if (profile) { %>
+    <div class="profile">
+        <h1>Hi <%- profile.username %></h1>
+        <button type="button" class="logout-button bordered purple">LOGOUT</button>
+    </div>
+    <% } else { %>
     <div class="login">
         <h1>Login</h1>
         <form class="login-form">
@@ -33,14 +39,7 @@
             </div>
         </form>
     </div>
-
-    <div class="profile hidden">
-        <h1>Hi Chase</h1>
-        <form class="">
-
-            <button type="button" class="bordered purple">LOGOUT</button>
-        </form>
-    </div>
+    <% } %>
 
     <div class="pages">
         <h1>Pages</h1>

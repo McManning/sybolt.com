@@ -5,20 +5,21 @@ define([
     'backbone',
     'text!templates/header.html',
     'verify'
-], function($, _, Backbone, headerTemplate) {
+], function($, _, Backbone, Template) {
     'use strict';
 
     var HeaderView = Backbone.View.extend({
         
         el: $('#header'),
-        template: _.template(headerTemplate),
+        template: _.template(Template),
         style: 'default',
         
         events: {
             "click .header-logo": "onHeaderLogoClick",
             "click #mmm-hamburgers": "onHamburgerClick",
             "click .new-user-button": "onNewUserClick",
-            "click .login-button": "onLoginClick"
+            "click .login-button": "onLoginClick",
+            "click .logout-button": "onLogoutClick"
         },
         
         onNewUserClick: function() {
@@ -41,21 +42,58 @@ define([
             return false;
         },
 
+        onLogoutClick: function() {
+
+            // Push logout attempt
+            $.ajax({
+                type: 'DELETE',
+                url: 'http://local.sybolt.com:8888/api/authenticate',
+                dataType: 'json',
+                success: function(json) {
+                    console.log('success', json);
+                    //var profile = new SyboltProfile(json);
+                    window.App.clearProfile();
+                },
+                error: function(jqXHR) {
+                    alert(jqXHR.responseJSON.message);
+                    window.App.clearProfile();
+                }
+            });
+        },
+
         onLoginClick: function() {
+
+            var form = $('form.login-form');
 
             if ($('.register-fields').hasClass('hidden')) {
                 // If registration fields are hidden, run one more validator pass.
                 // If all looks good on the front end, pass to the server for a login attempt.
-                $('form.login-form').validate(function(success) {
+                form.validate(function(success) {
                     if (success) {
-                        alert('Login no worko');
+
+                        // Push login attempt
+                        $.ajax({
+                            type: 'POST',
+                            url: 'http://local.sybolt.com:8888/api/authenticate',
+                            data: form.serialize(),
+                            dataType: 'json',
+                            success: function(json) {
+                                console.log('success', json);
+                                //var profile = new SyboltProfile(json);
+                                window.App.setProfile(json);
+                            },
+                            error: function(jqXHR) {
+                                alert(jqXHR.responseJSON.message);
+                                window.App.clearProfile();
+                            }
+                        });
                     }
                 });
             }
             else {
                 // If registration fields are visible, run one more validator pass.
                 // If all looks good on the front end, pass to the server for a registration attempt.
-                $('form.login-form').validate(function(success) {
+                form.validate(function(success) {
                     if (success) {
                         alert('Register no worko');
                     }
@@ -119,11 +157,11 @@ define([
         },
         
         render: function() {
-            
-            var data = {style: this.style};
-            var compiled = this.template(data);
-            
-            this.$el.html(compiled);
+
+            this.$el.html(this.template({
+                style: this.style,
+                profile: window.App.profile
+            }));
 
             // Hook verify.js to the login form, if it exists
             $('form.login-form').verify();

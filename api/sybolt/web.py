@@ -19,6 +19,9 @@ class RestRequestHandler(tornado.web.RequestHandler):
 		# Cannot use wildcard in Access-Control-Allow-Origin when credentials flag is true
 		# self.set_header("Access-Control-Allow-Origin", "http://localhost")
 	
+	def options(self, *args, **kwargs):
+		self.write('')
+
 	def write_json(self, json):
 		self.set_header("Content-Type", "application/json")
 

@@ -9,6 +9,7 @@ import http.client
 
 import tornado.auth # For OpenIdMixin
 from tornado.log import access_log, app_log, gen_log
+from sqlalchemy import func
 
 class ProfileHandler(sybolt.web.RestRequestHandler):
 
@@ -117,8 +118,8 @@ class AuthHandler(sybolt.web.RestRequestHandler):
         access_log.info("Login attempt by '%s':'%s'", username, password)
 
         profile = self.application.db.query(SyboltProfile)\
-            .filter(SyboltProfile.username==username)\
-            .filter(SyboltProfile.password==password)\
+            .filter(func.lower(SyboltProfile.username) == func.lower(username))\
+            .filter(SyboltProfile.password == password)\
             .first()
 
         return profile

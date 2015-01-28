@@ -146,6 +146,24 @@ define([
                     Backbone.history.navigate(href.attr, true);
                 }
             });
+
+            // TODO: Throw this somewhere better
+
+            // Try to re-authenticate with the server
+            $.ajax({
+                type: 'GET',
+                url: 'http://local.sybolt.com:8888/api/authenticate',
+                dataType: 'json',
+                success: function(json) {
+                    console.log('success', json);
+                    //var profile = new SyboltProfile(json);
+                    window.App.setProfile(json);
+                },
+                error: function(jqXHR) {
+                    //alert(jqXHR.responseJSON.message);
+                    window.App.clearProfile();
+                }
+            });
         },
         
         setContentView: function(view) {
@@ -159,6 +177,20 @@ define([
             this.contentView.setElement($('#content')).render();
             
             // @todo whatever post-processing that we must perform after changing the page
+        },
+
+        setProfile: function(json) {
+            this.profile = json;
+
+            // Redraw the header
+            this.headerView.render();
+        },
+
+        clearProfile: function() {
+            this.profile = undefined;
+
+            // Redraw the header
+            this.headerView.render();
         }
     };
 
