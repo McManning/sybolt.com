@@ -74,13 +74,21 @@ define([
                 success: function(json) {
                     console.log('success', json);
                     //var profile = new SyboltProfile(json);
-                    window.App.clearProfile();
-                    window.App.router.navigate('home', {trigger: true});
+                    //window.App.clearProfile();
+                    //window.App.router.navigate('home', {trigger: true});
+
+                    // Force our application to reload entirely,
+                    // in case there are needs to be content/permission changes after login.
+                    window.location.reload();
                 },
                 error: function(jqXHR) {
                     alert(jqXHR.responseJSON.message);
-                    window.App.clearProfile();
-                    window.App.router.navigate('home', {trigger: true});
+                    //window.App.clearProfile();
+                    //window.App.router.navigate('home', {trigger: true});
+
+                    // Force our application to reload entirely,
+                    // in case there are needs to be content/permission changes after login.
+                    window.location.reload();
                 }
             });
         },
@@ -108,7 +116,11 @@ define([
                             success: function(json) {
                                 console.log('success', json);
                                 //var profile = new SyboltProfile(json);
-                                window.App.setProfile(json);
+                                //window.App.setProfile(json);
+
+                                // Force our application to reload entirely, 
+                                // in case there needs to be content/permission changes after login.
+                                window.location.reload();
                             },
                             error: function(jqXHR) {
                                 if (jqXHR.responseJSON) {
@@ -117,7 +129,11 @@ define([
                                 else {
                                     alert('An unspecified error has occurred while trying to login.');
                                 }
-                                window.App.clearProfile();
+                                // window.App.clearProfile();
+                                
+                                // Force our application to reload entirely,
+                                // in case there are needs to be content/permission changes after login.
+                                window.location.reload();
                             }
                         });
                     }
