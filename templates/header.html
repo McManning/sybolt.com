@@ -50,15 +50,15 @@
 
     <div class="pages">
         <h1>Pages</h1>
-        <a href="/minecraft"><h2>MINECRAFT</h2><img src="#"/></a>
-        <a href="/projects"><h2>PROJECTS</h2><img src="#"/></a>
-        <a href="/live"><h2>LIVE</h2><img src="#"/></a>
-        <a href="/mumble"><h2>MUMBLE</h2><img src="#"/></a>
+        <a href="/minecraft"><h2>MINECRAFT</h2><img src="/img/icon/minecraft.svg"/></a>
+        <a href="/projects"><h2>PROJECTS</h2><img src="/img/icon/projects.svg"/></a>
+        <a href="/live"><h2>LIVE</h2><img src="/img/icon/live.svg"/></a>
+        <a href="/mumble"><h2>MUMBLE</h2><img src="/img/icon/mumble.svg"/></a>
 
         <% if (profile) { %>
-        <a href="/profile"><h2>PROFILE</h2><img src="<%- profile.avatar_url %>"/></a>
+        <a href="/profile"><h2>PROFILE</h2><img class="avatar" src="<%- profile.avatar_url %>"/></a>
         <% } else { %>
-        <a class="flash-login" href="#"><h2>LOGIN</h2><img src="/img/#"/></a>
+        <a class="flash-login" href="#"><h2>LOGIN</h2><img src="/img/icon/login.svg"/></a>
         <% } %> 
     </div>
 

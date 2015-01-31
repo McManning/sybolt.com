@@ -225,8 +225,8 @@
     div.content-container-top > .content-left {
     
         background: url('/img/minecraft/openworld-top.png') no-repeat scroll 0 100%;
-        /* min-height: 139px; */
-}
+        padding-top: 0.5em;
+    }
         
     div.full-page {
         width: 100%;

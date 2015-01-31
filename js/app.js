@@ -133,28 +133,7 @@ require.config({
                     showPrompt: true,
                     prompt: function(element, text, opts) {
 
-                        //element.siblings(".tip").html(text || '');
-                        /*console.log('VALIDATION ERROR: ' + text);
-
-                        var selector = 'label[for="' + element.attr('name') + '"]';
-                        console.log(selector);
-
-                        element.siblings(selector)
-                            .find('span.error-notice')
-                                .html(text || '');*/
-                        
-                        // Inline solution (test)
-                        // $el.insertAfter('.trgt')
-                        /*
-                        if (element.parent().find('.validation-error').length < 1) {
-                            var $validationError = $('<div/>')
-                                                    .addClass('validation-error')
-                                                    .insertAfter(element);
-                        }
-
-                        element.parent().find('.validation-error').html(text);
-                        */
-
+                        // TODO: better selector, maybe. 
                         var $ele = element.parent().find('div.validation-error[data-for="' + element.attr('id') + '"]');
                         
                         if (text) {
