@@ -3,14 +3,13 @@
 <br/>
 <br/>
 
-<div class="content-left help">
-    <p>
-        Some sort of informational/help stuff here.
-    </p>
-</div>
-
 <div class="content-left">
-    <h1 class="full-width">MY IDENTITIES</h1>
+    <h1 class="full-width">MY PROFILE</h1>
+    <div class="help">
+        <p>
+        Here you can manage global preferences for your Sybolt Profile, as well as manage third-party identities linked to your profile. 
+        </p>
+    </div>
 
     <div class="identity sybolt-identity inverted">
         <img class="avatar" src="<%- profile.avatar_url %>"/>
@@ -33,7 +32,7 @@
                             <input type="checkbox" id="public-email" value="true" name="public_email" <%- (profile.public_email) ? 'checked="checked"' : '' %>></input>
                             <label for="public-email">ALLOW OTHER USERS TO SEE MY EMAIL ADDRESS</label>
                         </div>
-                        
+
                         <div class="checkbox <%- (profile.email.length < 1) ? 'hidden' : '' %>">
                             <input type="hidden" value="false" name="allow_newsletter" />
                             <input type="checkbox" id="allow-newsletter" value="true" name="allow_newsletter" <%- (profile.allow_newsletter) ? 'checked="checked"' : '' %>></input>
@@ -64,7 +63,16 @@
         </div>
     </div>
 
-    <button class="add-identity bordered large"><strong>+</strong> ADD IDENTITY</button>
+    <h1 class="full-width">MY IDENTITIES</h1>
+    <div class="help">
+        <p>
+            These are third-party identities currently linked to Sybolt. Here you can add new identities, as well as manage existing identities linked to your account. By adding identities, you gain access to additional services available through the Sybolt website.
+        </p>
+        <p>
+            For additional information about what type of service each identity can provide, see the <a href="#">Sybolt Identities FAQ</a>.
+        </p>
+    </div>
+
     <button class="add-minecraft bordered"><strong>+</strong> MINECRAFT</button>
     <button class="add-steam bordered"><strong>+</strong> STEAM</button>
     <button class="add-mumble bordered"><strong>+</strong> MUMBLE</button>

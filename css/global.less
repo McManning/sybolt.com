@@ -31,18 +31,18 @@ h1 {
 a {
     text-decoration: underline;
     color: #2e2c2a;
-}
 
-a:hover,
-a:focus {
-    color: #685475;
-    text-decoration: none;
+    &:hover, &:focus {
+        color: #685475;
+        text-decoration: none;
+    }
 }
 
 .hidden {
     display: none !important;
 }
 
+/* Clearfix utility */
 .clearfix:after {
     visibility: hidden;
     display: block;
@@ -69,5 +69,16 @@ a:focus {
 @media (max-width: 1060px) {   
     body {
         font-size: 1em;
+    }
+}
+
+div.help {
+    margin: 0.5em;
+    padding: 0.3em;
+    border: 0.8em solid #F2EFEA;
+    background: #FFFFFF;
+
+    p {
+        padding: 0.5em;
     }
 }
