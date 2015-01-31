@@ -68,7 +68,12 @@ class ProfileHandler(sybolt.web.RestRequestHandler):
             profile.password = password
 
             self.application.db.add(profile)
-            self.application.db.commit()
+
+            try:
+                self.application.db.commit()
+            except:
+                self.application.db.rollback()
+                # TODO: Do something!!!! Error response and such
 
             # Log them in as well
             self.set_current_user(profile)
@@ -99,10 +104,21 @@ class ProfileHandler(sybolt.web.RestRequestHandler):
 
         profile.password = self.get_argument("password", profile.password)
         profile.email = self.get_argument("email", profile.email)
-        profile.public_email = self.get_argument("public_email", profile.public_email)
-        profile.allow_newsletter = self.get_argument("allow_newsletter", profile.allow_newsletter)
 
-        self.application.db.commit()
+        # TODO: Less fucking hack between JSON up and parsing.
+        public_email = self.get_argument("public_email", None)
+        if public_email is not None:
+            profile.public_email = (public_email == 'true')
+
+        allow_newsletter = self.get_argument("allow_newsletter", None)
+        if allow_newsletter is not None:
+            profile.allow_newsletter = (allow_newsletter == 'true')
+
+        try:
+            self.application.db.commit()
+        except:
+            self.application.db.rollback()
+            raise tornado.web.HTTPError(http.client.BAD_REQUEST)
 
         json = profile.serialize()
 

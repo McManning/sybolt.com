@@ -13,29 +13,31 @@
     <h1 class="full-width">MY IDENTITIES</h1>
 
     <div class="identity sybolt-identity inverted">
-        <img class="avatar" src="/img/default-profile-icon.png"/>
+        <img class="avatar" src="<%- profile.avatar_url %>"/>
 
         <div class="edit-identity">
-            <form>
+            <form id="sybolt-profile">
                 <fieldset>
                     <div class="text">
                         <label for="sybolt-username">USERNAME</label>
-                        <input type="text" id="sybolt-username" name="username" readonly="readonly" value="Chase"></input>
+                        <input type="text" id="sybolt-username" name="username" readonly="readonly" value="<%- profile.username %>"></input>
                     </div>
 
                     <div class="text">
                         <label for="email">EMAIL</label>
-                        <input type="text" id="email" name="email" value="" data-validate="email"></input>
+                        <input type="text" id="email" name="email" value="<%- profile.email %>" data-validate="email"></input>
 
                         <!-- Nested checkboxes, visible when email is !empty -->
-                        <div class="checkbox hidden">
-                            <input type="checkbox" id="public-email" name="public-email" value="yes"></input>
+                        <div class="checkbox <%- (profile.email.length < 1) ? 'hidden' : '' %>">
+                            <input type="hidden" value="false" name="public_email" />
+                            <input type="checkbox" id="public-email" value="true" name="public_email" <%- (profile.public_email) ? 'checked="checked"' : '' %>></input>
                             <label for="public-email">ALLOW OTHER USERS TO SEE MY EMAIL ADDRESS</label>
                         </div>
-
-                        <div class="checkbox hidden">
-                            <input type="checkbox" id="spam-emails" name="spam-emails" value="yes" checked="checked"></input>
-                            <label for="spam-emails">SEND ME EMAIL ABOUT UPCOMING SYBOLT BULLSHIT</label>
+                        
+                        <div class="checkbox <%- (profile.email.length < 1) ? 'hidden' : '' %>">
+                            <input type="hidden" value="false" name="allow_newsletter" />
+                            <input type="checkbox" id="allow-newsletter" value="true" name="allow_newsletter" <%- (profile.allow_newsletter) ? 'checked="checked"' : '' %>></input>
+                            <label for="allow-newsletter">SEND ME EMAIL ABOUT UPCOMING SYBOLT BULLSHIT</label>
                         </div>
                     </div>
 
@@ -54,7 +56,7 @@
                 </fieldset>
 
                 <div class="controls">
-                    <button class="bordered green">Save Changes</button>
+                    <button id="save-sybolt-profile" class="bordered green">Save Changes</button>
                 </div>
 
                 <div class="clearfix"></div>

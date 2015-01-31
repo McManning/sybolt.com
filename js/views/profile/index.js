@@ -7,7 +7,8 @@ define([
     'text!templates/profile/index.html',
     'views/profile/minecraft-identity',
     'views/profile/steam-identity',
-    'views/profile/mumble-identity'
+    'views/profile/mumble-identity',
+    'serializejson'
 ], function($, _, Backbone, App, Template, MinecraftIdentityView, SteamIdentityView, MumbleIdentityView) {
     'use strict';
     
@@ -20,7 +21,62 @@ define([
             "click .add-minecraft": "onAddMinecraftClick",
             "click .add-steam": "onAddSteamClick",
             "click .add-mumble": "onAddMumbleClick",
-            "click .add-gravitar": "onAddGravitarClick"
+            "click .add-gravitar": "onAddGravitarClick",
+            "click #save-sybolt-profile": "onSaveChangesClick"
+        },
+
+        onSaveChangesClick: function() {
+
+            var $form = $('#sybolt-profile');
+
+            // If our new password field has content, make it (and the copy) required prior to validating
+            var $newPassword = $form.find('input[name="password"]');
+            var $newPassword2 = $form.find('input[name="password2"]');
+            if ($newPassword.val().length > 0) {
+                // Password filled out, apply validation rules
+                $newPassword.attr('data-validate', 'required,min(8)');
+                $newPassword2.attr('data-validate', 'required,min(8),newPasswordConfirm');
+            } 
+            else {
+                // Clear validation rules
+                $newPassword.attr('data-validate', '');
+                $newPassword2.attr('data-validate', '');
+            }
+
+            // If the validator passes, push up the changes to our API
+            $form.validate(function(success) {
+                if (success) {
+
+                    // Push profile changes
+                    $.ajax({
+                        type: 'PUT',
+                        url: 'http://local.sybolt.com:8888/api/profile',
+                        data: $form.serializeJSON(),
+                        dataType: 'json',
+                        crossDomain: true,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function(json) {
+                            console.log('success', json);
+                            alert('Profile Saved!');
+
+                            // Update application profile
+                            App.setProfile(json);
+                        },
+                        error: function(jqXHR) {
+                            if (jqXHR.responseJSON) {
+                                alert(jqXHR.responseJSON.message);
+                            }
+                            else {
+                                alert('An unspecified error has occurred while trying to save the profile.');
+                            }
+                        }
+                    });
+                }
+            });
+
+            return false;
         },
         
         onDeleteAccountClick: function() {
@@ -114,7 +170,7 @@ define([
             // TODO: render identityViews
 
             this.$el.html(this.template({
-                // vars here...
+                profile: App.profile
             }));
 
             $('#email').on('keyup.toggle-additional-fields', function(e) {
@@ -124,6 +180,8 @@ define([
                     $(this).parent().find('.checkbox').removeClass('hidden');
                 }
             });
+
+            $('#sybolt-profile').verify();
 
             return this;
         }
