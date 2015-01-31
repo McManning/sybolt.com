@@ -20,16 +20,23 @@
         <form class="login-form inverted">
             <label for="username">USERNAME</label>
             <input id="username" name="username" type="text" value="" data-validate="required,min(4)" />
+            <div class="validation-error hidden" data-for="username"></div>
 
             <label for="password">PASSWORD</label>
             <input id="password" name="password" type="password" value="" data-validate="required,min(8)" />
+            <div class="validation-error hidden" data-for="password"></div>
 
             <div class="register-fields hidden">
                 <label for="password2">PASSWORD (AGAIN)</label>
                 <input id="password2" name="password2" type="password" value="" data-validate="required,min(8),newPasswordConfirm" />
+                <div class="validation-error hidden" data-for="password2"></div>
 
                 <input id="agreement" name="agreement" type="checkbox" data-validate="agreement" />
-                <label for="agreement">I AGREE TO MY <a href="#">TERMS OF SURRENDER</a></label>
+                <label for="agreement">
+                    I AGREE TO MY <a href="#">TERMS OF SURRENDER</a>
+                    <div class="validation-error hidden" data-for="agreement"></div>
+                </label>
+                
             </div>
             <div class="controls">
                 <!-- Since there's not a native "Submit" button, hitting enter on a form input will trigger

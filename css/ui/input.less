@@ -33,8 +33,8 @@ input[type="text"], input[type="password"], textarea {
     }
 
     &.error {
-        box-shadow: 0 0 0 2px #FF0000;
-        border: 1px solid #FF0000;
+        box-shadow: 0 0 0 2px @alert-red;
+        border: 1px solid @alert-red;
     }
 
     &[readonly] {
@@ -58,9 +58,17 @@ fieldset {
     div.text, div.textarea {
         margin: 1em 0;
 
+        div.validation-error {
+            margin-left: 35%;
+        }
+
         label {
             display: inline-block;
             width: 35%;
+
+            div.validation-error {
+                margin-left: 0;
+            }
         }
 
         input[type="text"], input[type="password"], textarea {

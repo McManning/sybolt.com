@@ -22,7 +22,81 @@ require.config({
         },
         'notify': {
             deps: ['jquery'],
-            exports: '$.notify'
+            exports: '$.notify',
+            init: function($) {
+
+                // Custom NotifyJS theme
+                // TODO: Define this in LESS, not in the fucking javascript
+                // -- Disregard, NotifyJS is dumb and requires a JS template
+                /*
+                @light-purple: #977FA6;
+                @purple: #685475;
+                @green: #09AD7E;
+                @grey: #D0D0D0;
+                @primary: #D9D1C7;
+                @secondary: #2E2C2A;
+                @light-grey: #E6E6E6;
+                @red: #9D2B2B;
+
+                - Swatches from Flat-UI build
+
+                    @sybolt-pale:   #F2EDE4;
+                    @sybolt-tan:    #D9D1C7;
+                    @sybolt-purple: #392F40;
+                    @sybolt-pink:   #736071;
+                    @sybolt-grey:   #8C8681;
+                    @sybolt-brown:  #3C3937;
+                    @sybolt-lpurp:  #685475; //#574B5F;
+
+                    @sybolt-green:  #579762; // #4FBA7E;
+                    @sybolt-gold:   #FF9815; // #FFB533;
+
+
+                */
+
+                $.notify.addStyle("sybolt", {
+                  html: "<div>\n<span data-notify-text></span>\n</div>",
+                  classes: {
+                    base: {
+                      "padding": "3px 10px",
+                      "background-color": "#fcf8e3",
+                      "border": "1px solid #fbeed5",
+                      "border-radius": "4px",
+                      "white-space": "nowrap",
+                      "background-repeat": "no-repeat",
+                      "background-position": "3px 7px"
+                    },
+                    error: {
+                      "color": "#FFFFFF",
+                      "background-color": "#9D2B2B",
+                      "border-color": "#9D2B2B",
+                      "background": ""
+                    },
+                    success: {
+                      "color": "#FFFFFF",
+                      "background-color": "#09AD7E",
+                      "border-color": "#09AD7E",
+                      "background": ""
+                    },
+                    info: {
+                      "color": "#FFFFFF",
+                      "background-color": "#977FA6",
+                      "border-color": "#977FA6",
+                      "background": ""
+                    },
+                    warn: {
+                      "color": "#FFFFFF",
+                      "background-color": "#FF9815",
+                      "border-color": "#FF9815",
+                      "background": ""
+                    }
+                  }
+                });
+
+                $.notify.defaults({
+                    style: "sybolt"
+                });
+            }
         },
         'serializejson': {
             deps: ['jquery'],
@@ -68,11 +142,30 @@ require.config({
                         element.siblings(selector)
                             .find('span.error-notice')
                                 .html(text || '');*/
+                        
+                        // Inline solution (test)
+                        // $el.insertAfter('.trgt')
                         /*
-                            Notify setup:
-                                
+                        if (element.parent().find('.validation-error').length < 1) {
+                            var $validationError = $('<div/>')
+                                                    .addClass('validation-error')
+                                                    .insertAfter(element);
+                        }
+
+                        element.parent().find('.validation-error').html(text);
                         */
-                        console.log('VALIDATION ERROR: ' + text);
+
+                        var $ele = element.parent().find('div.validation-error[data-for="' + element.attr('id') + '"]');
+                        
+                        if (text) {
+                            $ele.html(text).removeClass('hidden');
+                        } 
+                        else {
+                            $ele.addClass('hidden');
+                        }
+                        
+                        /*console.log('VALIDATION ERROR: ' + text);
+
                         $.notify(element, text, {
                             position: 'right',
                             autoHide: false,
@@ -82,6 +175,7 @@ require.config({
                             hideDuration: 400,
                             gap: 10 // padding between element and notification
                         });
+                        */
                     }
                 });
     
@@ -172,12 +266,16 @@ define([
                     window.App.setProfile(json);
                 },
                 error: function(jqXHR) {
-                    if (jqXHR.responseJSON) {
+                    // If we can't authenticate, silently fail and clear the profile.
+                    // TODO: Check for a local token before even making this call.
+
+                    /*if (jqXHR.responseJSON) {
                         alert(jqXHR.responseJSON.message);
                     }
                     else {
                         alert('An unspecified error has occurred while trying to authenticate with the API');
                     }
+                    */
                     window.App.clearProfile();
                 }
             });

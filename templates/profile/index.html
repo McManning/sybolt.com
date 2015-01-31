@@ -19,24 +19,32 @@
                 <fieldset>
                     <div class="text">
                         <label for="sybolt-username">USERNAME</label>
-                        <input type="text" id="sybolt-username" name="username" readonly="readonly" value="<%- profile.username %>"></input>
+                        <input type="text" id="sybolt-username" name="username" readonly="readonly" value="<%- profile.username %>"/>
+                        <div class="validation-error hidden" data-for="username"></div>
                     </div>
 
                     <div class="text">
                         <label for="email">EMAIL</label>
-                        <input type="text" id="email" name="email" value="<%- profile.email %>" data-validate="email"></input>
+                        <input type="text" id="email" name="email" value="<%- profile.email %>" data-validate="email" />
+                        <div class="validation-error hidden" data-for="email"></div>
 
                         <!-- Nested checkboxes, visible when email is !empty -->
                         <div class="checkbox <%- (profile.email.length < 1) ? 'hidden' : '' %>">
                             <input type="hidden" value="false" name="public_email" />
                             <input type="checkbox" id="public-email" value="true" name="public_email" <%- (profile.public_email) ? 'checked="checked"' : '' %>></input>
-                            <label for="public-email">ALLOW OTHER USERS TO SEE MY EMAIL ADDRESS</label>
+                            <label for="public-email">
+                                ALLOW OTHER USERS TO SEE MY EMAIL ADDRESS
+                                <div class="validation-error hidden" data-for="public-email"></div>
+                            </label>
                         </div>
 
                         <div class="checkbox <%- (profile.email.length < 1) ? 'hidden' : '' %>">
                             <input type="hidden" value="false" name="allow_newsletter" />
                             <input type="checkbox" id="allow-newsletter" value="true" name="allow_newsletter" <%- (profile.allow_newsletter) ? 'checked="checked"' : '' %>></input>
-                            <label for="allow-newsletter">SEND ME EMAIL ABOUT UPCOMING SYBOLT BULLSHIT</label>
+                            <label for="allow-newsletter">
+                                SEND ME EMAIL ABOUT UPCOMING SYBOLT BULLSHIT
+                                <div class="validation-error hidden" data-for="allow-newsletter"></div>
+                            </label>
                         </div>
                     </div>
 
@@ -45,12 +53,14 @@
                 <fieldset>
                     <div class="text">
                         <label for="verification">NEW PASSWORD</label>
-                        <input type="password" id="password" name="password"></input>
+                        <input type="password" id="password" name="password"/>
+                        <div class="validation-error hidden" data-for="password"></div>
                     </div>
 
                     <div class="text">
                         <label for="password2">NEW PASSWORD (AGAIN)</label>
-                        <input type="password" id="password2" name="password2"></input>
+                        <input type="password" id="password2" name="password2" />
+                        <div class="validation-error hidden" data-for="password2"></div>
                     </div>
                 </fieldset>
 

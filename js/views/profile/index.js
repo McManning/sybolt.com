@@ -32,6 +32,7 @@ define([
             // If our new password field has content, make it (and the copy) required prior to validating
             var $newPassword = $form.find('input[name="password"]');
             var $newPassword2 = $form.find('input[name="password2"]');
+            
             if ($newPassword.val().length > 0) {
                 // Password filled out, apply validation rules
                 $newPassword.attr('data-validate', 'required,min(8)');
@@ -80,8 +81,10 @@ define([
         },
         
         onDeleteAccountClick: function() {
-            if (confirm('Are you sure? This action cannot be undone')) {
+            if (confirm('Are you sure you want to delete your account? All information associated with your Sybolt Profile will be removed.')) {
                 alert('Yea, right.');
+                // TODO: API Call: DELETE /api/profile [with auth]
+                // followed by a redirect to /home and deletion of the cached token
             }
 
             return false;
@@ -158,9 +161,18 @@ define([
         initialize: function() {
 
             // TODO: Do a thing with loading from sybolt
+            // Presumably, the original API call /api/profile should also return
+            // the subset of identities we can modify. Should be able to just tie
+            // into App.profile 
             this.identityViews = [];
         },
         
+        close: function() {
+
+            $('#email').off('keyup.toggle-additional-fields');
+            this.remove();
+        },
+
         render: function() {
             
             // Reconfigure our layout of the header and footer

@@ -1,13 +1,4 @@
 
-@light-purple: #977FA6;
-@purple: #685475;
-@green: #09AD7E;
-@grey: #D0D0D0;
-@primary: #D9D1C7;
-@secondary: #2E2C2A;
-@light-grey: #E6E6E6;
-@red: #9D2B2B;
-
 button {
     background: none;
     border: none;
@@ -74,14 +65,14 @@ button {
 
     // Red theme
     &.red {
-        color: @red;
-        //background: mix(@red, @primary, 10%);
+        color: @alert-red;
+        //background: mix(@alert-red, @primary, 10%);
 
         &.bordered {
-            border: 1px solid darken(@red, 5%);
+            border: 1px solid darken(@alert-red, 5%);
 
             &:hover {
-                background: @red;
+                background: @alert-red;
             }
         }
 
