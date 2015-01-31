@@ -40,8 +40,17 @@
             <% } %>
 
             <ul class="links">
-                <% if (movie.trailer !== null && movie.trailer.length > 0) { %> <li><a class="trailer" href="<%- movie.trailer %>">Watch the Trailer</a></li> <% } %>
-                <% if (movie.imdb !== null && movie.imdb.length > 0) { %> <li><a class="imdb" href="<%- movie.imdb %>">View on IMDb</a></li> <% } %>
+                <% if (movie.trailer !== null && movie.trailer.length > 0) { %> 
+                    <li>
+                        <a class="trailer" data-bypass="true" target="_BLANK" href="<%- movie.trailer %>">Watch the Trailer</a>
+                    </li> 
+                <% } %>
+
+                <% if (movie.imdb !== null && movie.imdb.length > 0) { %> 
+                    <li>
+                        <a class="imdb" data-bypass="true" target="_BLANK" href="<%- movie.imdb %>">View on IMDb</a>
+                    </li> 
+                <% } %>
             </ul>
             <div class="clearfix"></div>
         </div>
