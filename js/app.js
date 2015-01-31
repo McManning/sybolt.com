@@ -8,6 +8,7 @@ require.config({
         'text': 'libs/text',
         'verify': 'libs/verify',
         'notify': 'libs/notify-custom',
+        'serializejson': 'libs/jquery.serializejson',
         'isotope': 'libs/isotope.pkgd.no-amd',
         'packerymode': 'libs/packery-mode.pkgd.no-amd',
         'jquery.select2': 'libs/select2',
@@ -23,15 +24,22 @@ require.config({
             deps: ['jquery'],
             exports: '$.notify'
         },
+        'serializejson': {
+            deps: ['jquery'],
+            exports: '$.serializeJSON',
+            init: function($) {
+                // See: https://github.com/marioizquierdo/jquery.serializeJSON
+                $.serializeJSON.defaultOptions.parseAll = true;
+                $.serializeJSON.defaultOptions.checkboxUncheckedValue = "false";
+                $.serializeJSON.defaultOptions.useIntKeysAsArrayIndex = true;
+            }
+        },
         'isotope': { // No-AMD mod to resolve AMD require issues
             deps: ['jquery'],
             exports: '$.isotope'
         },
         'packerymode': { // No-AMD mod to work with no-amd modded Isotope
-            deps: ['jquery', 'isotope'],
-            init: function($, Isotope) {
-
-            }
+            deps: ['jquery', 'isotope']
         },
         'verify': {
             deps: ['jquery', 'notify'],
@@ -164,7 +172,12 @@ define([
                     window.App.setProfile(json);
                 },
                 error: function(jqXHR) {
-                    //alert(jqXHR.responseJSON.message);
+                    if (jqXHR.responseJSON) {
+                        alert(jqXHR.responseJSON.message);
+                    }
+                    else {
+                        alert('An unspecified error has occurred while trying to authenticate with the API');
+                    }
                     window.App.clearProfile();
                 }
             });
