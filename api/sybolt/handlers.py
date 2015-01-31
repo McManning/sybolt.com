@@ -102,7 +102,10 @@ class ProfileHandler(sybolt.web.RestRequestHandler):
 
         # TODO: Validate fields against rules
 
-        profile.password = self.get_argument("password", profile.password)
+        password = self.get_argument("password", profile.password)
+        if len(password) > 7:
+            profile.password = password
+
         profile.email = self.get_argument("email", profile.email)
 
         # TODO: Less fucking hack between JSON up and parsing.
