@@ -6,6 +6,21 @@
     <link rel="stylesheet/less" type="text/css" href="/css/main.less" />
 
     <!-- LESS compiler, until I include LESS compilation as part of the deployment process -->
+    <script>
+        // Destroy LESS localStorage copy on hard page load
+        // see: https://gist.github.com/attaboy/1346280
+        if (window.localStorage) {
+            var host = window.location.host;
+            var protocol = window.location.protocol;
+            var keyPrefix = protocol + '//' + host + '/css/';
+
+            for (var key in window.localStorage) {
+                if (key.indexOf(keyPrefix) === 0) {
+                    delete window.localStorage[key];
+                }
+            }
+        }
+    </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.1.0/less.min.js"></script>
     
     <script data-main="/js/app" src="/js/libs/require.js"></script>
