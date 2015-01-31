@@ -23,23 +23,41 @@ define([
         },
         
         onNewUserClick: function() {
-            
-            // Toggle visiblity of the registration section of the form
-            $('.register-fields').toggleClass('hidden');
 
-            // Adjust button text based on form visibility
+            // Toggle based on current visibility
             if ($('.register-fields').hasClass('hidden')) {
-                $('.new-user-button').html('NEW HERE?');
-                $('.login-button').html('LOGIN');
-
+                this.showRegistrationForm();
             } 
             else {
-                $('.new-user-button').html('NEVERMIND!');
-                $('.login-button').html('REGISTER');
-
+                this.hideRegistrationForm();
             }
 
             return false;
+        },
+
+        hideRegistrationForm: function() {
+
+            // Switch back to Login form
+            $('.register-fields').addClass('hidden');
+            $('.login h1').html('Login');
+            $('.new-user-button').html('NEW HERE?');
+            $('.login-button').html('LOGIN');
+        },
+
+        showRegistrationForm: function() {
+
+            // If we're not on the home page, we need to navigate there
+            // to show the full registration form. Otherwise, it won't
+            // fit in the pulldown header.
+            var route = Backbone.history.fragment;
+            if (route !== 'home' && route !== 'home/register') {
+                App.router.navigate('home/register', {trigger: true});
+            }
+
+            $('.register-fields').removeClass('hidden');
+            $('.login h1').html('Register');
+            $('.new-user-button').html('NEVERMIND!');
+            $('.login-button').html('REGISTER');
         },
 
         onLogoutClick: function() {
@@ -57,29 +75,31 @@ define([
                     console.log('success', json);
                     //var profile = new SyboltProfile(json);
                     window.App.clearProfile();
+                    window.App.router.navigate('home', {trigger: true});
                 },
-                erxror: function(jqXHR) {
+                error: function(jqXHR) {
                     alert(jqXHR.responseJSON.message);
                     window.App.clearProfile();
+                    window.App.router.navigate('home', {trigger: true});
                 }
             });
         },
 
         onLoginClick: function() {
 
-            var form = $('form.login-form');
+            var $form = $('form.login-form');
 
             if ($('.register-fields').hasClass('hidden')) {
                 // If registration fields are hidden, run one more validator pass.
                 // If all looks good on the front end, pass to the server for a login attempt.
-                form.validate(function(success) {
+                $form.validate(function(success) {
                     if (success) {
 
                         // Push login attempt
                         $.ajax({
                             type: 'POST',
                             url: 'http://local.sybolt.com:8888/api/authenticate',
-                            data: form.serialize(),
+                            data: $form.serialize(),
                             dataType: 'json',
                             crossDomain: true,
                             xhrFields: {
@@ -91,7 +111,12 @@ define([
                                 window.App.setProfile(json);
                             },
                             error: function(jqXHR) {
-                                alert(jqXHR.responseJSON.message);
+                                if (jqXHR.responseJSON) {
+                                    alert(jqXHR.responseJSON.message);
+                                }
+                                else {
+                                    alert('An unspecified error has occurred while trying to login.');
+                                }
                                 window.App.clearProfile();
                             }
                         });
@@ -101,7 +126,7 @@ define([
             else {
                 // If registration fields are visible, run one more validator pass.
                 // If all looks good on the front end, pass to the server for a registration attempt.
-                form.validate(function(success) {
+                $form.validate(function(success) {
                     if (success) {
                         alert('Register no worko');
                     }
@@ -163,7 +188,7 @@ define([
 
             return false;
         },
-        
+
         render: function() {
 
             this.$el.html(this.template({
@@ -190,6 +215,10 @@ define([
             this.style = style;
 
             this.hideNavigation();
+
+            if (style !== 'home') {
+                this.hideRegistrationForm();
+            }
             
             //this.render();
             return this;

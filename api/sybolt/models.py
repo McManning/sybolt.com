@@ -59,7 +59,7 @@ class SyboltProfile(Base):
         # where the numbers are a md5(lowercase(email)) s=64 is dimensions and d=404 
         # forces a 404 response if the user does not have an avatar on Gravatar
 
-        return 'default.png'
+        return '/img/minecraft/heads/head-64_noligorithm.png'
 
 
     def serialize(self):

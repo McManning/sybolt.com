@@ -15,6 +15,7 @@ define([
     
         routes: {
             '': 'home',
+            'home/register': 'home',
             'privacy': 'privacy',
             ':section(/:subsection)': 'generic',
 
@@ -56,6 +57,12 @@ define([
             });
         },
         
+        home: function() {
+            require(['views/home/index', 'app'], function(View, App) {
+                App.setContentView(new View());
+            });
+        },
+
         privacy: function() {
             require(['views/privacy', 'app'], function(View, App) {
                 App.setContentView(new View());

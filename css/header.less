@@ -217,19 +217,16 @@ div.header-content > div.header-name {
     .profile {
         float: left;
         margin-top: 42px;
+        margin-left: 14px;
 
         h1 {
             font-size: 2.5em;
-            padding: 7px 14px;
+            padding: 7px 0;
             font-weight: 600;
         }
 
         a {
             color: #E6E6E6;
-        }
-
-        form {
-            padding-left: 14px;
         }
 
     }
@@ -251,43 +248,6 @@ div.header-content > div.header-name {
 
         form {
             padding-left: 14px;
-        }
-
-        label {
-            display: block;
-
-            font-size: 1.2em;
-            padding-top: 0.5em;
-        }
-        
-        input[type="text"], input[type="password"] {
-            display: block;
-            margin: 0.5em 0;
-            background: none;
-
-            border: 1px solid #4D4B49;
-            font-size: 1.2em;
-            padding-top: 0.5em;
-
-            font: 1.4em 'Lato', Arial;
-
-            color: #BEBEBE;
-            border-radius: 4px;
-            padding: 0.25em;
-            .transition(all 0.2s ease-in-out);
-            outline: none;
-            /* box-shadow: 0 0 5px 2px #685475; */
-            /* border: 1px solid #685475; */
-
-            &:focus {
-                box-shadow: 0 0 0 2px #977FA6;
-                border: 1px solid #977FA6;
-            }
-
-            &.error {
-                box-shadow: 0 0 0 2px #FF0000;
-                border: 1px solid #FF0000;
-            }
         }
 
         /* We need to float the button to swap with the other form-toggle button. 
@@ -400,11 +360,6 @@ div.header-content > div.header-name {
 
 }
 
-
-
-#header .login {
-    display: none;
-}
 
 #header.home-style .current-page {
     display: none;

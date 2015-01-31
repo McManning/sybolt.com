@@ -17,7 +17,7 @@
     <% } else { %>
     <div class="login">
         <h1>Login</h1>
-        <form class="login-form">
+        <form class="login-form inverted">
             <label for="username">USERNAME</label>
             <input id="username" name="username" type="text" value="" data-validate="required,min(4)" />
 
@@ -47,7 +47,12 @@
         <a href="/projects"><h2>PROJECTS</h2><img src="#"/></a>
         <a href="/live"><h2>LIVE</h2><img src="#"/></a>
         <a href="/mumble"><h2>MUMBLE</h2><img src="#"/></a>
-        <a href="/profile"><h2>PROFILE</h2><img src="/img/default-profile-icon.png"/></a>
+
+        <% if (profile) { %>
+        <a href="/profile"><h2>PROFILE</h2><img src="<%- profile.avatar_url %>"/></a>
+        <% } else { %>
+        <a class="flash-login" href="#"><h2>LOGIN</h2><img src="/img/#"/></a>
+        <% } %> 
     </div>
 
     <div class="clearfix"></div>
