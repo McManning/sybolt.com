@@ -104,11 +104,11 @@ class LiveScheduleHandler(sybolt.web.RestRequestHandler):
             links = dict(
                 last_month = dict(
                     title = '%s %s' % (last_month.strftime('%B'), last_month.year),
-                    link = 'http://' + options.domain + ':' + options.port + '/api/live/schedule/year/%s/month/%s' % (last_month.year, last_month.month)
+                    link = 'http://' + options.domain + ':' + str(options.port) + '/api/live/schedule/year/%s/month/%s' % (last_month.year, last_month.month)
                 ),
                 next_month = dict(
                     title = '%s %s' % (next_month.strftime('%B'), next_month.year),
-                    link = 'http://' + options.domain + ':' + options.port + '/api/live/schedule/year/%s/month/%s' % (next_month.year, next_month.month)
+                    link = 'http://' + options.domain + ':' + str(options.port) + '/api/live/schedule/year/%s/month/%s' % (next_month.year, next_month.month)
                 )
             )
         )
