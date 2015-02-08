@@ -160,6 +160,10 @@ define([
 
         initialize: function() {
 
+            if (!App.profile) {
+                App.router.navigate('home', {trigger: true});
+            }
+
             // TODO: Do a thing with loading from sybolt
             // Presumably, the original API call /api/profile should also return
             // the subset of identities we can modify. Should be able to just tie
@@ -175,6 +179,13 @@ define([
 
         render: function() {
             
+            if (!App.profile) {
+                return this;
+                // TODO: Better alternate renderer. 
+                // Should actually automatically redirect, or require
+                // authorization before even loading. 
+            }
+
             // Reconfigure our layout of the header and footer
             App.headerView.setStyle('default');
             App.footerView.setStyle('default');
