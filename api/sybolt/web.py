@@ -6,7 +6,7 @@ import http.client
 import datetime
 
 from tornado.log import access_log, app_log, gen_log
-from tornado.options import define, options
+from tornado.options import options
 
 from sybolt.models import SyboltProfile
 
