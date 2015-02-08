@@ -18,6 +18,7 @@ define([
             'home/register': 'home',
             'privacy': 'privacy',
             'soon': 'soon',
+            'faq(/:question)': 'faq',
             ':section(/:subsection)': 'generic',
 
             // Default (unrecognized route)
@@ -56,6 +57,15 @@ define([
                     });
                 }
             });
+        },
+
+        /**
+         * Direct users to the FAQ page, and optionally a 
+         * specific question to be answered.
+         */
+        faq: function(question) {
+            // TODO: implement. 
+            this.soon();
         },
         
         home: function() {

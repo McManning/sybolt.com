@@ -3,8 +3,9 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'app',
     'text!templates/live/schedulecard.html'
-], function($, _, Backbone, Template) {
+], function($, _, Backbone, App, Template) {
     'use strict';
     
     var ScheduleCardView = App.View.extend({
@@ -23,9 +24,15 @@ define([
         onClickEditMovie: function(e) {
             var $card = $(e.target).closest('.schedule-card');
 
-            $card.find('.details').addClass('hidden');
-            $card.find('.editor').removeClass('hidden');
-
+            // TOOD: Check for access rights, not just an existing profile
+            if (App.profile) {
+                $card.find('.details').addClass('hidden');
+                $card.find('.editor').removeClass('hidden');
+            } 
+            else {
+                alert('You do not have permission to edit this movie');
+            }
+            
             return false;
         },
 

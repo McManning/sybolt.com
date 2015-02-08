@@ -13,10 +13,7 @@ define([
         
         events: {
             'click #next-month': 'onClickNextMonth',
-            'click #last-month': 'onClickLastMonth',
-            'click .poster': 'onClickEditMovie',
-            'click .cancel-edit': 'onClickCancelEditMovie',
-            'click .save-edit': 'onClickSaveEditMovie'
+            'click #last-month': 'onClickLastMonth'
         },
 
         onClickNextMonth: function() {

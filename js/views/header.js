@@ -20,18 +20,6 @@ define([
             "click .new-user-button": "onNewUserClick",
             "click .login-button": "onLoginClick",
             "click .logout-button": "onLogoutClick",
-            "click #registration-terms": "onTermsClick",
-            "click #why-register": "onWhyRegisterClick",
-        },
-
-        onTermsClick: function() {
-            alert('TODO: This should link to the terms of service page');
-            return false;
-        },
-        
-        onWhyRegisterClick: function() {
-            alert('TODO: This should link to the FAQ');
-            return false;
         },
 
         onNewUserClick: function() {
@@ -67,7 +55,7 @@ define([
             }
 
             $('.register-fields').removeClass('hidden');
-            $('.login h1').html('Register <a id="why-register" href="#">(Why?)</a>');
+            $('.login h1').html('Register <a href="/faq/why-register">(Why?)</a>');
             $('.new-user-button').html('NEVERMIND!');
             $('.login-button').html('REGISTER');
         },
