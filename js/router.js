@@ -17,6 +17,7 @@ define([
             '': 'home',
             'home/register': 'home',
             'privacy': 'privacy',
+            'soon': 'soon',
             ':section(/:subsection)': 'generic',
 
             // Default (unrecognized route)
@@ -65,6 +66,12 @@ define([
 
         privacy: function() {
             require(['views/privacy', 'app'], function(View, App) {
+                App.setContentView(new View());
+            });
+        },
+        
+        soon: function() {
+            require(['views/soon', 'app'], function(View, App) {
                 App.setContentView(new View());
             });
         },
