@@ -21,7 +21,7 @@ define([
 
             // Paginate to the next month's schedule
             var self = this;
-            $.getJSON(App.getApiBaseUrl() + this.next_month.link, function(data) {
+            $.getJSON(this.next_month.link, function(data) {
                 console.log(data);
                 self.updateMovies(data);
             });
@@ -33,7 +33,7 @@ define([
             
             // Paginate to the last month's schedule
             var self = this;
-            $.getJSON(App.getApiBaseUrl() + this.last_month.link, function(data) {
+            $.getJSON(this.last_month.link, function(data) {
                 console.log(data);
                 self.updateMovies(data);
             });
