@@ -25,6 +25,7 @@ import mumble.handlers
 define("port", default=8888, help="Port to run the process", type=int)
 define("debug", default=True, type=bool)
 define("db_path", default="sqlite:///:memory:", type=str)
+define("domain", default="local.sybolt.com", type=str)
 
 class Application(tornado.web.Application):
     def __init__(self):

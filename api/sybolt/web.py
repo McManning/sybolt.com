@@ -6,6 +6,7 @@ import http.client
 import datetime
 
 from tornado.log import access_log, app_log, gen_log
+from tornado.options import define, options
 
 from sybolt.models import SyboltProfile
 
@@ -13,7 +14,7 @@ class RestRequestHandler(tornado.web.RequestHandler):
 	def set_default_headers(self):
 		# Enable CORS support for requests
 		# See http://stackoverflow.com/questions/5584923/a-cors-post-request-works-from-plain-javascript-but-why-not-with-jquery
-		self.set_header("Access-Control-Allow-Origin", "http://local.sybolt.com")
+		self.set_header("Access-Control-Allow-Origin", "http://" + options.domain)
 		self.set_header("Access-Control-Allow-Credentials", "true")
 		self.set_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 		self.set_header("Access-Control-Allow-Headers", "Content-Type, *") # x-requested-with, accept, content-type, cookie") #, accept, authorization, origin")
