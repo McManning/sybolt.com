@@ -106,7 +106,7 @@ define([
                         // Push login attempt
                         $.ajax({
                             type: 'POST',
-                            url: 'http://local.sybolt.com:8888/api/authenticate',
+                            url: App.getApiBaseUrl() + '/authenticate',
                             data: $form.serialize(),
                             dataType: 'json',
                             crossDomain: true,

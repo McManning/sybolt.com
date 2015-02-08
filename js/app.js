@@ -233,7 +233,7 @@ define([
             // Try to re-authenticate with the server
             $.ajax({
                 type: 'GET',
-                url: 'http://local.sybolt.com:8888/api/authenticate',
+                url: this.getApiBaseUrl() + '/authenticate',
                 dataType: 'json',
                 crossDomain: true,
                 xhrFields: {
@@ -285,6 +285,10 @@ define([
 
             // Redraw the header
             this.headerView.render();
+        },
+
+        getApiBaseUrl: function() {
+            return '//' + document.domain + ':8888/api';
         }
     };
 

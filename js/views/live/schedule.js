@@ -3,9 +3,10 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'app',
     'text!templates/live/schedule.html',
     'views/live/schedulecard'
-], function($, _, Backbone, liveScheduleTemplate, ScheduleCardView) {
+], function($, _, Backbone, App, liveScheduleTemplate, ScheduleCardView) {
     'use strict';
     
     var LiveScheduleView = Backbone.View.extend({
@@ -20,7 +21,7 @@ define([
 
             // Paginate to the next month's schedule
             var self = this;
-            $.getJSON('http://local.sybolt.com:8888' + this.next_month.link, function(data) {
+            $.getJSON(App.getApiBaseUrl() + this.next_month.link, function(data) {
                 console.log(data);
                 self.updateMovies(data);
             });
@@ -32,7 +33,7 @@ define([
             
             // Paginate to the last month's schedule
             var self = this;
-            $.getJSON('http://local.sybolt.com:8888' + this.last_month.link, function(data) {
+            $.getJSON(App.getApiBaseUrl() + this.last_month.link, function(data) {
                 console.log(data);
                 self.updateMovies(data);
             });
@@ -51,7 +52,7 @@ define([
             var self = this;
             // Retrieve our current schedule
             var now = new Date();
-            $.getJSON('http://local.sybolt.com:8888/api/live/schedule/year/' + now.getFullYear() + '/month/' + (now.getMonth() + 1))
+            $.getJSON(App.getApiBaseUrl() + '/api/live/schedule/year/' + now.getFullYear() + '/month/' + (now.getMonth() + 1))
                 .success(function(json) {
                     self.updateMovies(json);
                 })

@@ -51,7 +51,7 @@ define([
                     // Push profile changes
                     $.ajax({
                         type: 'PUT',
-                        url: 'http://local.sybolt.com:8888/api/profile',
+                        url: App.getApiBaseUrl() + '/api/profile',
                         data: $form.serializeJSON(),
                         dataType: 'json',
                         crossDomain: true,

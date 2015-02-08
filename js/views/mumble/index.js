@@ -150,7 +150,7 @@ define([
         onLoadMoreImagesClick: function() {
 
             var self = this;
-            $.getJSON('http://local.sybolt.com:8888' + this.next_page)
+            $.getJSON(App.getApiBaseUrl() + this.next_page)
                 .success(function(json) {
                     self.next_page = json.links.next_page;
                     self.addPosts(json.posts);
