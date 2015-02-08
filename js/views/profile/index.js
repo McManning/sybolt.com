@@ -51,7 +51,7 @@ define([
                     // Push profile changes
                     $.ajax({
                         type: 'PUT',
-                        url: App.getApiBaseUrl() + '/api/profile',
+                        url: App.getApiBaseUrl() + '/profile',
                         data: $form.serializeJSON(),
                         dataType: 'json',
                         crossDomain: true,

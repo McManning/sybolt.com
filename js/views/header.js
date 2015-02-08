@@ -65,7 +65,7 @@ define([
             // Push logout attempt
             $.ajax({
                 type: 'DELETE',
-                url: 'http://local.sybolt.com:8888/api/authenticate',
+                url: App.getApiBaseUrl() + '/authenticate',
                 dataType: 'json',
                 crossDomain: true,
                 xhrFields: {

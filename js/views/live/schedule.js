@@ -52,7 +52,7 @@ define([
             var self = this;
             // Retrieve our current schedule
             var now = new Date();
-            $.getJSON(App.getApiBaseUrl() + '/api/live/schedule/year/' + now.getFullYear() + '/month/' + (now.getMonth() + 1))
+            $.getJSON(App.getApiBaseUrl() + '/live/schedule/year/' + now.getFullYear() + '/month/' + (now.getMonth() + 1))
                 .success(function(json) {
                     self.updateMovies(json);
                 })
