@@ -33,7 +33,7 @@
 
                 <input id="agreement" name="agreement" type="checkbox" data-validate="agreement" />
                 <label for="agreement">
-                    I AGREE TO MY <a href="#">TERMS OF SURRENDER</a>
+                    I AGREE TO MY <a id="registration-terms" href="#">TERMS OF SURRENDER</a>
                     <div class="validation-error hidden" data-for="agreement"></div>
                 </label>
                 
@@ -50,14 +50,20 @@
 
     <div class="pages">
         <h1>Pages</h1>
+        
+        <% if (profile) { %>
         <a href="/minecraft"><h2>MINECRAFT</h2><img src="/img/icon/minecraft.svg"/></a>
         <a href="/projects"><h2>PROJECTS</h2><img src="/img/icon/projects.svg"/></a>
         <a href="/live"><h2>LIVE</h2><img src="/img/icon/live.svg"/></a>
         <a href="/mumble"><h2>MUMBLE</h2><img src="/img/icon/mumble.svg"/></a>
 
-        <% if (profile) { %>
         <a href="/profile"><h2>PROFILE</h2><img class="avatar" src="<%- profile.avatar_url %>"/></a>
         <% } else { %>
+        <a href="/soon"><h2>MINECRAFT</h2><img src="/img/icon/minecraft.svg"/></a>
+        <a href="/soon"><h2>PROJECTS</h2><img src="/img/icon/projects.svg"/></a>
+        <a href="/live"><h2>LIVE</h2><img src="/img/icon/live.svg"/></a>
+        <a href="/soon"><h2>MUMBLE</h2><img src="/img/icon/mumble.svg"/></a>
+
         <a class="flash-login" href="#"><h2>LOGIN</h2><img src="/img/icon/login.svg"/></a>
         <% } %> 
     </div>

@@ -19,9 +19,21 @@ define([
             "click #mmm-hamburgers": "onHamburgerClick",
             "click .new-user-button": "onNewUserClick",
             "click .login-button": "onLoginClick",
-            "click .logout-button": "onLogoutClick"
+            "click .logout-button": "onLogoutClick",
+            "click #registration-terms": "onTermsClick",
+            "click #why-register": "onWhyRegisterClick",
+        },
+
+        onTermsClick: function() {
+            alert('TODO: This should link to the terms of service page');
+            return false;
         },
         
+        onWhyRegisterClick: function() {
+            alert('TODO: This should link to the FAQ');
+            return false;
+        },
+
         onNewUserClick: function() {
 
             // Toggle based on current visibility
@@ -55,7 +67,7 @@ define([
             }
 
             $('.register-fields').removeClass('hidden');
-            $('.login h1').html('Register');
+            $('.login h1').html('Register <a id="why-register" href="#">(Why?)</a>');
             $('.new-user-button').html('NEVERMIND!');
             $('.login-button').html('REGISTER');
         },
@@ -144,7 +156,7 @@ define([
                 // If all looks good on the front end, pass to the server for a registration attempt.
                 $form.validate(function(success) {
                     if (success) {
-                        alert('Register no worko');
+                        alert('Registration is not available yet. Try again later.');
                     }
                 });
             }
@@ -193,6 +205,10 @@ define([
             // TODO: Reduce these to just checking for #header.open
             $('.header-navigation').removeClass('open');
             $('#mmm-hamburgers').removeClass('open');
+
+            // Hide any errors in the login form
+            $('.login .validation-error').addClass('hidden');
+            $('.login .error').removeClass('error');
 
             // Wait until the closing animation is complete until we consider
             // ourselves closed
