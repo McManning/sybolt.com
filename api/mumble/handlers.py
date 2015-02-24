@@ -7,6 +7,22 @@ import json
 
 from mumble.models import *
 
+class MumbleIdentityHandler(sybolt.web.RestRequestHandler):
+    def put(self, id = None):
+
+    def post(self, id = None):
+        """
+        POST /api/identity/mumble 
+
+        Create a new identity entry
+        Expect:
+            nickname
+            password
+
+        Respond with:
+        
+        """
+
 class MumblePostsHandler(sybolt.web.RestRequestHandler):
 
     def get(self, page):

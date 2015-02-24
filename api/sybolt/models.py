@@ -31,13 +31,13 @@ class SyboltProfile(Base):
         backref='sybolt_profile'
     )
     
-    murmur_profile = relationship(
-        'MurmurProfile', 
-        uselist=False, 
-        backref='sybolt_profile'
-    )
     """
     
+    mumble_identities = relationship(
+        'MumbleIdentity',
+        backref='sybolt_profile'
+    )
+
     created_time = Column(DateTime, default=datetime.now)
     
     last_login_time = Column(DateTime, default=datetime.now)
@@ -63,6 +63,12 @@ class SyboltProfile(Base):
 
 
     def serialize(self):
+
+        if self.mumble_identities:
+            mumble_identities = [x.serialize() for x in self.mumble_identities]
+        else:
+            mumble_identities = None
+
         return dict(
             id = self.id,
             username = self.username,
@@ -73,5 +79,6 @@ class SyboltProfile(Base):
             created_time = self.created_time.isoformat(),
             last_login_time = self.last_login_time.isoformat(),
             last_login_ip = self.last_login_ip,
-            avatar_url = self.get_avatar()
+            avatar_url = self.get_avatar(),
+            mumble_identities = mumble_identities
         )

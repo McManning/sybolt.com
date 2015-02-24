@@ -133,12 +133,19 @@ define([
         onAddMumbleClick: function() {
             
             // Make sure they can only add one identity of this type
-            if (this.$('.identity.mumble').length > 0) {
+            /*if (this.$('.identity.mumble').length > 0) {
                 alert('You can only have one Mumble account associated with your profile.');
                 return false;
-            }
+            }*/
 
-            var view = new MumbleIdentityView();
+            // TODO: Use an actual model? ... :|
+            var view = new MumbleIdentityView({ model: {
+                id: null, 
+                nickname: null, 
+                password: null, 
+                channel: null, 
+                avatar_url: null 
+            }});
 
             this.identityViews.push(view);
             
@@ -190,12 +197,28 @@ define([
             App.headerView.setStyle('default');
             App.footerView.setStyle('default');
             
-            // TODO: render identityViews
-
+            // Render base profile html
             this.$el.html(this.template({
                 profile: App.profile
             }));
 
+            // Render mumble identities, if we got them
+            _.each(App.profile.mumble_identities, function(identity) {
+
+                var view = new MumbleIdentityView({model: identity});
+
+                this.identityViews.push(view);
+                
+                var element = $('<div/>')
+                    .addClass('identity')
+                    .addClass('mumble');
+
+                // Render the new view to the top of our identities list
+                this.$('.identities').prepend(element);
+                view.setElement(element).render();
+
+            }, this);
+            
             $('#email').on('keyup.toggle-additional-fields', function(e) {
                 if ($(this).val().length < 1) {
                     $(this).parent().find('.checkbox').addClass('hidden');
