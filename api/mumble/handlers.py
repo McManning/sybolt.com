@@ -9,6 +9,7 @@ from mumble.models import *
 
 class MumbleIdentityHandler(sybolt.web.RestRequestHandler):
     def put(self, id = None):
+        pass
 
     def post(self, id = None):
         """
@@ -22,6 +23,7 @@ class MumbleIdentityHandler(sybolt.web.RestRequestHandler):
         Respond with:
         
         """
+        pass
 
 class MumblePostsHandler(sybolt.web.RestRequestHandler):
 

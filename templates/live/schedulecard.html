@@ -2,7 +2,13 @@
 <div class="schedule-card">
     <!-- Card with picker icon, date, and movie title -->
     <div class="title">
-        <img src="/img/default-profile-icon.png" />
+
+        <% if (movie.profile !== null) { %>  
+            <img src="<%- movie.profile.avatar_url %>" />
+        <% } else { %>
+            
+        <% } %>
+
         <h2><%- movie.date_fmt %></h2>
 
         <% if (movie.title !== null && movie.title.length > 0) { %>
@@ -30,10 +36,10 @@
             </p>
             <% } %>
 
-            <% if (movie.profile !== null && movie.profile.length > 0) { %>  
+            <% if (movie.profile !== null) { %>  
                 <strong>Picked By</strong>
                 <p class="picked-by">
-                    <%- movie.profile %>
+                    <%- movie.profile.username %>
                 </p>
             <% } else { %>
                 <strong>Not yet assigned to a member</strong>
@@ -86,7 +92,7 @@
                 </div>
                 <div class="text">
                     <label for="profile-<%- movie.id %>">USER</label>
-                    <input type="text" id="profile-<%- movie.id %>" name="profile" value="<%- movie.profile %>" />
+                    <input type="text" id="profile-<%- movie.id %>" name="profile" value="<%- (movie.profile) ? movie.profile.username : '' %>" />
                 </div>
             </fieldset>
 

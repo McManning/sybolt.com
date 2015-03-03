@@ -53,10 +53,15 @@ class ProfileHandler(sybolt.web.RestRequestHandler):
         POST /api/profile
         Create a new profile
         """
-        username = self.get_argument("username", None)
-        password = self.get_argument("password", None)
+        username = self.get_argument('username', None)
+        password = self.get_argument('password', None)
+        invitation_code = self.get_argument('invite', None)
 
-        validation_error = self._validate_new_user(username, password)
+        if invitation_code != 'watchmakers':
+            validation_error = 'Sorry, looks like you didn\'t get the invite :('
+        else:
+            validation_error = self._validate_new_user(username, password)
+
         if validation_error == None:
 
             # Add our new user!

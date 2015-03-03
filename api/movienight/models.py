@@ -32,18 +32,20 @@ class MovieNight(Base):
     # at least until we start using them
     profile = Column(String)
 
-    def serialize(self):
+    real_profile = None
 
+    def serialize(self):
         return dict(
             id = self.id,
             date = self.date.strftime('%Y-%m-%d'),
             date_fmt = '%s %i' % (self.date.strftime('%B')[:3].upper(), self.date.day), # Formatted as FEB 3, MAR 14, etc
-            title = self.title,
-            synopsis = self.synopsis,
-            trailer = self.trailer,
-            imdb = self.imdb,
-            poster = self.poster,
-            profile = self.profile
+            title = self.title or None,
+            synopsis = self.synopsis or None,
+            trailer = self.trailer or None,
+            imdb = self.imdb or None,
+            poster = self.poster or None,
+            # If we loaded a SyboltProfile (or other) into real_profile, use that. Otherwise, just use whatever is in profile
+            profile = self.real_profile if self.real_profile else self.profile or None
             #recommendations = [r.serialize() for r in self.recommendations],
             #profile = self.profile.serialize()
         )

@@ -1,5 +1,5 @@
 
-from datetime import datetime
+import datetime
 import json
 
 from sqlalchemy import Column, String, Integer, Boolean, Date, DateTime, ForeignKey
@@ -48,9 +48,9 @@ class MumbleIdentity(Base):
     password = Column(String)
     #channel = Column(String)
     
-    created_time = Column(DateTime, default=datetime.now)
+    created_time = Column(DateTime, default=datetime.datetime.now)
     
-    last_login_time = Column(DateTime, default=datetime.now)
+    last_login_time = Column(DateTime, default=datetime.datetime.now)
     last_login_ip = Column(String)
 
     def get_avatar(self):

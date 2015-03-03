@@ -1,5 +1,5 @@
 
-from datetime import datetime
+import datetime
 
 from sqlalchemy import Column, String, Integer, Boolean, Date, DateTime, ForeignKey
 from sqlalchemy.orm import relationship, backref, deferred
@@ -38,9 +38,9 @@ class SyboltProfile(Base):
         backref='sybolt_profile'
     )
 
-    created_time = Column(DateTime, default=datetime.now)
+    created_time = Column(DateTime, default=datetime.datetime.now)
     
-    last_login_time = Column(DateTime, default=datetime.now)
+    last_login_time = Column(DateTime, default=datetime.datetime.now)
     last_login_ip = Column(String)
 
     def get_avatar(self):
@@ -62,23 +62,42 @@ class SyboltProfile(Base):
         return '/img/minecraft/heads/head-64_noligorithm.png'
 
 
-    def serialize(self):
+    def serialize(self, only_public_data = False):
+        """
+        Serialize properties of this profile into a dict(). 
+        If only_public_data is true, this will only serialize basic information about the profile
+        (minimum info). If false, it will return everything (including private stuff).
+        TODO: Better way of dealing with permissions for this type of query.
+        """
 
-        if self.mumble_identities:
-            mumble_identities = [x.serialize() for x in self.mumble_identities]
-        else:
-            mumble_identities = None
-
-        return dict(
+        # Collect basic information
+        public_data = dict(
             id = self.id,
             username = self.username,
-            password = self.password,
-            email = self.email,
             public_email = self.public_email,
-            allow_newsletter = self.allow_newsletter,
             created_time = self.created_time.isoformat(),
             last_login_time = self.last_login_time.isoformat(),
-            last_login_ip = self.last_login_ip,
-            avatar_url = self.get_avatar(),
-            mumble_identities = mumble_identities
+            avatar_url = self.get_avatar()
         )
+
+        # If they have a public email, or want full data, add that as well
+        if self.public_email or not only_public_data:
+            public_data['email'] = self.email
+
+        if not only_public_data: # Add extended private data as well, if requested
+
+            if self.mumble_identities:
+                mumble_identities = [x.serialize() for x in self.mumble_identities]
+            else:
+                mumble_identities = None
+
+            private_data = dict(
+                allow_newsletter = self.allow_newsletter,
+                last_login_ip = self.last_login_ip,
+                mumble_identities = mumble_identities
+            )
+
+            # Merge the private data into the public as well if requested
+            public_data.update(private_data)
+
+        return public_data
