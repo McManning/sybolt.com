@@ -17,8 +17,6 @@ define([
         
         initialize: function() {
          
-            // Since we're a full page view, force the window to the top.
-            $(window).scrollTop(0);   
         },
         
         /** 

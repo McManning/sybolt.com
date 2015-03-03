@@ -271,6 +271,9 @@ define([
             this.contentView.setElement($('#content')).render();
             
             // @todo whatever post-processing that we must perform after changing the page
+
+            // Scroll to the top of the page
+            $(window).scrollTop(0);
         },
 
         setProfile: function(json) {
