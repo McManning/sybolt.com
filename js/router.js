@@ -16,7 +16,7 @@ define([
         routes: {
             '': 'home',
             'home/register': 'home',
-            'privacy': 'privacy',
+            'legal(/:section)': 'legal',
             'soon': 'soon',
             'faq(/:question)': 'faq',
             ':section(/:subsection)': 'generic',
@@ -74,9 +74,12 @@ define([
             });
         },
 
-        privacy: function() {
-            require(['views/privacy', 'app'], function(View, App) {
-                App.setContentView(new View());
+        legal: function(section) {
+            require(['views/legal', 'app'], function(View, App) {
+                var view = new View();
+                view.setSubsection(section);
+                
+                App.setContentView(view);
             });
         },
         

@@ -31,9 +31,13 @@
                 <input id="password2" name="password2" type="password" value="" data-validate="required,min(8),newPasswordConfirm" />
                 <div class="validation-error hidden" data-for="password2"></div>
 
+                <label for="invite">INVITATION CODE</label>
+                <input id="invite" name="invite" type="password" value="" data-validate="required,min(8)" />
+                <div class="validation-error hidden" data-for="invite"></div>
+
                 <input id="agreement" name="agreement" type="checkbox" data-validate="agreement" />
                 <label for="agreement">
-                    I AGREE TO MY <a href="/terms">TERMS OF SURRENDER</a>
+                    I AGREE TO MY <a data-bypass="true" href="/legal/terms" target="_BLANK">TERMS OF SURRENDER</a>
                     <div class="validation-error hidden" data-for="agreement"></div>
                 </label>
                 
