@@ -295,7 +295,7 @@ div.parallax.hoth {
 }
 
 div.parallax.swagcraft {
-    background: url('/img/minecraft/timeline/cathedral.png') no-repeat fixed;
+    background: url('/img/minecraft/timeline/sybolt_tower.png') no-repeat fixed;
     background-position: center top;
     -webkit-background-size: cover;
        -moz-background-size: cover;
@@ -304,7 +304,7 @@ div.parallax.swagcraft {
 }
 
 div.parallax.franken {
-    background: url('/img/minecraft/timeline/sybolt_tower.png') no-repeat fixed;
+    background: url('/img/minecraft/timeline/franken_filtered.png') no-repeat fixed;
     background-position: center top;
     -webkit-background-size: cover;
        -moz-background-size: cover;
@@ -322,7 +322,7 @@ div.parallax.calico {
 }
 
 div.parallax.broville {
-    background: url('/img/minecraft/timeline/pillarmen.png') no-repeat fixed;
+    background: url('/img/minecraft/timeline/cathedral.png') no-repeat fixed;
     background-position: center top;
     -webkit-background-size: cover;
        -moz-background-size: cover;

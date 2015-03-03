@@ -129,11 +129,6 @@ define([
                                 else {
                                     alert('An unspecified error has occurred while trying to login.');
                                 }
-                                // window.App.clearProfile();
-                                
-                                // Force our application to reload entirely,
-                                // in case there are needs to be content/permission changes after login.
-                                window.location.reload();
                             }
                         });
                     }
@@ -144,7 +139,35 @@ define([
                 // If all looks good on the front end, pass to the server for a registration attempt.
                 $form.validate(function(success) {
                     if (success) {
-                        alert('Registration is not available yet. Try again later.');
+
+                        // Push register attempt
+                        $.ajax({
+                            type: 'POST',
+                            url: App.getApiBaseUrl() + '/profile',
+                            data: $form.serialize(),
+                            dataType: 'json',
+                            crossDomain: true,
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            success: function(json) {
+                                console.log('success', json);
+                                //var profile = new SyboltProfile(json);
+                                //window.App.setProfile(json);
+
+                                // Force our application to reload entirely, 
+                                // in case there needs to be content/permission changes after login.
+                                window.location.reload();
+                            },
+                            error: function(jqXHR) {
+                                if (jqXHR.responseJSON) {
+                                    alert(jqXHR.responseJSON.message);
+                                }
+                                else {
+                                    alert('An unspecified error has occurred while trying to login.');
+                                }
+                            }
+                        });
                     }
                 });
             }
