@@ -22,11 +22,11 @@ div.timeline-billboard {
     margin-bottom: -7px;
     
     width: 0; 
-	height: 0; 
-	border-left: 7px solid transparent;
-	border-right: 7px solid transparent;
-	
-	border-top: 7px solid white;
+  height: 0; 
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  
+  border-top: 7px solid white;
 }
 
 #timeline {
@@ -34,15 +34,6 @@ div.timeline-billboard {
   padding: 0;
   width: 100%;
   
-}
-
-.timeline-start {
-    position: absolute;    
-    max-width: 900px;  
-    margin: 0 auto;
-    padding-bottom: 5em;
-    top: -15px;
-    left: 50%;
 }
 
 .timeline-end {
@@ -65,6 +56,7 @@ div.timeline-billboard {
   width: 85px; /* 40px; */
   height: 85px; /* 40px; */
   margin-left: -43px; /* NOTHING */
+  margin-top: -15px;
 }
 
 .timeline-end .timeline-img {
@@ -73,7 +65,19 @@ div.timeline-billboard {
   margin-left: -40px; /* NOTHING */
 }
 
-.parallax.hoth::before, 
+.parallax.hoth::before {
+   /* this is the vertical line */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%; 
+  height: 100%;
+  width: 4px;
+  background: #E6E6E6;
+  margin-left: -4px;
+  margin-top: 100px;
+}
+
 .parallax.swagcraft::before, 
 .parallax.franken::before, 
 .parallax.calico::before, 
@@ -85,7 +89,7 @@ div.timeline-billboard {
   left: 50%; 
   height: 100%;
   width: 4px;
-  background: #FFFFFF;
+  background: #E6E6E6;
   margin-left: -4px;
 }
 
@@ -94,7 +98,7 @@ div.timeline-billboard {
   margin: 4em 0; /* 2em 0; */
   max-width: 900px;
   margin: 0 auto;
-  margin-top: 4em;
+  margin-top: 1em;
   margin-bottom: 4em;
 }
 .timeline-block:after {
@@ -114,7 +118,7 @@ div.timeline-billboard {
     left: auto;
     right: 100%;
     border-color: transparent;
-    border-right-color: white;
+    border-right-color: #2E2C2A;
   }
   .timeline-block.right .timeline-content {
     float: right;
@@ -133,7 +137,7 @@ div.timeline-billboard {
   width: 55px; /* 40px; */
   height: 55px; /* 40px; */
   border-radius: 50%;
-  box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0 4px #E6E6E6, inset 0 0px 0 rgba(0, 0, 0, 0.08), 0 0px 0 0px rgba(0, 0, 0, 0.05);
   
   margin-left: -30px; /* NOTHING */
 }
@@ -186,11 +190,16 @@ div.timeline-billboard {
 .timeline-content {
   position: relative;
   margin-left: 0; /* 60px; */
-  background: white;
+  background: #2E2C2A;
   border-radius: 0.25em;
   padding: 1.6em; /* 1em; */
-  box-shadow: 0 3px 0 #BEBEBE;
+  box-shadow: 0 2px 0 #242220;
   width: 37%; /* NOTHING */
+  color: #E6E6E6;
+}
+
+.timeline-start .timeline-content {
+  width: 35%;
 }
 
 .timeline-content::before {
@@ -201,11 +210,11 @@ div.timeline-billboard {
   height: 0;
   width: 0;
   border: 7px solid transparent;
-  border-right: 7px solid white;
+  border-right: 7px solid #2E2C2A;
   
   left: 100%; /* NOTHING */
   border-color: transparent; /* NOTHING */
-  border-left-color: white; /* NOTHING */
+  border-left-color: #2E2C2A; /* NOTHING */
 }
 
 .timeline-content:after {
@@ -222,6 +231,7 @@ div.timeline-billboard {
 
 .timeline-content p {
     margin: 0;
+    line-height: 1.5em;
 }
 
 .timeline-content .timeline-date {
@@ -238,6 +248,11 @@ div.timeline-billboard {
   top: 6px; /* NOTHING */
   background: black;
   color: white;
+  white-space: nowrap;
+}
+
+.timeline-start .timeline-content .timeline-date {
+  left: 136%;
 }
 
 
@@ -277,8 +292,8 @@ div.parallax.intro {
        -moz-background-size: cover;
          -o-background-size: cover;
             background-size: cover;
-			
-	padding-top: 60px;
+      
+  padding-top: 60px;
             
     /* background-position-y: -100px; */
     background: linear-gradient(#4D4946, #2e2c2a);
@@ -295,7 +310,7 @@ div.parallax.hoth {
 }
 
 div.parallax.swagcraft {
-    background: url('/img/minecraft/timeline/sybolt_tower.png') no-repeat fixed;
+    background: url('/img/minecraft/timeline/crucible.png') no-repeat fixed;
     background-position: center top;
     -webkit-background-size: cover;
        -moz-background-size: cover;
@@ -333,15 +348,12 @@ div.parallax.broville {
 /* Mobile response */
 @media (max-width: 920px) {
 
-    .timeline-start {
-      top: -15px;
-      left: 0;
-    }
-    
     .timeline-start .timeline-img {
       width: 60px;
       height: 60px;
       margin-left: 10px; /* NOTHING */
+    
+      margin-top: 0;
     }
     
     .timeline-end .timeline-img {
@@ -351,14 +363,14 @@ div.parallax.broville {
     }
 
     .parallax.hoth::before, 
-	.parallax.swagcraft::before, 
-	.parallax.franken::before, 
-	.parallax.calico::before, 
-	.parallax.broville::before {
+  .parallax.swagcraft::before, 
+  .parallax.franken::before, 
+  .parallax.calico::before, 
+  .parallax.broville::before {
       left: 0;
       margin-left: 38px; /* NOTHING */
     }
-	
+  
     div.parallax .parallax-header {
       /* margin-left: 5em; */
     
@@ -421,7 +433,13 @@ div.parallax.broville {
         left: auto;
         right: 100%;
         border-color: transparent;
-        border-right-color: white;
+        border-right-color: #2E2C2A;
+    }
+
+    .timeline-start .timeline-content {
+      margin-left: 90px;
+      width: auto;
+      margin-right: 1em;
     }
 
     .timeline-content {
@@ -431,6 +449,8 @@ div.parallax.broville {
         margin-right: 1em;
     }
 
+
+    .timeline-start .timeline-content .timeline-date,
     .timeline-content .timeline-date {
       /* Reset */
       position: relative; /* NOTHING */
