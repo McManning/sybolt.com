@@ -37,7 +37,7 @@
 @media (max-width: 630px) {
     
     /* Half step for right floated icons */
-    div.event-log {
+    #event-log {
         width: 100%;
     }
     

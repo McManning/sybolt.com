@@ -14,7 +14,7 @@ define([
             
     'use strict';
     
-    var LiveView = Backbone.View.extend({
+    var LiveView = App.View.extend({
         template: _.template(liveTemplate),
         
         initialize: function() {
@@ -137,13 +137,6 @@ define([
             this.onWindowResize();
             this.onWindowResize();
             
-            return this;
-        },
-        
-        renderSubview: function(view, selector) {
-        
-            // See: http://ianstormtaylor.com/rendering-views-in-backbonejs-isnt-always-simple/
-            view.setElement(this.$(selector)).render();
             return this;
         },
         

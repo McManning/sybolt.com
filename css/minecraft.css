@@ -77,11 +77,6 @@
         height: 120px;
     }
 
-    div.server-info {
-        float: right;
-    
-    }
-
     div.content-right {
         width: 900px;
         margin: 0 auto;
@@ -95,11 +90,12 @@
         white-space: nowrap;
     }
 
-    div.server-info > ul {
+    #information div.server-info > ul {
         margin: 0;
         list-style-type: none;
         padding: 0;
         width: 250px;
+        float: right;
     
         line-height: 1.8em;
         /* font-size: 1.2em; */
@@ -120,7 +116,7 @@
     
     }
 
-    div.event-log {
+    #event-log {
         float: left;
         clear: both;
     
@@ -128,11 +124,11 @@
         width: 400px;
     }
     
-    div.event-log small {
+    #event-log small {
         padding-left: 0.5em;
     }
     
-    div.event-log li {
+    #event-log li {
         list-style-type: none;
         /* white-space: nowrap; */
     
@@ -142,7 +138,7 @@
         padding-bottom: 10px;
 }
     
-    div.event-log li > p {
+    #event-log li > p {
         /* padding-left: 32px; */
         white-space: normal;
         margin: 0;
@@ -153,7 +149,7 @@
         padding-right: 12px;
 }
     
-    div.event-log li > img {
+    #event-log li > img {
         width: 32px;
         height: 32px;
         vertical-align: middle;
@@ -164,7 +160,7 @@
         float: left;
     }
     
-    div.event-log ul {
+    #event-log ul {
         margin: 0;
         padding: 0;
     
@@ -264,7 +260,7 @@
     }
     */
     
-    img.calico {
+    #calico-hero {
         /* max-width: 100%; */
         /* width: 50%; */
         /* height: auto; */
@@ -277,7 +273,7 @@
         /* min-height: 500px; */
     }
     
-    div.centerer > img.calico {
+    div.centerer > #calico-hero {
         width: 100%;
         
         display: block;

@@ -4,18 +4,26 @@ define([
     'underscore',
     'backbone',
     'app',
-    'text!templates/minecraft/index.html'
-], function($, _, Backbone, App, Template) {
+    'text!templates/minecraft/index.html',
+    'text!templates/minecraft/timeline.html',
+    'views/minecraft/servers',
+], function($, _, Backbone, App, Template, TimelineTemplate, ServersView) {
     'use strict';
     
     var View = App.View.extend({
         template: _.template(Template),
+        timelineTemplate: _.template(TimelineTemplate),
         
         events: {
-            "click .scroll-up": "scrollUp"
+            "click .scroll-up": "scrollUp",
+            "click .timeline-scroll-up": "scrollUp",
+            "click #toggle-timeline": "toggleTimeline",
+            "click #toggle-servers": "toggleServers"
         },
         
         initialize: function() {
+
+            this.serversView = new ServersView();
             
             $(window).on('resize.calico-hero', _.bind(this.onWindowResize, this));
             $(window).on('scroll.minecraft-header', _.bind(this.onWindowScroll, this));
@@ -30,7 +38,57 @@ define([
 
             this.remove();
         },
-        
+
+        toggleTimeline: function() {
+
+            var $timeline = $('#timeline');
+
+            if ($timeline.hasClass('hidden')) {
+                // Show timeline! @todo animate it to high heaven!
+                $timeline.removeClass('hidden');
+
+                // Hide all the other crap!
+                //$('#information').addClass('hidden');
+                //$('.full-page').addClass('hidden');
+                //$('.residents-background-bottom').addClass('hidden');
+                //$('#dumb-things').addClass('hidden');
+                //$('.scroll-up').addClass('hidden');
+            } 
+            else {
+                // Hide it! @todo animate it 'n shit
+                $timeline.addClass('hidden');
+
+                // Bring back all the other crap!
+                //$('#information').removeClass('hidden');
+                //$('.full-page').removeClass('hidden');
+                //$('.residents-background-bottom').removeClass('hidden');
+                //$('#dumb-things').removeClass('hidden');
+                //$('.scroll-up').removeClass('hidden');
+            }
+
+            return false;
+        },
+
+        toggleServers: function() {
+
+            var $servers = $('#servers');
+
+            if ($servers.hasClass('hidden')) {
+                // Show timeline! @todo animate it to high heaven!
+                $servers.removeClass('hidden');
+                
+                // Also notify the view to retrieve a list of servers
+                // @todo this could probably go somewhere better...
+                this.serversView.loadServers();
+            } 
+            else {
+                // Hide it! @todo animate it 'n shit
+                $servers.addClass('hidden');
+            }
+
+            return false;
+        },
+
         /** 
          * Action for clicking the arrow up at the bottom of the page.
          * Performs a gradual scroll back to the top.
@@ -55,12 +113,12 @@ define([
             var desiredCalicoHeight = $('.full-page').width() * calicoImageRatio;
             var top = $('.content-container-top').position().top;
             
-            console.log('Desired: ' + desiredCalicoHeight + ' Actual: ' + $('.calico').height() + ' Top: ' + top);
+            console.log('Desired: ' + desiredCalicoHeight + ' Actual: ' + $('#calico-hero').height() + ' Top: ' + top);
             
             if (top > desiredCalicoHeight) {
-                $('.calico').parent().addClass('centerer');
+                $('#calico-hero').parent().addClass('centerer');
             } else {
-                $('.calico').parent().removeClass('centerer');
+                $('#calico-hero').parent().removeClass('centerer');
             }
 
             // Also fire off the scroll watcher to check for any positional changes
@@ -90,8 +148,13 @@ define([
             App.footerView.setStyle('default');
             
             this.$el.html(this.template({
-                // vars here...
+                timeline_template: this.timelineTemplate({
+
+                })
             }));
+
+            // Render our servers out. First call, we won't have data, but that's okay!
+            this.renderSubview(this.serversView, '#servers');
 
             // Ensure our elements are positioned accordingly
             this.onWindowResize();

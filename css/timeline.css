@@ -34,6 +34,9 @@ div.timeline-billboard {
   padding: 0;
   width: 100%;
   
+  border-top: 2px solid grey;
+  
+  box-shadow: inset 0 0 5px 5px #888;
 }
 
 .timeline-end {
@@ -307,6 +310,7 @@ div.parallax.hoth {
          -o-background-size: cover;
             background-size: cover;
             
+    box-shadow: inset 0 6px 8px -4px #222;
 }
 
 div.parallax.swagcraft {

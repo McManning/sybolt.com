@@ -1,0 +1,123 @@
+
+.server-content {
+    max-width: 1060px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.server-content h1 {
+    background: black;
+    color: white;
+    float: left; 
+    margin: 10px 0 0 5px;
+    opacity: 0;
+    margin-left: -10px;
+
+    padding: 0 0.25em;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Online status. @todo maybe not use a h2? */
+.server-content h2 {
+    position:absolute;
+
+    font-size: 2.3em;
+    top: 80px;
+    left: 5px;
+    font-weight: 400;
+    background: black;
+    opacity: 0.7;
+    padding: 0 0.25em;
+    top: 10px;
+    left: 5px;
+
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.server-content .server-info {
+    background: black;
+    color: white;
+    float: right;
+    padding: 0.5em;
+    margin: 10px 5px 0 0;
+    opacity: 0;
+
+    margin-right: -10px;
+
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.server-content .server-info ul {
+    list-style-type: none;
+    width: 300px;
+    line-height: 1.8em;
+}
+
+#servers {
+    border-top: 2px solid grey;
+    border-bottom: 2px solid grey;
+    box-shadow: inset 0 0 2px 2px #2D2D2D;
+    background: #b3a188;
+}
+
+#servers .server {
+    height: 140px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+}
+
+.server .server-banner {
+    position: absolute;
+    left: 50%;
+    margin-left: -990px;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+
+    -webkit-filter: grayscale(1);
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: url(#greyscale);
+    filter: gray;
+
+    opacity: 0.5;
+}
+
+#servers .server:hover {
+    box-shadow: 0 0 5px 2px #2D2D2D;
+}
+
+#servers .server:hover .server-banner {
+    opacity: 1;
+
+    /* Clear filters */
+    -webkit-filter: none;
+    filter: none;
+}
+
+#servers .server:hover .server-content .server-info {
+    opacity: 0.7;
+    margin-right: 5px;
+}
+
+#servers .server:hover .server-content h1 {
+    opacity: 0.7;
+    margin-left: 5px;
+}
+
+/* Fade out h2 when h1 fades in */
+#servers .server:hover .server-content h2 {
+    opacity: 0;
+    left: 10px;
+}

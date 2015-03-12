@@ -1,13 +1,13 @@
 <div class="full-page">
     <div class="header-billboard">
-        <img class="calico" src="/img/minecraft/calico-hero.jpg">
+        <img id="calico-hero" src="/img/minecraft/calico-hero.jpg">
     </div>
     
     <div class="content-container-top">
 
         <!--div class="scroll-down"></div-->
         
-        <div class="content-left residents">
+        <div id="residents" class="content-left residents">
             <h1>RESIDENTS</h1>
             
             <div class="residents-container">
@@ -32,11 +32,11 @@
 <div class="residents-background-bottom"></div>
 
 <div class="content-container">
-    <div class="content-right information">
+    <div id="information" class="content-right information">
         <h1>INFORMATION</h1>
         
         <div class="server-status-icon">
-            <a href="/minecraft/status">
+            <a id="toggle-servers" href="#">
                 <img src="/img/minecraft/entities/clock_midnight.png">
                 <p>Server Is Offline</p>
             </a>
@@ -54,11 +54,12 @@
         <div class="clearfix"></div>
     </div>
     
+    <div id="servers" class="hidden"></div>
     
-    <div class="content-left history">
+    <div id="history" class="content-left history">
         <h1>HISTORY</h1>
         
-        <div class="event-log">
+        <div id="event-log">
             <ul>
                 <li><img src="/img/minecraft/entities/diamondsword32x32.png"/><p>Gfro got his ass smashed in</p></li>
                 <li><img src="/img/minecraft/entities/steve32x32.png"/><p>PhantomTheft has joined the world</p></li>
@@ -70,7 +71,7 @@
         
         <div class="history-icon">
             
-            <a href="/minecraft/timeline">
+            <a id="toggle-timeline" href="#">
                 <img src="/img/minecraft/entities/book_and_quill.png">
                 <p>Read The Lore</p>
             </a>
@@ -78,9 +79,10 @@
         
         <div class="clearfix"></div>
     </div>
+
+    <%= timeline_template %>
     
-    
-    <div class="content-right dumb">
+    <div id="dumb-things" class="content-right dumb">
         <h1>DUMB THINGS</h1>
         <div class="clearfix"></div>
         

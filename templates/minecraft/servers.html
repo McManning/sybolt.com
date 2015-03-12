@@ -1,0 +1,56 @@
+
+<% if (servers.length > 0) { %>
+    <% _.each(servers, function(server) { %>
+
+    <div class="server">
+        <img class="server-banner" src="<%= server.banner %>" />
+        <div class="server-content">
+            <h1><%- server.name.toUpperCase() %></h1>
+
+            <% if (server.online) { %>
+                <h2 class="green">ONLINE NOW</h2>
+            <% } %>
+
+            <div class="server-info">
+                <ul>
+                <% if (server.online) { %>
+                    <li>
+                        <strong>Status:</strong>
+                        <span class="green pull-right">ONLINE NOW</span>
+                    </li>
+                <% } else { %>
+                    <li>
+                        <strong>Last Online:</strong>
+                        <span class="pull-right"><%- server.last_played %></span>
+                    </li> 
+                <% } %>
+
+                    <li>
+                        <strong>Client Version:</strong>
+                        <span class="pull-right"><%- server.client_version %></span>
+                    </li>
+                    <li>
+                        <button type="button" class="manage-server bordered purple"
+                            data-server-id="<%- server.id %>">MANAGE</button>
+
+                    <% if (server.online) { %>
+                        <button type="button" class="shutdown-server bordered red pull-right" 
+                            data-server-id="<%- server.id %>">SHUTDOWN</button>
+                    <% } else { %>
+                        <button type="button" class="start-server bordered green pull-right"
+                            data-server-id="<%- server.id %>">START</button>
+                    <% } %>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <% }); %>
+<% } else { %>
+
+    LOADING YOUR FUCKING SERVERS
+<% } // servers.length == 0 %>
+
+<a id="prev-servers-page" href="#">Prev</a>
+<a id="next-servers-page" href="#">Next</a>
