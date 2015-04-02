@@ -57,7 +57,7 @@ class ProfileHandler(sybolt.web.RestRequestHandler):
         password = self.get_argument('password', None)
         invitation_code = self.get_argument('invite', None)
 
-        if invitation_code != 'watchmakers':
+        if invitation_code != 'fuckyougfro':
             validation_error = 'Sorry, looks like you didn\'t get the invite :('
         else:
             validation_error = self._validate_new_user(username, password)
