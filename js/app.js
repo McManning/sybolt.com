@@ -9,6 +9,7 @@ require.config({
         'verify': 'libs/verify',
         'notify': 'libs/notify-custom',
         'serializejson': 'libs/jquery.serializejson',
+        'tubular': 'libs/jquery.tubular',
         'isotope': 'libs/isotope.pkgd.no-amd',
         'packerymode': 'libs/packery-mode.pkgd.no-amd',
         'jquery.select2': 'libs/select2',
@@ -107,6 +108,11 @@ require.config({
                 $.serializeJSON.defaultOptions.checkboxUncheckedValue = "false";
                 $.serializeJSON.defaultOptions.useIntKeysAsArrayIndex = true;
             }
+        },
+        'tubular': {
+            deps: ['jquery'],
+            exports: '$.tubular',
+            init: function($) {}
         },
         'isotope': { // No-AMD mod to resolve AMD require issues
             deps: ['jquery'],
