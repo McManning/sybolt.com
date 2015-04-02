@@ -38,21 +38,21 @@ define([
         onClickManageServer: function(e) {
 
             var serverId = $(e.currentTarget).attr('data-server-id');
-            alert('Manage server ' + serverId);
+            alert('@todo open up a management panel for ' + serverId);
             return false;
         },
 
         onClickStartServer: function(e) {
 
             var serverId = $(e.currentTarget).attr('data-server-id');
-            alert('Start server ' + serverId);
+            alert('@todo fire off an API call to start ' + serverId);
             return false;
         },
 
         onClickShutdownServer: function(e) {
 
             var serverId = $(e.currentTarget).attr('data-server-id');
-            alert('Shutdown server ' + serverId);
+            alert('@todo fire off an API call to stop ' + serverId);
             return false;
         },
 

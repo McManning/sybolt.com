@@ -18,10 +18,6 @@ define([
         events: {
             //"click .scroll-up": "scrollUp"
             "click .delete-account": "onDeleteAccountClick",
-            "click .add-minecraft": "onAddMinecraftClick",
-            "click .add-steam": "onAddSteamClick",
-            "click .add-mumble": "onAddMumbleClick",
-            "click .add-gravitar": "onAddGravitarClick",
             "click #save-sybolt-profile": "onSaveChangesClick"
         },
 
@@ -90,92 +86,12 @@ define([
             return false;
         },
 
-        onAddMinecraftClick: function() {
-        
-            var view = new MinecraftIdentityView();
-
-            this.identityViews.push(view);
-            
-            var element = $('<div/>')
-                .addClass('identity')
-                .addClass('minecraft');
-
-            // Render the new view to the top of our identities list
-            this.$('.identities').prepend(element);
-            view.setElement(element).render();
-
-            return false;
-        },
-
-        onAddSteamClick: function() {
-
-            // Make sure they can only add one identity of this type
-            if (this.$('.identity.steam').length > 0) {
-                alert('You can only have one Steam account associated with your profile.');
-                return false;
-            }
-
-            var view = new SteamIdentityView();
-
-            this.identityViews.push(view);
-            
-            var element = $('<div/>')
-                .addClass('identity')
-                .addClass('steam');
-
-            // Render the new view to the top of our identities list
-            this.$('.identities').prepend(element);
-            view.setElement(element).render();
-
-            return false;
-        },
-
-        onAddMumbleClick: function() {
-            
-            // Make sure they can only add one identity of this type
-            /*if (this.$('.identity.mumble').length > 0) {
-                alert('You can only have one Mumble account associated with your profile.');
-                return false;
-            }*/
-
-            // TODO: Use an actual model? ... :|
-            var view = new MumbleIdentityView({ model: {
-                id: null, 
-                nickname: null, 
-                password: null, 
-                channel: null, 
-                avatar_url: null 
-            }});
-
-            this.identityViews.push(view);
-            
-            var element = $('<div/>')
-                .addClass('identity')
-                .addClass('mumble');
-
-            // Render the new view to the top of our identities list
-            this.$('.identities').prepend(element);
-            view.setElement(element).render();
-
-            return false;
-        },
-
-        onAddGravitarClick: function() {
-            
-            return false;
-        },
-
         initialize: function() {
 
+            // TODO: Better security.
             if (!App.profile) {
                 App.router.navigate('home', {trigger: true});
             }
-
-            // TODO: Do a thing with loading from sybolt
-            // Presumably, the original API call /api/profile should also return
-            // the subset of identities we can modify. Should be able to just tie
-            // into App.profile 
-            this.identityViews = [];
         },
         
         close: function() {
@@ -202,23 +118,6 @@ define([
                 profile: App.profile
             }));
 
-            // Render mumble identities, if we got them
-            _.each(App.profile.mumble_identities, function(identity) {
-
-                var view = new MumbleIdentityView({model: identity});
-
-                this.identityViews.push(view);
-                
-                var element = $('<div/>')
-                    .addClass('identity')
-                    .addClass('mumble');
-
-                // Render the new view to the top of our identities list
-                this.$('.identities').prepend(element);
-                view.setElement(element).render();
-
-            }, this);
-            
             $('#email').on('keyup.toggle-additional-fields', function(e) {
                 if ($(this).val().length < 1) {
                     $(this).parent().find('.checkbox').addClass('hidden');

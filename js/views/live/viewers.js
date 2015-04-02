@@ -59,11 +59,17 @@ define([
         
         render: function() {
             
-            this.$el.html(this.template({
-                viewers: this.model.viewers.models,
-                publisher: this.model.publisher
-            }));
-            
+            // If we have no viewers, hide container element
+            if (!this.model.viewers.models || this.model.viewers.models.length < 1) {
+                this.$el.addClass('hidden');
+            } 
+            else {
+                this.$el.removeClass('hidden').html(this.template({
+                    viewers: this.model.viewers.models,
+                    publisher: this.model.publisher
+                }));    
+            }
+
             return this;
         }
     });
