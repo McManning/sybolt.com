@@ -37,33 +37,3 @@ class MumblePost(Base):
             date = self.date.isoformat(),
             properties = properties
         )
-
-class MumbleIdentity(Base):
-    __tablename__ = 'mumble_identity'
-    
-    id = Column(Integer, primary_key=True)
-    sybolt_profile_id = Column(Integer, ForeignKey('sybolt_profile.id'))
-
-    nickname = Column(String)
-    password = Column(String)
-    #channel = Column(String)
-    
-    created_time = Column(DateTime, default=datetime.datetime.now)
-    
-    last_login_time = Column(DateTime, default=datetime.datetime.now)
-    last_login_ip = Column(String)
-
-    def get_avatar(self):
-        return '/img/default-profile-icon.png'
-
-    def serialize(self):
-        return dict(
-            id = self.id,
-            nickname = self.nickname,
-            password = self.password,
-            channel = None, # TODO: However this'll work.
-            created_time = self.created_time.isoformat(),
-            last_login_time = self.last_login_time.isoformat(),
-            last_login_ip = self.last_login_ip,
-            avatar_url = self.get_avatar()
-        )

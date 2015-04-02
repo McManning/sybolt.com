@@ -19,30 +19,19 @@ class SyboltProfile(Base):
 
     public_email = Column(Boolean, default=False)
     allow_newsletter = Column(Boolean, default=True)
-    
-    # References to other profiles we're tracking for this user
-    """
-    minecraft_profile_id = Column(Integer, ForeignKey('minecraft_profile.id'))
-    murmur_profile_id = Column(Integer, ForeignKey('murmur_profile.id'))
-    
-    minecraft_profile = relationship(
-        'MinecraftProfile', 
-        uselist=False, 
-        backref='sybolt_profile'
-    )
-    
-    """
-    
-    mumble_identities = relationship(
-        'MumbleIdentity',
-        backref='sybolt_profile'
-    )
 
     created_time = Column(DateTime, default=datetime.datetime.now)
     
     last_login_time = Column(DateTime, default=datetime.datetime.now)
     last_login_ip = Column(String)
 
+    # Linked Minecraft identity
+    minecraft_verification = Column(String)
+    minecraft_username = Column(String)
+
+    # Linked Steam account
+    steam_id = Column(String) # TODO: Fix datatype?
+    
     def get_avatar(self):
         """
             Retrieve the avatar associated with this profile.
@@ -77,7 +66,8 @@ class SyboltProfile(Base):
             public_email = self.public_email,
             created_time = self.created_time.isoformat(),
             last_login_time = self.last_login_time.isoformat(),
-            avatar_url = self.get_avatar()
+            avatar_url = self.get_avatar(),
+            minecraft_username = self.minecraft_username
         )
 
         # If they have a public email, or want full data, add that as well
@@ -86,15 +76,11 @@ class SyboltProfile(Base):
 
         if not only_public_data: # Add extended private data as well, if requested
 
-            if self.mumble_identities:
-                mumble_identities = [x.serialize() for x in self.mumble_identities]
-            else:
-                mumble_identities = None
-
             private_data = dict(
                 allow_newsletter = self.allow_newsletter,
                 last_login_ip = self.last_login_ip,
-                mumble_identities = mumble_identities
+                steam_id = self.steam_id,
+                minecraft_verification = self.minecraft_verification
             )
 
             # Merge the private data into the public as well if requested
