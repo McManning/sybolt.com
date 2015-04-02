@@ -274,3 +274,4 @@ class SteamAuthHandler(tornado.web.RequestHandler, SteamOpenIdMixin):
             self.write('Authorized as ' + str(user))
         else:
             yield self.authenticate_redirect()
+
