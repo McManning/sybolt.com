@@ -198,7 +198,7 @@ define([
                 console.log('Initializing player');
                 
                 $f('live-player', {
-                    src:"http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf",
+                    src:"http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf",
                     wmode: "opaque" // This allows the HTML to hide the flash content
                 }, {
                     clip: {
@@ -213,7 +213,7 @@ define([
                     },
                     plugins: {
                         rtmp: {
-                            url: "flowplayer.rtmp-3.2.12.swf",
+                            url: "flowplayer.rtmp-3.2.13.swf",
                             netConnectionUrl: rtmpUrl,
                             inBufferSeek: false
                         },
