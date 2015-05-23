@@ -10,7 +10,7 @@ from sybolt.models import *
 
 class LiveScheduleHandler(sybolt.web.RestRequestHandler):
 
-    def post(self, id): # TODO: Fix it so it's a PUT (for some reason, we're not allowed through access control)
+    def post(self, id = None): # TODO: Fix it so it's a PUT (for some reason, we're not allowed through access control)
         """
         PUT /api/live/schedule/id/1
 
@@ -19,8 +19,11 @@ class LiveScheduleHandler(sybolt.web.RestRequestHandler):
         Respond with:
             Different status responses (200, 404, 500, etc)
         """
-        query = self.application.db.query(MovieNight).filter(MovieNight.id == int(id))
-        movie = query.first()
+        if not id:
+            movie = MovieNight()
+        else:
+            query = self.application.db.query(MovieNight).filter(MovieNight.id == int(id))
+            movie = query.first()
 
         if not movie:
             json = dict(

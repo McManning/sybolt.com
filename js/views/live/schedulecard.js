@@ -70,10 +70,19 @@ define([
             // Re-render our model
             this.render();
 
+            var type = 'POST';
+            var url = App.getApiBaseUrl() + '/live/schedule';
+
+            // If it's an existing model, change the submission parameters 
+            if (this.model.id !== null) {
+                type = 'POST'; // See API for why PUT is failing with Tornado
+                url = App.getApiBaseUrl() + '/live/schedule/id/' + this.model.id;
+            }
+
             // Post our serialized form to the web service behind the scenes as well
             $.ajax({
-                type: 'POST', // TODO: Make this a PUT for RESTful-ness...
-                url: App.getApiBaseUrl() + '/live/schedule/id/' + this.model.id,
+                type: type,
+                url: url,
                 data: form.serialize(),
                 dataType: 'json',
                 success: function(response) {

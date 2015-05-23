@@ -33,6 +33,7 @@ class Application(tornado.web.Application):
             (r'/api/profile/([0-9]+)', sybolt.handlers.ProfileHandler),
             (r'/api/profile', sybolt.handlers.ProfileHandler),
             (r'/api/authenticate', sybolt.handlers.AuthHandler),
+            (r'/api/live/schedule', movienight.handlers.LiveScheduleHandler),
             (r'/api/live/schedule/id/([0-9]+)', movienight.handlers.LiveScheduleHandler),
             (r'/api/live/schedule/year/([0-9]+)/month/([0-9]+)', movienight.handlers.LiveScheduleHandler),
             (r'/api/movienight/recommendation/([0-9]+)', movienight.handlers.RecommendationHandler),
