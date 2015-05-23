@@ -297,6 +297,12 @@ define([
         },
 
         getApiBaseUrl: function() {
+            // Slight port hack for dev environment. TODO: Clean this up!
+            // Need a proper service discovery method. 
+            if (document.domain.indexOf('dev') == 0) {
+                return '//' + document.domain + ':8889/api';
+            }
+
             return '//' + document.domain + ':8888/api';
         }
     };
