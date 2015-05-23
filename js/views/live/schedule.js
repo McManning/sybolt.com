@@ -14,7 +14,8 @@ define([
         
         events: {
             'click #next-month': 'onClickNextMonth',
-            'click #last-month': 'onClickLastMonth'
+            'click #last-month': 'onClickLastMonth',
+            'click #add-schedule-card': 'onClickAddScheduleCard'
         },
 
         onClickNextMonth: function() {
@@ -37,6 +38,15 @@ define([
                 console.log(data);
                 self.updateMovies(data);
             });
+
+            return false;
+        },
+
+        onClickAddScheduleCard: function() {
+
+            var view = new ScheduleCardView({ model: null });
+            this.movieViews.push(view);
+            this.render();
 
             return false;
         },
