@@ -29,9 +29,9 @@ define([
                 $card.find('.details').addClass('hidden');
                 $card.find('.editor').removeClass('hidden');
             } 
-            else {
-                alert('You do not have permission to edit this movie');
-            }
+           // else {
+           //     alert('You do not have permission to edit this movie');
+           // }
             
             return false;
         },

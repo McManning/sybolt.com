@@ -60,7 +60,7 @@ define([
                 title: null,
                 trailer: null
             };
-            
+
             var view = new ScheduleCardView({ model: model });
             this.movieViews.push(view);
             this.render();
@@ -133,6 +133,7 @@ define([
             this.$el.html(this.template({
                 theme: this.theme,
                 movie_dates: movieDates,
+                profile: App.profile,
                 this_month: this.this_month,
                 next_month: (this.next_month) ? this.next_month.title : null,
                 last_month: (this.last_month) ? this.last_month.title : null
