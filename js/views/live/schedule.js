@@ -44,7 +44,16 @@ define([
 
         onClickAddScheduleCard: function() {
 
-            var view = new ScheduleCardView({ model: null });
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; 
+            var yyyy = today.getFullYear();
+
+            var model = {
+                date: yyyy + '-' + mm + '-' + dd,
+                date_fmt: 'UNK'
+            }
+            var view = new ScheduleCardView({ model: model });
             this.movieViews.push(view);
             this.render();
 
