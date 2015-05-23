@@ -40,6 +40,10 @@ class LiveScheduleHandler(sybolt.web.RestRequestHandler):
             movie.poster = self.get_argument('poster')
             movie.profile = self.get_argument('profile')
 
+            if not movie.id:
+                self.application.db.save(movie)
+                self.application.db.flush()
+
             # Save changes to the movie object
             self.application.db.commit()
 
