@@ -51,8 +51,16 @@ define([
 
             var model = {
                 date: yyyy + '-' + mm + '-' + dd,
-                date_fmt: 'UNK'
-            }
+                date_fmt: 'UNK',
+                id: null,
+                imdb: null,
+                poster: null,
+                profile: null,
+                synopsis: null,
+                title: null,
+                trailer: null
+            };
+            
             var view = new ScheduleCardView({ model: model });
             this.movieViews.push(view);
             this.render();
