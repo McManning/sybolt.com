@@ -3,6 +3,13 @@ label {
     display: block;
     font-size: 1.2em;
     margin-top: 0.5em;
+
+    // The required marker for form labels 
+    span.required-star {
+        margin-left: 0.25em;
+        color: #cd4848;
+    }
+
 }
 
 input[type="text"], input[type="password"], textarea {
@@ -76,6 +83,14 @@ fieldset {
             }
         }
 
+        &.required {
+            >label:after {
+                content: '*';
+                margin-left:0.25em;
+                color: #cd4848;
+            }
+        }
+        
         input[type="text"], input[type="password"], textarea {
             display: inline-block;
             width: 64%;

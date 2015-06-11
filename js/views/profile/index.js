@@ -5,11 +5,8 @@ define([
     'backbone',
     'app',
     'text!templates/profile/index.html',
-    'views/profile/minecraft-identity',
-    'views/profile/steam-identity',
-    'views/profile/mumble-identity',
     'serializejson'
-], function($, _, Backbone, App, Template, MinecraftIdentityView, SteamIdentityView, MumbleIdentityView) {
+], function($, _, Backbone, App, Template) {
     'use strict';
     
     var View = App.View.extend({
@@ -88,7 +85,7 @@ define([
 
         initialize: function() {
 
-            // TODO: Better security.
+            // TODO: Better security. I don't even want them loading this script.
             if (!App.profile) {
                 App.router.navigate('home', {trigger: true});
             }

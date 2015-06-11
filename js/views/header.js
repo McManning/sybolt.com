@@ -17,47 +17,8 @@ define([
         events: {
             "click .header-logo": "onHeaderLogoClick",
             "click #mmm-hamburgers": "onHamburgerClick",
-            "click .new-user-button": "onNewUserClick",
             "click .login-button": "onLoginClick",
             "click .logout-button": "onLogoutClick",
-        },
-
-        onNewUserClick: function() {
-
-            // Toggle based on current visibility
-            if ($('.register-fields').hasClass('hidden')) {
-                this.showRegistrationForm();
-            } 
-            else {
-                this.hideRegistrationForm();
-            }
-
-            return false;
-        },
-
-        hideRegistrationForm: function() {
-
-            // Switch back to Login form
-            $('.register-fields').addClass('hidden');
-            $('.login h1').html('Login');
-            $('.new-user-button').html('NEW HERE?');
-            $('.login-button').html('LOGIN');
-        },
-
-        showRegistrationForm: function() {
-
-            // If we're not on the home page, we need to navigate there
-            // to show the full registration form. Otherwise, it won't
-            // fit in the pulldown header.
-            var route = Backbone.history.fragment;
-            if (route !== 'home' && route !== 'home/register') {
-                App.router.navigate('home/register', {trigger: true});
-            }
-
-            $('.register-fields').removeClass('hidden');
-            $('.login h1').html('Register <a href="/faq/why-register">(Why?)</a>');
-            $('.new-user-button').html('NEVERMIND!');
-            $('.login-button').html('REGISTER');
         },
 
         onLogoutClick: function() {
@@ -97,81 +58,39 @@ define([
 
             var $form = $('form.login-form');
 
-            if ($('.register-fields').hasClass('hidden')) {
-                // If registration fields are hidden, run one more validator pass.
-                // If all looks good on the front end, pass to the server for a login attempt.
-                $form.validate(function(success) {
-                    if (success) {
+            // Run one more validator pass.
+            // If all looks good on the front end, pass to the server for a login attempt.
+            $form.validate(function(success) {
+                if (success) {
+                    // Push login attempt
+                    $.ajax({
+                        type: 'POST',
+                        url: App.getApiBaseUrl() + '/authenticate',
+                        data: $form.serialize(),
+                        dataType: 'json',
+                        crossDomain: true,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function(json) {
+                            console.log('success', json);
 
-                        // Push login attempt
-                        $.ajax({
-                            type: 'POST',
-                            url: App.getApiBaseUrl() + '/authenticate',
-                            data: $form.serialize(),
-                            dataType: 'json',
-                            crossDomain: true,
-                            xhrFields: {
-                                withCredentials: true
-                            },
-                            success: function(json) {
-                                console.log('success', json);
-                                //var profile = new SyboltProfile(json);
-                                //window.App.setProfile(json);
-
-                                // Force our application to reload entirely, 
-                                // in case there needs to be content/permission changes after login.
-                                window.location.reload();
-                            },
-                            error: function(jqXHR) {
-                                if (jqXHR.responseJSON) {
-                                    alert(jqXHR.responseJSON.message);
-                                }
-                                else {
-                                    alert('An unspecified error has occurred while trying to login.');
-                                }
+                            // Force our application to reload entirely, 
+                            // in case there needs to be content/permission changes after login.
+                            window.location.reload();
+                        },
+                        error: function(jqXHR) {
+                            if (jqXHR.responseJSON) {
+                                alert(jqXHR.responseJSON.message);
                             }
-                        });
-                    }
-                });
-            }
-            else {
-                // If registration fields are visible, run one more validator pass.
-                // If all looks good on the front end, pass to the server for a registration attempt.
-                $form.validate(function(success) {
-                    if (success) {
-
-                        // Push register attempt
-                        $.ajax({
-                            type: 'POST',
-                            url: App.getApiBaseUrl() + '/profile',
-                            data: $form.serialize(),
-                            dataType: 'json',
-                            crossDomain: true,
-                            xhrFields: {
-                                withCredentials: true
-                            },
-                            success: function(json) {
-                                console.log('success', json);
-                                //var profile = new SyboltProfile(json);
-                                //window.App.setProfile(json);
-
-                                // Force our application to reload entirely, 
-                                // in case there needs to be content/permission changes after login.
-                                window.location.reload();
-                            },
-                            error: function(jqXHR) {
-                                if (jqXHR.responseJSON) {
-                                    alert(jqXHR.responseJSON.message);
-                                }
-                                else {
-                                    alert('An unspecified error has occurred while trying to login.');
-                                }
+                            else {
+                                alert('An unspecified error has occurred while trying to login.');
                             }
-                        });
-                    }
-                });
-            }
-
+                        }
+                    });
+                }
+            });
+           
             return false;
         },
 
@@ -223,8 +142,6 @@ define([
 
             // Wait until the closing animation is complete until we consider
             // ourselves closed
-            //$('#header').delay(2000).addClass('closed');
-
             window.setTimeout(function(){
                 $('#header').addClass('closed');
             }, 500);
@@ -259,11 +176,6 @@ define([
 
             this.hideNavigation();
 
-            if (style !== 'home') {
-                this.hideRegistrationForm();
-            }
-            
-            //this.render();
             return this;
         }
     });

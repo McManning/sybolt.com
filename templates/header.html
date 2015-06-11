@@ -18,35 +18,20 @@
     <div class="login">
         <h1>Login</h1>
         <form class="login-form inverted">
-            <label for="username">USERNAME</label>
-            <input id="username" name="username" type="text" value="" data-validate="required,min(4)" />
-            <div class="validation-error hidden" data-for="username"></div>
+            <label for="login-username">USERNAME</label>
+            <input id="login-username" name="username" type="text" value="" data-validate="required,min(4)" />
+            <div class="validation-error hidden" data-for="login-username"></div>
 
-            <label for="password">PASSWORD</label>
-            <input id="password" name="password" type="password" value="" data-validate="required,min(8)" />
-            <div class="validation-error hidden" data-for="password"></div>
+            <label for="login-password">PASSWORD</label>
+            <input id="login-password" name="password" type="password" value="" data-validate="required,min(8)" />
+            <div class="validation-error hidden" data-for="login-password"></div>
 
-            <div class="register-fields hidden">
-                <label for="password2">PASSWORD (AGAIN)</label>
-                <input id="password2" name="password2" type="password" value="" data-validate="required,min(8),newPasswordConfirm" />
-                <div class="validation-error hidden" data-for="password2"></div>
-
-                <label for="invite">INVITATION CODE</label>
-                <input id="invite" name="invite" type="password" value="" data-validate="required,min(8)" />
-                <div class="validation-error hidden" data-for="invite"></div>
-
-                <input id="agreement" name="agreement" type="checkbox" data-validate="agreement" />
-                <label for="agreement">
-                    I AGREE TO MY <a data-bypass="true" href="/legal/terms" target="_BLANK">TERMS OF SURRENDER</a>
-                    <div class="validation-error hidden" data-for="agreement"></div>
-                </label>
-                
-            </div>
             <div class="controls">
                 <!-- Since there's not a native "Submit" button, hitting enter on a form input will trigger
                     the first button in the list. So we have to shuffle them a bit... -->
+                <a class="button" href="/register">NEW HERE?</a>
                 <button type="submit" class="login-button bordered purple">LOGIN</button>
-                <button type="button" class="new-user-button purple">NEW HERE?</button>
+                
             </div>
         </form>
     </div>
@@ -60,15 +45,13 @@
         <a href="/projects"><h2>PROJECTS</h2><img src="/img/icon/projects.svg"/></a>
         <a href="/live"><h2>LIVE</h2><img src="/img/icon/live.svg"/></a>
         <a href="/mumble"><h2>MUMBLE</h2><img src="/img/icon/mumble.svg"/></a>
-
         <a href="/profile"><h2>PROFILE</h2><img class="avatar" src="<%- profile.avatar_url %>"/></a>
         <% } else { %>
         <a href="/soon"><h2>MINECRAFT</h2><img src="/img/icon/minecraft.svg"/></a>
         <a href="/soon"><h2>PROJECTS</h2><img src="/img/icon/projects.svg"/></a>
         <a href="/live"><h2>LIVE</h2><img src="/img/icon/live.svg"/></a>
         <a href="/soon"><h2>MUMBLE</h2><img src="/img/icon/mumble.svg"/></a>
-
-        <a class="flash-login" href="#"><h2>LOGIN</h2><img src="/img/icon/login.svg"/></a>
+        <a href="/register"><h2>REGISTER</h2><img src="/img/icon/login.svg"/></a>
         <% } %> 
     </div>
 
