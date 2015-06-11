@@ -21,7 +21,7 @@ define([
         initialize: function() {
 
             // Start at the first (0th) page for posts
-            this.next_page = '/api/mumble/posts/page/0';
+            this.next_page = '/mumble/posts/page/0';
         },
 
         close: function() {
@@ -80,8 +80,8 @@ define([
                     if (post.type == 'image') {
                     
                         element.css({
-                            width: post.properties.width + 'px',
-                            height: post.properties.height + 'px',
+                            width: post.metadata.width + 'px',
+                            height: post.metadata.height + 'px',
                             background: 'url(' + post.url + ')'
                             //background: 'rgb('+r+','+g+','+b+')'
                         });
