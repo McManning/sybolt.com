@@ -48,7 +48,11 @@ class SyboltProfile(Base):
         # where the numbers are a md5(lowercase(email)) s=64 is dimensions and d=404 
         # forces a 404 response if the user does not have an avatar on Gravatar
 
-        return '/img/minecraft/heads/head-64_noligorithm.png'
+        # TODO! Stuff!
+        if self.minecraft_username:
+            return '/img/minecraft/heads/head-64_{}.png'.format(self.minecraft_username)
+
+        return '/img/default-profile-icon.png'
 
 
     def serialize(self, only_public_data = False):
@@ -64,8 +68,8 @@ class SyboltProfile(Base):
             id = self.id,
             username = self.username,
             public_email = self.public_email,
-            created_time = self.created_time.isoformat(),
-            last_login_time = self.last_login_time.isoformat(),
+            created_time = self.created_time.isoformat() if self.created_time else None,
+            last_login_time = self.last_login_time.isoformat() if self.last_login_time else None,
             avatar_url = self.get_avatar(),
             minecraft_username = self.minecraft_username
         )

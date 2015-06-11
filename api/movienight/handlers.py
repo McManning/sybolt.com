@@ -106,26 +106,6 @@ class LiveScheduleHandler(sybolt.web.RestRequestHandler):
             .order_by(MovieNight.date)\
             .all()
 
-        # TODO: TEMP HACK: Since we don't use profile associations in movies yet,
-        # we'll iterate all movie objects returned and replace the profile attribute
-        # with a serialized SyboltProfile if one should exist, or a placeholder if one
-        # does not. 
-        for movie in movies:
-            if movie.profile:
-                sybolt_profile = self.application.db.query(SyboltProfile)\
-                    .filter(SyboltProfile.username == movie.profile)\
-                    .first()
-
-                # If a user exists with that username, serialize it into the profile attrib
-                if sybolt_profile:
-                    movie.real_profile = sybolt_profile.serialize(only_public_data = True)
-                else: # If not, provide some generic base-information
-                    movie.real_profile = dict(
-                        username = movie.profile,
-                        registered = False,
-                        avatar_url = '/img/default-profile-icon.png'
-                    )
-                    
         # Finally compile our results into a JSON response 
         json = dict(
             title = '%s %s' % (search_month.strftime('%B'), search_month.year),

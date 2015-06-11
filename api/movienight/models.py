@@ -3,8 +3,9 @@ import datetime
 
 from sqlalchemy import Column, String, Integer, Boolean, Date, DateTime, ForeignKey
 from sqlalchemy.orm import relationship, backref, deferred
+from sqlalchemy.orm.session import object_session
 
-from sybolt.models import Base
+from sybolt.models import Base, SyboltProfile
 
 class MovieNight(Base):
     __tablename__ = 'movie_night'
@@ -32,9 +33,22 @@ class MovieNight(Base):
     # at least until we start using them
     profile = Column(String)
 
-    real_profile = None
-
     def serialize(self):
+
+        session = object_session(self)
+
+        profile = None
+        if self.profile:
+            profile = session.query(SyboltProfile)\
+                .filter(SyboltProfile.username == self.profile)\
+                .first()
+
+        # If a user doesn't exist with that username, 
+        # provide some generic information
+        if not profile:
+            profile = SyboltProfile()
+            profile.username = self.profile
+
         return dict(
             id = self.id,
             date = self.date.strftime('%Y-%m-%d'),
@@ -44,8 +58,7 @@ class MovieNight(Base):
             trailer = self.trailer or None,
             imdb = self.imdb or None,
             poster = self.poster or None,
-            # If we loaded a SyboltProfile (or other) into real_profile, use that. Otherwise, just use whatever is in profile
-            profile = self.real_profile if self.real_profile else self.profile or None
+            profile = profile.serialize(only_public_data = True)
             #recommendations = [r.serialize() for r in self.recommendations],
             #profile = self.profile.serialize()
         )

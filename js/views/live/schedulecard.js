@@ -50,44 +50,31 @@ define([
         },
 
         onClickSaveEditMovie: function(e) {
-
             this.onClickCancelEditMovie(e);
 
             var $card = $(e.target).closest('.schedule-card');
-
-            var form = $card.find('.editor form');
-            var props = form.serializeArray();
-
-            // Copy the updated properties back onto our model
-            _.each(props, function(prop) {
-                if (prop.value.length < 1) {
-                    this.model[prop.name] = null;
-                } else {
-                    this.model[prop.name] = prop.value;  
-                }
-            }, this);
-
-            // Re-render our model
-            this.render();
+            var $form = $card.find('.editor form');
 
             var type = 'POST';
             var url = App.getApiBaseUrl() + '/live/schedule';
 
             // If it's an existing model, change the submission parameters 
             if (this.model.id !== null) {
-                type = 'POST'; // See API for why PUT is failing with Tornado
+                type = 'POST'; // TODO: See API for why PUT is failing with Tornado
                 url = App.getApiBaseUrl() + '/live/schedule/id/' + this.model.id;
             }
 
             // Post our serialized form to the web service behind the scenes as well
+            var self = this;
             $.ajax({
                 type: type,
                 url: url,
-                data: form.serialize(),
+                data: $form.serialize(),
                 dataType: 'json',
                 success: function(response) {
-                    alert('Posted!');
-                    console.log(response);
+                    // Set the updated model to whatever the server tells us
+                    self.model = response
+                    self.render();
                 }
             })
 
