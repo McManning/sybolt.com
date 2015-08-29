@@ -80,7 +80,7 @@ div.help {
 
 /* Verify.js validation error form elements */
 div.validation-error {
-    color: lighten(@alert-red, 15%);
+    color: lighten($alert-red, 15%);
 
     &:before {
         content: '\2718';
@@ -89,5 +89,5 @@ div.validation-error {
 }
 
 span.green, h1.green, h2.green {
-    color: @green;
+    color: $green;
 }

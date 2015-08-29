@@ -31,8 +31,8 @@
   /* Verify.js error class */
   input[type="checkbox"]:not(:checked).error + label:before,
   input[type="checkbox"]:checked.error + label:before {
-      box-shadow: 0 0 0 2px @alert-red;
-      border: 1px solid @alert-red;
+      box-shadow: 0 0 0 2px $alert-red;
+      border: 1px solid $alert-red;
   }
 
   /* checked mark aspect */
@@ -42,7 +42,7 @@
     position: absolute;
     top: 0; left: 4px;
     font-size: 26px;
-    color: @green;
+    color: $green;
     transition: all .2s;
   }
   /* checked mark aspect changes */

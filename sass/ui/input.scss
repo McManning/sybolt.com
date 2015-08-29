@@ -19,9 +19,7 @@ input[type="text"], input[type="password"], textarea {
 
     // Set box sizing to account for margin/padding when calculating size 
     // (for things like setting width: 100%)
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
+    @include box-sizing(border-box);
 
     border: 1px solid #4D4B49;
     color: #4D4B49;
@@ -29,7 +27,7 @@ input[type="text"], input[type="password"], textarea {
 
     border-radius: 4px;
     padding: 0.25em;
-    .transition(all 0.1s ease-in-out);
+    @include transition(all 0.1s ease-in-out);
     outline: none;
     /* box-shadow: 0 0 5px 2px #685475; */
     /* border: 1px solid #685475; */
@@ -40,8 +38,8 @@ input[type="text"], input[type="password"], textarea {
     }
 
     &.error {
-        box-shadow: 0 0 0 2px @alert-red;
-        border: 1px solid @alert-red;
+        box-shadow: 0 0 0 2px $alert-red;
+        border: 1px solid $alert-red;
     }
 
     &[readonly] {

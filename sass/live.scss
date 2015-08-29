@@ -6,15 +6,7 @@
     width: 100%;
     max-height: 100%;
     background: #2e2c2a;
-}
-
-#live-player-container {
-    width: 100%; /* 100vw; */ 
-    /* JS height: 56.25vw; */ /* 100/56.25 = 1.778 */
-    height: 100%;
-    background: #2e2c2a;
-    /* JS max-width: 177.78vh; */ /* 16/9 = 1.778 */
-    margin: auto;
+    margin-bottom: 1.5em;
 }
 
 #live-player {
@@ -73,15 +65,14 @@
              /live Schedule Cards      
 ************************************************/
 
-div.viewers {
+#viewers-view-container {
     padding: 1em 0;
 }
 
-div.schedule {
-    padding: 1em 0;
+#schedule-view-container {
 
     .nav {
-        margin: 24px 24px 10px 24px;
+        margin: 1em 0;
         text-align: center;
 
         #next-month {
@@ -117,7 +108,7 @@ div.schedule-card {
     max-width: 480px;
     width: 480px;
     display: inline-block;
-    margin: 24px;
+    margin: 1em;
 
     .title { // Top title card
         height: 64px;
@@ -181,7 +172,7 @@ div.schedule-card {
         border: 1px solid #ACA69F;
 
         // Fixed height for movie poster + content
-        height: 178px;
+        height: 231px;
         overflow: hidden;
 
         /*
@@ -194,16 +185,17 @@ div.schedule-card {
         }
         */
 
-        .poster { // Movie poster (IMDb sourced)
+        .poster { // Movie poster (TMDB sourced)
             float: left;
-            width: 120px;
+            width: 154px;
             height: auto; //178px;
             background: #000000;
         }
 
         .content { // Details about the movie being played
-            margin-left: 130px;
+            margin-left: 160px;
             padding-top: 5px;
+            padding-right: 5px;
 
             .synopsis {
                 padding-left: 1em;
@@ -238,4 +230,182 @@ div.schedule-card {
             }
         }
     }
+}
+
+#request-view-container .content-left,
+#schedule-view-container .content-left {
+    margin-bottom: 3em;
+}
+
+#tmdb-search {
+    display: table;
+    width: 80%;
+    margin: 1em auto;
+
+    input {
+        width: 80%;
+        display: table-cell;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    button {        
+        padding: 0.25em !important;
+        display: table-cell;
+        width: 20%;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        border-left: none;
+    }
+}
+
+#search-error {
+    font-size: 1.5em;
+    text-align: center;
+    color: #cd4848;
+}
+
+.isotope-container {
+    width: 100%;
+}
+
+.search-result, .favorite-movie {
+    display: inline-block;
+    width: 154px;
+    height: 231px;
+    margin: 0.5em;
+
+    -webkit-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.75);
+    cursor: pointer;
+
+    // Enforce image dimensions as we have a guaranteed
+    // width from TMDB, but not a guaranteed height.
+    img {
+        width: 154px;
+        height: 231px;
+    }
+
+    // Raise results a bit on hover
+    &:hover {
+        -webkit-box-shadow: 0px 5px 15px 0 rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 5px 15px 0 rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 5px 15px 0 rgba(0, 0, 0, 0.75);
+        margin-top: 0.5em - 0.3em;
+        margin-bottom: 0.5em + 0.3em;
+    }
+}
+
+.posters-container {
+    margin: 1em 0;
+}
+
+.movie-details-container {
+    margin: 1em 0;
+    position: relative;
+
+    a.movie-details-prev {
+        font-size: 5em;
+        text-decoration: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    a.movie-details-next {
+        font-size: 5em;    
+        text-decoration: none;    
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+}
+
+.movie-details {
+    border: 1px solid #ACA69F;
+    position: relative;
+    background-size: cover;  
+    width: 90%;
+    margin: 0 auto;
+
+    img.poster {
+        width: 154px;
+        height: 231px;
+
+        -webkit-box-shadow: 0px 3px 10px 0 rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 3px 10px 0 rgba(0,0,0,0.75);
+        box-shadow: 0px 3px 10px 0 rgba(0,0,0,0.75);
+    }
+
+    .show-posters {
+        float: right;
+        margin: 1em;
+    }
+
+    .left-controls {
+        float: left;
+        margin-left: 1.25em;
+        margin-top: 1.25em;
+        width: 154px;
+
+        button {
+            margin-top: 1em;
+            width: 100%;
+        }
+    }
+
+    .bottom-controls {
+        position: absolute;
+        bottom: 1em;
+        right: 1em;
+
+        button {
+            margin-left: 1em;
+        }
+    }
+
+    .details {
+        width: 100%;
+        min-height: 400px;
+        background-color: rgba(236, 230, 221, 0.8);
+
+        h1 {
+            font-size: 1.5em;
+            padding-top: 0.8em;
+            margin-left: 200px;
+
+            .year {
+                margin-left: 0.5em;
+                font-size: 0.8em;
+            }
+        }
+
+        dl {
+            margin-left: 200px;
+            margin-right: 1em;
+            padding-bottom: 3em;
+        }
+
+        dt {
+            margin-top: 1em;
+            font-weight: bold;
+        }
+
+        dd {
+            margin-left: 1em;
+
+            // Resize and shift to the left a little for the star icons
+            &.vote-average {
+                font-size: 1.5em;
+                margin-left: 0.5em;
+            }
+        }
+    }
+
+}
+
+#movie-details-container {
+    margin: 2em 0;
 }

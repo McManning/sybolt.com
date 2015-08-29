@@ -116,6 +116,12 @@ div.content-left > h1 {
 
 div.content-left > h1.full-width {
     max-width: 100%;
+
+    button {
+        float: right;
+        font-size: 0.5em;
+        margin-top: 0.4em;
+    }
 }
 
 /* Right aligned content container */

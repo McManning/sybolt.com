@@ -4,8 +4,7 @@ define([
     'underscore',
     'backbone',
     'app',
-    'text!templates/register/index.html',
-    'serializejson'
+    'text!templates/register/index.html'
 ], function($, _, Backbone, App, Template) {
     'use strict';
     

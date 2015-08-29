@@ -1,0 +1,45 @@
+
+// Clean up browser differences
+@import "normalize";
+
+// Mixins
+@import "prefixer";
+@import "mixins";
+
+// TODO: Move these definitions elsewhere
+$light-purple: #977FA6;
+$purple: #685475;
+$green: #14945E; // #17BA75; // #09AD7E;
+$grey: #D0D0D0;
+$primary: #D9D1C7;
+$secondary: #2E2C2A;
+$light-grey: #E6E6E6;
+$alert-red: #9D2B2B;
+
+// Third party CSS
+@import "select2.css";
+
+// LESS Files
+@import "global.scss";
+
+@import "header.scss";
+@import "footer.scss";
+
+@import "ui/input.scss";
+@import "ui/checkbox.scss";
+@import "ui/button.scss";
+
+// Sybolt Live page styles
+@import "live.scss";
+
+// Coming soon page
+@import "soon.scss";
+
+@import "minecraft.css";
+@import "timeline.css";
+@import "servers.css";
+@import "mumble.scss";
+@import "profile.scss";
+@import "register.scss";
+
+//@import "responsive.css";

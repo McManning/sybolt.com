@@ -3,3 +3,10 @@
 *.sublime-workspace
 .htaccess
 sybot_images
+*.diff
+*.patch
+.bower.json
+.sass-cache
+/node_modules
+/nocommit
+/dist
