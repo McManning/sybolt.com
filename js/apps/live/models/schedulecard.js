@@ -1,40 +1,17 @@
 
 define([
     'underscore',
-    'backbone',
-    'models/profile',
-    'collections/profiles'
-], function(_, Backbone, ProfileModel, ProfilesCollection) {
-    'use strict';
-    
+    'backbone'
+], function(_, Backbone) {
+
     /**
-     * Polls the RTMP live stream service and checks for 
-     * changes to the stream url, publisher, viewers, etc
+     * Retrieve 
      */
-    var LiveModel = Backbone.Model.extend({
-        urlRoot: 'http://dev.sybolt.com:25554/live',
-        
-        defaults: {
-            polling_interval: 5000,
-        },
+    var ScheduleCardModel = Backbone.Model.extend({
+        //urlRoot: 'http://dev.sybolt.com:25554/live',
         
         initialize: function() {
-        
-            this.polling = false;
-            this.publisher = new ProfileModel();
-            this.viewers = new ProfilesCollection();
-            
-            // Get underscore to force our onFetch to stay in scope of the model when
-            // called via setTimeout
-            _.bindAll(this, 'executePolling', 'onFetch', 'onFetchError');
-        },
-        
-        isPublishing: function() {
-            return !this.hasError() && this.get('publishing') === true;
-        },
-        
-        hasError: function() {
-            return this.get('error') !== undefined;
+
         },
         
         /* Methods for the model constantly poll for updates from the server */

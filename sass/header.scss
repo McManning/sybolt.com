@@ -1,5 +1,5 @@
 
-div#header {
+header {
     position: fixed;
     right: 0;
     left: 0;
@@ -119,11 +119,11 @@ div.header-content > div.header-name {
 }
 
 // TODO: Let transparent work for any style, not just MC
-#header.transparent.closed, #header.transparent.closed .logo-background {
+header.transparent.closed, header.transparent.closed .logo-background {
     background: none;
 }
 
-#header {
+header {
 
     &.live-style {
         // Unfix the header to scroll with content
@@ -163,7 +163,7 @@ div.header-content > div.header-name {
 .header-content {
 
     // Link list of available pages
-    .pages {
+    div.pages {
         text-align: right;
         margin-top: 45px;
         
@@ -197,34 +197,8 @@ div.header-content > div.header-name {
         }
     }
 
-    // Summary of the current page 
-    .current-page {
-        float: left;
-        margin-top: 45px;
-
-        h1 {
-            font-size: 2.5em;
-            padding: 7px 14px;
-            font-weight: 600;
-        }
-
-        a {
-            text-decoration: none;
-            color: #E6E6E6;
-
-            padding: 7px 14px;
-        }
-
-        img {
-            width: 36px;
-            height: 36px;
-            margin-right: 14px;
-            background: #FFFFFF;
-        }
-    }
-
     // Profile form (when we're already logged in)
-    .profile {
+    div.profile {
         float: left;
         margin-top: 42px;
         margin-left: 14px;
@@ -242,7 +216,7 @@ div.header-content > div.header-name {
     }
 
     // Login form
-    .login {
+    div.login {
         float: left;
         margin-top: 42px;
 
@@ -271,7 +245,7 @@ div.header-content > div.header-name {
 }
 
 
-#header h2 {
+header h2 {
     font-size: 1.8em;
     font-weight: 400;
     display: inline-block;
@@ -287,7 +261,7 @@ div.header-content > div.header-name {
     vertical-align: bottom;
 }
 
-#header.open h2 {
+header.open h2 {
     margin-right: 0;
     opacity: 1;
 }
@@ -366,11 +340,11 @@ div.header-content > div.header-name {
 }
 
 
-#header.home-style .current-page {
+header.home-style .current-page {
     display: none;
 }
 
-#header.home-style .login {
+header.home-style .login {
     display: block;
 }
 
@@ -388,7 +362,7 @@ svg#sybolt-logo {
     cursor: default;
 }
 
-#header.home-style {
+header.home-style {
     // Resize to native 
     svg#sybolt-logo {
         width: 505px;
@@ -436,7 +410,7 @@ svg#sybolt-logo path.moon:hover {
 */
 
 @media (max-width: 1200px) {
-    #header.home-style svg#sybolt-logo {
+    header.home-style svg#sybolt-logo {
         width: 360px;
         height: 375px;
         margin-left: -180px;

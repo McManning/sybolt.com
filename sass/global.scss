@@ -20,7 +20,10 @@ html, body {
 body {
     background: #D9D1C7;
     font: 1.2em 'Lato', Arial;
-    color: #2e2c2a; 
+    color: #2e2c2a;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 h1 {
@@ -57,13 +60,8 @@ a {
 .clearfix { display: block; }
 /* close commented backslash hack */
 
-#sybolt-app {
-    min-height: 100%;
-    position: relative;
-}
-
-#content {
-    padding-bottom: 150px;
+main {
+    flex: 1 0 auto;
 }
 
 div.help {

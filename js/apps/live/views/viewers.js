@@ -3,30 +3,31 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!templates/live/viewers.html'
-], function($, _, Backbone, liveViewersTemplate) {
-    'use strict';
-    
+    'text!live/templates/viewers.html'
+], function($, _, Backbone, Template) {
+
     var LiveViewersView = Backbone.View.extend({
-        template: _.template(liveViewersTemplate),
+        template: _.template(Template),
         
         initialize: function() {
             // Collection stuff
             
-            this.model.viewers
+            // TODO: Fix!
+           /* this.model.viewers
                 .on('add', this.onAddViewer, this)
                 .on('remove', this.onRemoveViewer, this)
                 .on('change', this.onUpdateViewer, this)
-                .on('reset', this.onClearViewers, this);
+                .on('reset', this.onClearViewers, this); */
         },
         
         close: function() {
             
-            this.model.viewers
+            // TODO: Fix!
+           /* this.model.viewers
                 .off('add', this.onAddViewer)
                 .off('remove', this.onRemoveViewer)
                 .off('change', this.onUpdateViewer)
-                .off('reset', this.onClearViewers);
+                .off('reset', this.onClearViewers);*/
         
             this.remove();
         },
@@ -60,12 +61,12 @@ define([
         render: function() {
             
             // If we have no viewers, hide container element
-            if (!this.model.viewers.models || this.model.viewers.models.length < 1) {
+            if (!this.model.viewers || this.model.viewers.length < 1) {
                 this.$el.addClass('hidden');
             } 
             else {
                 this.$el.removeClass('hidden').html(this.template({
-                    viewers: this.model.viewers.models,
+                    viewers: this.model.viewers,
                     publisher: this.model.publisher
                 }));    
             }

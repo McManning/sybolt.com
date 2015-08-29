@@ -2,18 +2,37 @@
 define([
     'underscore',
     'backbone',
-    'models/profile'
-], function(_, Backbone, ProfileModel) {
+], function(_, Backbone) {
     'use strict';
     
     /**
-     * Retrieve 
+     * Polls the RTMP live stream service and checks for 
+     * changes to the stream url, publisher, viewers, etc
      */
-    var ScheduleCardModel = Backbone.Model.extend({
-        //urlRoot: 'http://dev.sybolt.com:25554/live',
+    var LiveModel = Backbone.Model.extend({
+        urlRoot: 'http://dev.sybolt.com:25554/live',
+        
+        defaults: {
+            polling_interval: 5000,
+        },
         
         initialize: function() {
-
+        
+            this.polling = false;
+            this.publisher = null;
+            this.viewers = [];
+            
+            // Get underscore to force our onFetch to stay in scope of the model when
+            // called via setTimeout
+            _.bindAll(this, 'executePolling', 'onFetch', 'onFetchError');
+        },
+        
+        isPublishing: function() {
+            return !this.hasError() && this.get('publishing') === true;
+        },
+        
+        hasError: function() {
+            return this.get('error') !== undefined;
         },
         
         /* Methods for the model constantly poll for updates from the server */
@@ -55,13 +74,15 @@ define([
         parse: function(response, xhr) {
 
             if ('publisher' in response) {
-                this.publisher.set(response.publisher);
+                this.publisher = response.publisher;
             } else {
                 // Clear publisher
-                this.publisher.set('online', false);
+                this.publisher = null;
             }
             
+            /* TODO: Rewrite! Less backbone collections please!
             if ('clients' in response) {
+                
                 // Merge our new ProfileModels with the viewers, firing
                 // off add/remove/change events as necessary.
                 var merged = this.viewers.set(response.clients, {parse: true, merge:true, remove: false});
@@ -97,7 +118,8 @@ define([
                 // Clear viewers
                 this.viewers.reset();
             }
-            
+            */
+
             return {
                 publishing: response.publishing,
                 rtmp_url: response.rtmp_url,

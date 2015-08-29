@@ -3,12 +3,10 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'app',
-    'text!templates/live/schedulecard.html'
-], function($, _, Backbone, App, Template) {
-    'use strict';
-    
-    var ScheduleCardView = App.View.extend({
+    'text!live/templates/schedulecard.html'
+], function($, _, Backbone, Template) {
+
+    var ScheduleCardView = Backbone.View.extend({
         template: _.template(Template),
         
         events: {

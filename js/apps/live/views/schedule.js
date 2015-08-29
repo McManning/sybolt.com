@@ -3,14 +3,12 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'app',
-    'text!templates/live/schedule.html',
-    'views/live/schedulecard'
-], function($, _, Backbone, App, liveScheduleTemplate, ScheduleCardView) {
-    'use strict';
-    
+    'text!live/templates/schedule.html',
+    'live/views/schedulecard'
+], function($, _, Backbone, Template, ScheduleCard) {
+
     var LiveScheduleView = Backbone.View.extend({
-        template: _.template(liveScheduleTemplate),
+        template: _.template(Template),
         
         events: {
             'click #next-month': 'onClickNextMonth',
@@ -61,7 +59,7 @@ define([
                 trailer: null
             };
 
-            var view = new ScheduleCardView({ model: model });
+            var view = new ScheduleCard({ model: model });
             this.movieViews.push(view);
             this.render();
 
@@ -79,6 +77,7 @@ define([
             var self = this;
             // Retrieve our current schedule
             var now = new Date();
+            /* TODO: Fix!
             $.getJSON(App.getApiBaseUrl() + '/live/schedule/year/' + now.getFullYear() + '/month/' + (now.getMonth() + 1))
                 .success(function(json) {
                     self.updateMovies(json);
@@ -86,6 +85,7 @@ define([
                 .error(function() {
                     alert('Error contacting API: Could not retrieve schedule.');
                 });
+            */
         },
 
         updateMovies: function(json) {
@@ -133,7 +133,7 @@ define([
             this.$el.html(this.template({
                 theme: this.theme,
                 movie_dates: movieDates,
-                profile: App.profile,
+                profile: {}, //App.profile,
                 this_month: this.this_month,
                 next_month: (this.next_month) ? this.next_month.title : null,
                 last_month: (this.last_month) ? this.last_month.title : null

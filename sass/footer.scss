@@ -1,22 +1,21 @@
 
-div#footer {
-    position: absolute;
-    bottom: 0;
+footer {
     height: 150px;
     width: 100%;
     background: #2e2c2a url('/img/footer-logo.png') no-repeat;
     background-position: right;
     border-top: 2px solid grey;
     color: white;
+    box-sizing: border-box;
 }
 
-div#footer > div.footer-content {
+footer > div.footer-content {
     width: 1000px;
     margin: 0 auto;
     text-align: center;
 }
 
-div#footer h1 {
+footer h1 {
     font: 20px verdana, sans-serif;
     color: white;
     text-align: center;
@@ -24,7 +23,7 @@ div#footer h1 {
     margin: 0.8em 0;
 }
 
-div#footer p {
+footer p {
     font-size: 0.8em;
     color: white;
     margin: 0;
@@ -32,7 +31,7 @@ div#footer p {
     padding-bottom: 0.5em;
 }
 
-div#footer a {
+footer a {
     color: white;
     font-size: 0.8em;
 }
@@ -78,22 +77,22 @@ div.footer-content {
 }
 
 @media (max-width: 1024px) {    
-    div#footer > div.footer-content {
+    footer > div.footer-content {
         width: 100%;
     }
     
     /* Footer is a bit wider than content, so drop a section */
-    div#footer > div.footer-content > div.about-page {
+    footer > div.footer-content > div.about-page {
         display: none;
     }
 }
 
 @media (max-width: 700px) {
-    div#footer > div.footer-content > div.about-site {
+    footer > div.footer-content > div.about-site {
         display: none;
     }
     
-    div#footer > div.footer-content > div.share {
+    footer > div.footer-content > div.share {
         margin: 0;
     }
 }

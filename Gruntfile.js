@@ -21,14 +21,52 @@ module.exports = function(grunt) {
                 unused: true
             }
         },
+        requirejs: {
+            test: {
+                options: {
+                    baseDir: 'js/apps',
+                    mainConfigFile: 'js/apps/config.js',
+                    wrap: true,
+                    name: 'test',
+                    optimize: 'none',
+                    out: 'js/apps/build/test.js',
+                    exclude: [
+                        'backbone',
+                        'underscore',
+                        'jquery',
+                        'text'
+                    ]
+                }
+            },
+            live: {
+                options: {
+                    baseDir: 'js/apps',
+                    mainConfigFile: 'js/apps/config.js',
+                    wrap: true,
+                    name: 'live',
+                    optimize: 'none',
+                    out: 'js/apps/build/live.js',
+                    exclude: [
+                        'backbone',
+                        'underscore',
+                        'jquery',
+                        'text',
+                        'isotope',
+                        'flowplayer'
+                    ]
+                }
+            }
+        },
         uglify: {
             options: {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n',
-                preserveComments: false
+                preserveComments: false,
+                sourceMap: true
             },
             dist: {
                 files: {
-                    'js/app.min.js': ['js/app.js']
+                    'js/apps/build/test.min.js': ['js/apps/build/test.js'],
+                    'js/apps/build/live.min.js': ['js/apps/build/live.js']
                 }
             }
         },
@@ -60,11 +98,11 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.loadNpmTasks('grunt-contrib-copy');
 
     // Full build task
-    grunt.registerTask('default', ['jshint', /*'uglify',*/ 'sass']);
+    grunt.registerTask('default', ['sass', 'jshint', 'requirejs', 'uglify']);
 };

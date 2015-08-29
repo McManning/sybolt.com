@@ -3,16 +3,15 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'app',
     'isotope',
-    'text!templates/live/request.html',
-    'text!templates/live/details.html'
-], function($, _, Backbone, App, Isotope, liveRequestTemplate, requestDetailsTemplate) {
+    'text!live/templates/request.html',
+    'text!live/templates/details.html'
+], function($, _, Backbone, Isotope, Template, DetailsTemplate) {
     'use strict';
     
     var LiveRequestView = Backbone.View.extend({
-        template: _.template(liveRequestTemplate),
-        detailsTemplate: _.template(requestDetailsTemplate),
+        template: _.template(Template),
+        detailsTemplate: _.template(DetailsTemplate),
 
         // Do stuff. Fake isotope results.
         // TODO: Don't hardcode this key.

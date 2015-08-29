@@ -3,20 +3,17 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'app',
     'flowplayer',
-    'models/live',
-    'views/live/viewers',
-    'views/live/schedule',
-    'views/live/request',
-    'text!templates/live/index.html'
-], function($, _, Backbone, App, Flowplayer, LiveModel,
-            LiveViewersView, LiveScheduleView, LiveRequestView, liveTemplate) {
-            
-    'use strict';
-    
-    var LiveView = App.View.extend({
-        template: _.template(liveTemplate),
+    'live/models/live',
+    'live/views/viewers',
+    'live/views/schedule',
+    'live/views/request',
+    'text!live/templates/index.html'
+], function($, _, Backbone, Flowplayer, LiveAPI,
+            Viewers, Schedule, Request, Template) {
+
+    var LiveView = Backbone.View.extend({
+        template: _.template(Template),
         
         events: {
             'click .show-schedule': 'onClickShowSchedule',
@@ -24,47 +21,50 @@ define([
         },
 
         initialize: function() {
-            this.model = new LiveModel();
+            this.model = new LiveAPI();
             this.model
                 .on('change:publishing', this.onPublish, this)
                 .on('change:error', this.onError, this);
             
-            this.model.publisher.on('change', this.onUpdatePublisher, this);
+            // TODO: Fix this. Publisher starts null!
+            //this.model.publisher.on('change', this.onUpdatePublisher, this);
             
             // Sub-views associated with our Live page
             // Each acting independently of the main page.
-            this.liveViewersView = new LiveViewersView({model: this.model });
-            this.liveScheduleView = new LiveScheduleView({model: this.model });
+            this.Viewers = new Viewers({model: this.model });
+            this.Schedule = new Schedule({model: this.model });
                      
-            $(window).on('resize.live-feed', _.bind(this.onWindowResize, this));
-            $(window).on('scroll.live-feed', _.bind(this.onWindowScroll, this));
+            $(window).on('resize.live', _.bind(this.onWindowResize, this));
 
             this.model.startPolling();
 
         },
         
         close: function() {
-            $(window).off('resize.live-feed');
-            $(window).off('scroll.live-feed');
+            // Unbind events
+            $(window).off('resize.live');
+            $(window).off('scroll.live');
 
             this.model.stopPolling();
 
             // Destroy sub views
-            this.liveViewersView.close();
-            this.liveScheduleView.close();
+            this.Viewers.close();
+            this.Schedule.close();
             
             // TODO: Remove this placement. Transparent transitions should be general purpose
             $('#header').removeClass('transparent'); // In case they leave the page prior to scrolling
 
-            this.remove();
+            this.remove(); // finally destroy this
         },
         
         onClickShowRequest: function() {
 
             // Load the view into memory, if not already and call render() once
-            if (!this.liveRequestView) {
-                this.liveRequestView = new LiveRequestView({model: this.model });
-                this.renderSubview(this.liveRequestView, '#request-view-container');
+            if (!this.Request) {
+                this.Request = new Request({model: this.model });
+                this.Request.setElement(
+                    this.$('#request-view-container')
+                ).render();
             }
             
             // Hide schedule and show request
@@ -76,9 +76,11 @@ define([
         onClickShowSchedule: function() {
 
             // Load the view into memory, if not already and call render() once
-            if (!this.liveScheduleView) {
-                this.liveScheduleView = new LiveScheduleView({model: this.model });
-                this.renderSubview(this.liveScheduleView, '#schedule-view-container');
+            if (!this.Schedule) {
+                this.Schedule = new Schedule({model: this.model });
+                this.Schedule.setElement(
+                    this.$('#schedule-view-container')
+                ).render();
             }
             
             // Hide request and show schedule
@@ -136,34 +138,24 @@ define([
             }
         },
         
-        /**
-         * Modify the opacity of the header based on our current scroll position
-         */
-        onWindowScroll: function() {
-            /* Unused, we have a fixed header .. :\
-            var scrollTop = $(window).scrollTop();
-            
-            if (scrollTop < 100) {
-                $('#header').removeClass('transparent');
-            } else {
-                $('#header').addClass('transparent');
-            }*/
-        },
-        
         render: function() {
             
             // Reconfigure our layout of the header and footer
-            App.headerView.setStyle('live');
-            App.footerView.setStyle('default');
+            Sybolt.header.setStyle('live');
             
             this.$el.html(this.template({
                 // vars here...
             }));
             
-            this
-                .renderSubview(this.liveViewersView, '#viewers-view-container')
-                .renderSubview(this.liveScheduleView, '#schedule-view-container');
-            
+            // Render sub views 
+            this.Viewers.setElement(
+                this.$('#viewers-view-container')
+            ).render();
+
+            this.Schedule.setElement(
+                this.$('#schedule-view-container')
+            ).render();
+
             // Note the call here happens twice because the first call
             // will end up resizing the browser past the window height, thus forcing
             // a scrollbar to appear if not already, and changing the actual dimensions.
@@ -207,9 +199,6 @@ define([
                     .height(ww / 1.7778)
                     .width(ww);
             }
-
-            // Also fire off the scroll watcher to check for any positional changes
-            this.onWindowScroll();
         },
         
         /**
