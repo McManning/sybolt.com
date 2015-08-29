@@ -50,7 +50,7 @@ class SyboltProfile(Base):
 
         # TODO! Stuff!
         if self.minecraft_username:
-            return '/img/minecraft/heads/head-64_{}.png'.format(self.minecraft_username)
+            return '/img/minecraft/heads/head-64_{}.png'.format(self.minecraft_username.lower())
 
         return '/img/default-profile-icon.png'
 

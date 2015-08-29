@@ -8,7 +8,7 @@ define([
     'packerymode',
     'jquery.select2',
     'text!templates/mumble/index.html'
-], function($, _, Backbone, App, Isotope, Select2, PackeryMode, Template) {
+], function($, _, Backbone, App, Isotope, PackeryMode, Select2, Template) {
     'use strict';
     
     var View = App.View.extend({

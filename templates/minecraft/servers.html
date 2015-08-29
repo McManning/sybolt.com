@@ -21,7 +21,7 @@
                 <% } else { %>
                     <li>
                         <strong>Last Online:</strong>
-                        <span class="pull-right"><%- server.last_played %></span>
+                        <span class="pull-right"><%- App.getMoment(server.last_played) %></span>
                     </li> 
                 <% } %>
 

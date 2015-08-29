@@ -33,7 +33,8 @@ define([
                 'StFOzngm400',
                 'XOKJth6BLK8',
                 'm_8CBvRydW4',
-                'AsqXoNvSDMk'
+                'AsqXoNvSDMk',
+                'DS1FTyPCnwQ'
             ]
 
             var pickedDio = dio[_.random(0, dio.length-1)];

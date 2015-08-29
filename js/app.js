@@ -234,6 +234,13 @@ define([
                 }
             });
 
+            // Fire off an enter event whenever we click enter on an input element (for backbone)
+            $('input').keyup(function(e) {
+                if (e.keyCode == 13) {
+                    $(this).trigger('enter');
+                }
+            });
+
             // TODO: Throw this somewhere better
 
             // Try to re-authenticate with the server
@@ -304,6 +311,35 @@ define([
             }
 
             return '//' + document.domain + ':8888/api';
+        },
+
+        /**
+         * Utility method for getting a 'N seconds|days|years ago' time from now.
+         *
+         * @param Date date Date before now to get a moment from.
+         */
+        getMoment: function(date) {
+            var msPerMinute = 60 * 1000;
+            var msPerHour = msPerMinute * 60;
+            var msPerDay = msPerHour * 24;
+            var msPerMonth = msPerDay * 30;
+            var msPerYear = msPerDay * 365;
+
+            var elapsed = (new Date()) - date;
+
+            if (elapsed < msPerMinute) {
+                 return Math.round(elapsed/1000) + ' seconds ago';   
+            } else if (elapsed < msPerHour) {
+                 return Math.round(elapsed/msPerMinute) + ' minutes ago';   
+            } else if (elapsed < msPerDay ) {
+                 return Math.round(elapsed/msPerHour ) + ' hours ago';
+            } else if (elapsed < msPerMonth) {
+                return Math.round(elapsed/msPerDay) + ' days ago';
+            } else if (elapsed < msPerYear) {
+                return Math.round(elapsed/msPerMonth) + ' months ago';
+            } else {
+                return Math.round(elapsed/msPerYear ) + ' years ago';  
+            }
         }
     };
 

@@ -8,15 +8,21 @@ define([
     'models/live',
     'views/live/viewers',
     'views/live/schedule',
+    'views/live/request',
     'text!templates/live/index.html'
 ], function($, _, Backbone, App, Flowplayer, LiveModel,
-            LiveViewersView, LiveScheduleView, liveTemplate) {
+            LiveViewersView, LiveScheduleView, LiveRequestView, liveTemplate) {
             
     'use strict';
     
     var LiveView = App.View.extend({
         template: _.template(liveTemplate),
         
+        events: {
+            'click .show-schedule': 'onClickShowSchedule',
+            'click .show-request': 'onClickShowRequest'
+        },
+
         initialize: function() {
             this.model = new LiveModel();
             this.model
@@ -53,6 +59,34 @@ define([
             this.remove();
         },
         
+        onClickShowRequest: function() {
+
+            // Load the view into memory, if not already and call render() once
+            if (!this.liveRequestView) {
+                this.liveRequestView = new LiveRequestView({model: this.model });
+                this.renderSubview(this.liveRequestView, '#request-view-container');
+            }
+            
+            // Hide schedule and show request
+            this.$el.find('#schedule-view-container').hide();
+            this.$el.find('#request-view-container').show();
+            return false;
+        },  
+
+        onClickShowSchedule: function() {
+
+            // Load the view into memory, if not already and call render() once
+            if (!this.liveScheduleView) {
+                this.liveScheduleView = new LiveScheduleView({model: this.model });
+                this.renderSubview(this.liveScheduleView, '#schedule-view-container');
+            }
+            
+            // Hide request and show schedule
+            this.$el.find('#request-view-container').hide();
+            this.$el.find('#schedule-view-container').show();
+            return false;
+        },
+
         /**
          * Event listener for when the stream publisher updates.
          * This should update the UI display of the person publishing
@@ -127,8 +161,8 @@ define([
             }));
             
             this
-                .renderSubview(this.liveViewersView, '.viewers')
-                .renderSubview(this.liveScheduleView, '.schedule');
+                .renderSubview(this.liveViewersView, '#viewers-view-container')
+                .renderSubview(this.liveScheduleView, '#schedule-view-container');
             
             // Note the call here happens twice because the first call
             // will end up resizing the browser past the window height, thus forcing

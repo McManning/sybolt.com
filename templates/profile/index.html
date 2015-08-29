@@ -5,11 +5,11 @@
 
 <div class="content-left">
     <h1 class="full-width">MY PROFILE</h1>
-    <div class="help">
+    <!--div class="help">
         <p>
         Help text here.
         </p>
-    </div>
+    </div-->
 
     <div class="identity sybolt-identity inverted">
         <img class="avatar" src="<%- profile.avatar_url %>"/>
@@ -19,19 +19,29 @@
                 <fieldset>
                     <div class="text">
                         <label for="sybolt-username">USERNAME</label>
-                        <input type="text" id="sybolt-username" name="username" readonly="readonly" value="<%- profile.username %>"/>
+                        <input type="text" id="sybolt-username" name="username" readonly="readonly" 
+                            value="<%- profile.username %>"/>
                         <div class="validation-error hidden" data-for="username"></div>
                     </div>
 
                     <div class="text">
+                        <label for="created-time">REGISTERED</label>
+                        <input type="text" id="created-time" readonly="readonly" 
+                            value="<%- (new Date(profile.created_time)).toLocaleString() %>"/>
+                        <div class="validation-error hidden" data-for="created-time"></div>
+                    </div>
+
+                    <div class="text">
                         <label for="email">EMAIL</label>
-                        <input type="text" id="email" name="email" value="<%- profile.email %>" data-validate="email" />
+                        <input type="text" id="email" name="email" value="<%- profile.email %>" 
+                            data-validate="email" />
                         <div class="validation-error hidden" data-for="email"></div>
 
                         <!-- Nested checkboxes, visible when email is !empty -->
                         <div class="checkbox <%- (!profile.email) ? 'hidden' : '' %>">
                             <input type="hidden" value="false" name="public_email" />
-                            <input type="checkbox" id="public-email" value="true" name="public_email" <%- (profile.public_email) ? 'checked="checked"' : '' %>></input>
+                            <input type="checkbox" id="public-email" value="true" name="public_email" 
+                                <%- (profile.public_email) ? 'checked="checked"' : '' %>></input>
                             <label for="public-email">
                                 ALLOW OTHER USERS TO SEE MY EMAIL ADDRESS
                                 <div class="validation-error hidden" data-for="public-email"></div>
@@ -73,6 +83,7 @@
         </div>
     </div>
 
+<!--
     <h1 class="full-width">MY MINECRAFT</h1>
     <div class="help">
         <p>
@@ -80,10 +91,10 @@
         </p>
     </div>
 
-    <% if (!profile.minecraft_nickname) { %>
+    <% if (!profile.minecraft_username) { %>
         Use the following chat command to add your profile: /verify <%- profile.minecraft_verification %>
     <% } else { %>
-        Username: <%- profile.minecraft_nickname %>
+        Username: <%- profile.minecraft_username %>
     <% } %>
 
     <h1 class="full-width">MY STEAM</h1>
@@ -94,10 +105,11 @@
     </div>
 
     <% if (!profile.steam_id) { %>
-        Click this to link your steam profile
+        Click this nonfunctional link to link your steam profile
     <% } else { %>
         Steam ID: <%- profile.steam_id %>
     <% } %>
+-->
 
     <div class="clearfix"></div>
 
