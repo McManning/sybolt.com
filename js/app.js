@@ -1,20 +1,24 @@
 
+// Bootstrap config with the minimal necessities
 require.config({
     //baseUrl: '../',
     paths: {
-        'jquery': 'libs/jquery-2.1.1',
-        'underscore': 'libs/underscore',
-        'backbone': 'libs/backbone',
-        'text': 'libs/text',
-        'verify': 'libs/verify',
-        'notify': 'libs/notify-custom',
-        'serializejson': 'libs/jquery.serializejson',
-        'tubular': 'libs/jquery.tubular',
-        'isotope': 'libs/isotope.pkgd.no-amd',
-        'packerymode': 'libs/packery-mode.pkgd.no-amd',
-        'jquery.select2': 'libs/select2',
-        'templates': '../templates',
-        'flowplayer': '//releases.flowplayer.org/js/flowplayer-3.2.13'
+        'jquery': 'vendor/jquery-2.1.1',
+        'underscore': 'vendor/underscore',
+        'backbone': 'vendor/backbone',
+        'text': 'vendor/text',
+        'verify': 'vendor/verify',
+        'notify': 'vendor/notify-custom',
+        'serializejson': 'vendor/jquery.serializejson',
+        'tubular': 'vendor/jquery.tubular',
+        'isotope': 'vendor/isotope.pkgd.no-amd',
+        'packerymode': 'vendor/packery-mode.pkgd.no-amd',
+        'jquery.select2': 'vendor/select2',
+        'flowplayer': '//releases.flowplayer.org/js/flowplayer-3.2.13',
+
+        // Applications
+        'test': 'apps/test', //'apps/build/test.min',
+        'live': 'apps/live', //'apps/build/live.min'
     },
     shim: {
         // Non-AMD scripts wrapped with the shim
@@ -25,36 +29,6 @@ require.config({
             deps: ['jquery'],
             exports: '$.notify',
             init: function($) {
-
-                // Custom NotifyJS theme
-                // TODO: Define this in LESS, not in the fucking javascript
-                // -- Disregard, NotifyJS is dumb and requires a JS template
-                /*
-                @light-purple: #977FA6;
-                @purple: #685475;
-                @green: #09AD7E;
-                @grey: #D0D0D0;
-                @primary: #D9D1C7;
-                @secondary: #2E2C2A;
-                @light-grey: #E6E6E6;
-                @red: #9D2B2B;
-
-                - Swatches from Flat-UI build
-
-                    @sybolt-pale:   #F2EDE4;
-                    @sybolt-tan:    #D9D1C7;
-                    @sybolt-purple: #392F40;
-                    @sybolt-pink:   #736071;
-                    @sybolt-grey:   #8C8681;
-                    @sybolt-brown:  #3C3937;
-                    @sybolt-lpurp:  #685475; //#574B5F;
-
-                    @sybolt-green:  #579762; // #4FBA7E;
-                    @sybolt-gold:   #FF9815; // #FFB533;
-
-
-                */
-
                 $.notify.addStyle("sybolt", {
                   html: "<div>\n<span data-notify-text></span>\n</div>",
                   classes: {
@@ -191,38 +165,213 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'router',
-    'views/header',
-    'views/footer'
-], function($, _, Backbone, Router, HeaderView, FooterView) {
-    'use strict';
+    'verify' // for $.validate
+], function($, _, Backbone) {
+
+    // Configure a router for accessing apps
+    var Router = Backbone.Router.extend({
+        routes: {
+            ':app(/:section)': 'app'
+        },
+
+        app: function(app, section) {
+            require([app], function(App) {
+                if (App) {
+                    Sybolt.loadApp(App);
+                } 
+                else {
+                    // 404 bs
+                    alert('App [' + app + '] not found');
+                }
+            });
+        }
+    });
     
-    window.App = {
+    // View for the header, to handle various interactive events
+    var HeaderView = Backbone.View.extend({
+        el: $('header'),
+        
+        events: {
+            "click .header-logo": "onHeaderLogoClick",
+            "click #mmm-hamburgers": "onHamburgerClick",
+            "click .login-button": "onLoginClick",
+            "click .logout-button": "onLogoutClick",
+        },
+
+        onLogoutClick: function() {
+
+            // Push logout attempt
+            $.ajax({
+                type: 'DELETE',
+                url: App.getApiBaseUrl() + '/authenticate',
+                dataType: 'json',
+                crossDomain: true,
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(json) {
+                    console.log('success', json);
+                    //var profile = new SyboltProfile(json);
+                    //window.App.clearProfile();
+                    //window.App.router.navigate('home', {trigger: true});
+
+                    // Force our application to reload entirely,
+                    // in case there are needs to be content/permission changes after login.
+                    window.location.reload();
+                },
+                error: function(jqXHR) {
+                    alert(jqXHR.responseJSON.message);
+                    //window.App.clearProfile();
+                    //window.App.router.navigate('home', {trigger: true});
+
+                    // Force our application to reload entirely,
+                    // in case there are needs to be content/permission changes after login.
+                    window.location.reload();
+                }
+            });
+        },
+
+        onLoginClick: function() {
+
+            var $form = $('form.login-form');
+
+            // Run one more validator pass.
+            // If all looks good on the front end, pass to the server for a login attempt.
+            $form.validate(function(success) {
+                if (success) {
+                    // Push login attempt
+                    $.ajax({
+                        type: 'POST',
+                        url: App.getApiBaseUrl() + '/authenticate',
+                        data: $form.serialize(),
+                        dataType: 'json',
+                        crossDomain: true,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function(json) {
+                            console.log('success', json);
+
+                            // Force our application to reload entirely, 
+                            // in case there needs to be content/permission changes after login.
+                            window.location.reload();
+                        },
+                        error: function(jqXHR) {
+                            if (jqXHR.responseJSON) {
+                                alert(jqXHR.responseJSON.message);
+                            }
+                            else {
+                                alert('An unspecified error has occurred while trying to login.');
+                            }
+                        }
+                    });
+                }
+            });
+           
+            return false;
+        },
+
+        onHamburgerClick: function() {
+            this.toggleNavigation();
+            return false;
+        },
+
+        onHeaderLogoClick: function() {
+            // Navigate back to the home page
+            Sybolt.router.navigate("home", {trigger: true});
+            return false;
+        },
+
+        toggleNavigation: function() {
+
+            // Delegate to hide/show so we can apply additional rules 
+            // on events if necessary
+            if ($('header').hasClass('open')) {
+                this.hideNavigation();
+            } else {
+                this.showNavigation();
+            }
+
+            return false;
+        },
+
+        showNavigation: function() {
+            $('header').addClass('open').removeClass('closed');
+
+            // TODO: Reduce these to just checking for #header.open
+            $('.header-navigation').addClass('open');
+            $('#mmm-hamburgers').addClass('open');
+
+            return false;
+        },
+
+        hideNavigation: function() {
+            $('header').removeClass('open');
+
+            // TODO: Reduce these to just checking for #header.open
+            $('.header-navigation').removeClass('open');
+            $('#mmm-hamburgers').removeClass('open');
+
+            // Hide any errors in the login form
+            $('.login .validation-error').addClass('hidden');
+            $('.login .error').removeClass('error');
+
+            // Wait until the closing animation is complete until we consider
+            // ourselves closed
+            window.setTimeout(function(){
+                $('header').addClass('closed');
+            }, 500);
+
+            return false;
+        },
+
+        render: function() {
+
+            this.$el.html(this.template({
+                style: this.style,
+                profile: Sybolt.profile
+            }));
+
+            // Hook verify.js to the login form, if it exists
+            $('form.login-form').verify();
+            
+            return this;
+        },
+        
+        setStyle: function(style) {
+            console.log('Setting style to ' + style);
+            
+            // Perform an animated transition, rather than re-rendering
+            
+            // Swap style CSS
+            this.$el
+                .removeClass(this.style + '-style')
+                .addClass(style + '-style');
+            
+            this.style = style;
+
+            this.hideNavigation();
+
+            return this;
+        }
+    });
+    
+    var Sybolt = {
         
         initialize: function() {
         
-            // Setup Header/Footer views
-            this.headerView = new HeaderView();
-            this.footerView = new FooterView();
-            
-            console.log('starting router');
-            
             // Set up router to switch between content views
             this.router = new Router;
+            this.header = new HeaderView();
+            this.app = null; 
             
             if (!Backbone.history.start({
                 pushState: true, 
-                root: '/' // '/sybolt-backbone/'
+                root: '/'
             })) {
                 console.log('Initial url does not match in router');
             }
             
-            // Draw header
-            this.headerView.render();
-        
-            // Draw footer
-            this.footerView.render();
-        
             // Override anchors to utilize Backbone's navigation
             $(document).on("click", "a:not([data-bypass])", function(e) {
                 var href = { prop: $(this).prop("href"), attr: $(this).attr("href") };
@@ -240,132 +389,41 @@ define([
                     $(this).trigger('enter');
                 }
             });
+        },
 
-            // TODO: Throw this somewhere better
+        loadApp: function(app) {
 
-            // Try to re-authenticate with the server
-            $.ajax({
-                type: 'GET',
-                url: this.getApiBaseUrl() + '/authenticate',
-                dataType: 'json',
-                crossDomain: true,
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function(json) {
-                    console.log('success', json);
-                    //var profile = new SyboltProfile(json);
-                    window.App.setProfile(json);
-                },
-                error: function(jqXHR) {
-                    // If we can't authenticate, silently fail and clear the profile.
-                    // TODO: Check for a local token before even making this call.
+            this.app = app;
+            var view = app.getView();
 
-                    /*if (jqXHR.responseJSON) {
-                        alert(jqXHR.responseJSON.message);
-                    }
-                    else {
-                        alert('An unspecified error has occurred while trying to authenticate with the API');
-                    }
-                    */
-                    window.App.clearProfile();
-                }
-            });
+            this.setContentView(new view());
+            this.header.hideNavigation();
         },
         
         setContentView: function(view) {
             
+            // Close the old content view
             if (this.contentView) {
                 this.contentView.setElement(null);
                 this.contentView.close();
             }
             
             this.contentView = view;
-            this.contentView.setElement($('#content')).render();
+            this.contentView.setElement($('main')).render();
             
-            // @todo whatever post-processing that we must perform after changing the page
-
             // Scroll to the top of the page
             $(window).scrollTop(0);
         },
 
-        setProfile: function(json) {
-            this.profile = json;
-
-            // Redraw the header
-            this.headerView.render();
-        },
-
-        clearProfile: function() {
-            this.profile = undefined;
-
-            // Redraw the header
-            this.headerView.render();
-        },
-
         getApiBaseUrl: function() {
-            // Slight port hack for dev environment. TODO: Clean this up!
-            // Need a proper service discovery method. 
-            if (document.domain.indexOf('dev') == 0) {
-                return '//' + document.domain + ':8889/api';
-            }
-
+            // TODO: Clean this up!
+            // Need a proper service discovery method.
             return '//' + document.domain + ':8888/api';
         },
-
-        /**
-         * Utility method for getting a 'N seconds|days|years ago' time from now.
-         *
-         * @param Date date Date before now to get a moment from.
-         */
-        getMoment: function(date) {
-            var msPerMinute = 60 * 1000;
-            var msPerHour = msPerMinute * 60;
-            var msPerDay = msPerHour * 24;
-            var msPerMonth = msPerDay * 30;
-            var msPerYear = msPerDay * 365;
-
-            var elapsed = (new Date()) - date;
-
-            if (elapsed < msPerMinute) {
-                 return Math.round(elapsed/1000) + ' seconds ago';   
-            } else if (elapsed < msPerHour) {
-                 return Math.round(elapsed/msPerMinute) + ' minutes ago';   
-            } else if (elapsed < msPerDay ) {
-                 return Math.round(elapsed/msPerHour ) + ' hours ago';
-            } else if (elapsed < msPerMonth) {
-                return Math.round(elapsed/msPerDay) + ' days ago';
-            } else if (elapsed < msPerYear) {
-                return Math.round(elapsed/msPerMonth) + ' months ago';
-            } else {
-                return Math.round(elapsed/msPerYear ) + ' years ago';  
-            }
-        }
     };
 
-    // Create a custom view for commonly used functionality
-    App.View = Backbone.View.extend({
-        
-        /** 
-         * Optionally overridable to clean up event hooks/subviews 
-         */
-        close: function() {
-            this.remove(); // Destroy this
-        },
-        
-        /**
-         * Render a sub-view within a specific selector of this view. 
-         * Useful for our main render() call to also cascade render children.
-         */
-        renderSubview: function(view, selector) {
-        
-            // See: http://ianstormtaylor.com/rendering-views-in-backbonejs-isnt-always-simple/
-            view.setElement(this.$(selector)).render();
-            return this;
-        }
-    });
+    Sybolt.initialize();
     
-    App.initialize();
-    
-    return App;
+    window.Sybolt = Sybolt;
+    return Sybolt;
 });

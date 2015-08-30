@@ -911,7 +911,6 @@ footer {
   background-position: right;
   border-top: 2px solid grey;
   color: white;
-  box-sizing: border-box;
 }
 
 footer > div.footer-content {

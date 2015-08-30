@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         jshint: {
-            files: ['Gruntfile.js', 'static/js/*-min.js'],
+            files: ['Gruntfile.js', 'js/*-min.js'],
             options: {
                 globals: {
                     console: false,
@@ -65,6 +65,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
+                    'js/apps/build/app.min.js': ['js/app.js'],
                     'js/apps/build/test.min.js': ['js/apps/build/test.js'],
                     'js/apps/build/live.min.js': ['js/apps/build/live.js']
                 }
