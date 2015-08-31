@@ -6,7 +6,7 @@ define([
     'text!minecraft/templates/index.html',
     'text!minecraft/templates/timeline.html',
     'minecraft/views/servers',
-], function($, _, Backbone, App, Template, TimelineTemplate, ServersView) {
+], function($, _, Backbone, Template, TimelineTemplate, ServersView) {
     'use strict';
     
     var View = Backbone.View.extend({

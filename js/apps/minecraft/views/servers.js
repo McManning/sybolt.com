@@ -4,7 +4,7 @@ define([
     'underscore',
     'backbone',
     'text!minecraft/templates/servers.html',
-], function($, _, Backbone, App, ServersTemplate) {
+], function($, _, Backbone, ServersTemplate) {
     'use strict';
     
     var ServersView = Backbone.View.extend({

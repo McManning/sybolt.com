@@ -150,20 +150,22 @@ define('live/views/viewers',[
         initialize: function() {
             // Collection stuff
             
-            this.model.viewers
+            // TODO: Fix!
+           /* this.model.viewers
                 .on('add', this.onAddViewer, this)
                 .on('remove', this.onRemoveViewer, this)
                 .on('change', this.onUpdateViewer, this)
-                .on('reset', this.onClearViewers, this);
+                .on('reset', this.onClearViewers, this); */
         },
         
         close: function() {
             
-            this.model.viewers
+            // TODO: Fix!
+           /* this.model.viewers
                 .off('add', this.onAddViewer)
                 .off('remove', this.onRemoveViewer)
                 .off('change', this.onUpdateViewer)
-                .off('reset', this.onClearViewers);
+                .off('reset', this.onClearViewers);*/
         
             this.remove();
         },
@@ -396,6 +398,7 @@ define('live/views/schedule',[
             var self = this;
             // Retrieve our current schedule
             var now = new Date();
+            /* TODO: Fix!
             $.getJSON(App.getApiBaseUrl() + '/live/schedule/year/' + now.getFullYear() + '/month/' + (now.getMonth() + 1))
                 .success(function(json) {
                     self.updateMovies(json);
@@ -403,6 +406,7 @@ define('live/views/schedule',[
                 .error(function() {
                     alert('Error contacting API: Could not retrieve schedule.');
                 });
+            */
         },
 
         updateMovies: function(json) {
@@ -450,7 +454,7 @@ define('live/views/schedule',[
             this.$el.html(this.template({
                 theme: this.theme,
                 movie_dates: movieDates,
-                profile: App.profile,
+                profile: {}, //App.profile,
                 this_month: this.this_month,
                 next_month: (this.next_month) ? this.next_month.title : null,
                 last_month: (this.last_month) ? this.last_month.title : null
@@ -903,7 +907,6 @@ define('live/views/index',[
             this.Schedule = new Schedule({model: this.model });
                      
             $(window).on('resize.live', _.bind(this.onWindowResize, this));
-            $(window).on('scroll.live', _.bind(this.onWindowScroll, this));
 
             this.model.startPolling();
 
@@ -1010,8 +1013,7 @@ define('live/views/index',[
         render: function() {
             
             // Reconfigure our layout of the header and footer
-            App.headerView.setStyle('live');
-            App.footerView.setStyle('default');
+            Sybolt.header.setStyle('live');
             
             this.$el.html(this.template({
                 // vars here...
@@ -1069,9 +1071,6 @@ define('live/views/index',[
                     .height(ww / 1.7778)
                     .width(ww);
             }
-
-            // Also fire off the scroll watcher to check for any positional changes
-            this.onWindowScroll();
         },
         
         /**
