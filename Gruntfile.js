@@ -55,7 +55,7 @@ module.exports = function(grunt) {
                         'flowplayer'
                     ]
                 }
-            }
+            },
             minecraft: {
                 options: {
                     baseDir: 'js/apps',
@@ -83,7 +83,8 @@ module.exports = function(grunt) {
                 files: {
                     'js/apps/build/app.min.js': ['js/app.js'],
                     'js/apps/build/test.min.js': ['js/apps/build/test.js'],
-                    'js/apps/build/live.min.js': ['js/apps/build/live.js']
+                    'js/apps/build/live.min.js': ['js/apps/build/live.js'],
+                    'js/apps/build/minecraft.min.js': ['js/apps/build/minecraft.js']
                 }
             }
         },

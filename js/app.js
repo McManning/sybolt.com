@@ -19,6 +19,7 @@ require.config({
         // Applications
         'test': 'apps/test', //'apps/build/test.min',
         'live': 'apps/live', //'apps/build/live.min'
+        'minecraft': 'apps/build/minecraft.min'
     },
     shim: {
         // Non-AMD scripts wrapped with the shim
