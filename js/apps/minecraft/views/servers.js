@@ -3,12 +3,11 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'app',
-    'text!templates/minecraft/servers.html',
+    'text!minecraft/templates/servers.html',
 ], function($, _, Backbone, App, ServersTemplate) {
     'use strict';
     
-    var ServersView = App.View.extend({
+    var ServersView = Backbone.View.extend({
         template: _.template(ServersTemplate),
         
         events: {

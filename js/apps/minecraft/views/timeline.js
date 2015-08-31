@@ -3,12 +3,11 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'app',
-    'text!templates/minecraft/timeline.html'
-], function($, _, Backbone, App, Template) {
+    'text!minecraft/templates/timeline.html'
+], function($, _, Backbone, Template) {
     'use strict';
     
-    var View = App.View.extend({
+    var View = Backbone.View.extend({
         template: _.template(Template),
         
         events: {
@@ -32,9 +31,6 @@ define([
         },
         
         render: function() {
-            
-            // Reconfigure our layout of the header and footer
-            App.headerView.setStyle('minecraft');
             
             this.$el.html(this.template({
                 // vars here...

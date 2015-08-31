@@ -56,6 +56,22 @@ module.exports = function(grunt) {
                     ]
                 }
             }
+            minecraft: {
+                options: {
+                    baseDir: 'js/apps',
+                    mainConfigFile: 'js/apps/config.js',
+                    wrap: true,
+                    name: 'minecraft',
+                    optimize: 'none',
+                    out: 'js/apps/build/minecraft.js',
+                    exclude: [
+                        'backbone',
+                        'underscore',
+                        'jquery',
+                        'text'
+                    ]
+                }
+            }
         },
         uglify: {
             options: {

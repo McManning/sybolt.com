@@ -3,14 +3,13 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'app',
-    'text!templates/minecraft/index.html',
-    'text!templates/minecraft/timeline.html',
-    'views/minecraft/servers',
+    'text!minecraft/templates/index.html',
+    'text!minecraft/templates/timeline.html',
+    'minecraft/views/servers',
 ], function($, _, Backbone, App, Template, TimelineTemplate, ServersView) {
     'use strict';
     
-    var View = App.View.extend({
+    var View = Backbone.View.extend({
         template: _.template(Template),
         timelineTemplate: _.template(TimelineTemplate),
         
@@ -34,7 +33,7 @@ define([
             $(window).off('scroll.minecraft-header');
 
             // TODO: Remove this placement. Transparent transitions should be general purpose
-            $('#header').removeClass('transparent'); // In case they leave the page prior to scrolling
+            $('header').removeClass('transparent'); // In case they leave the page prior to scrolling
 
             this.remove();
         },
@@ -144,8 +143,8 @@ define([
         render: function() {
             
             // Reconfigure our layout of the header and footer
-            App.headerView.setStyle('minecraft');
-            App.footerView.setStyle('default');
+            Sybolt.header.setStyle('minecraft');
+            //App.footerView.setStyle('default');
             
             this.$el.html(this.template({
                 timeline_template: this.timelineTemplate({
@@ -154,7 +153,9 @@ define([
             }));
 
             // Render our servers out. First call, we won't have data, but that's okay!
-            this.renderSubview(this.serversView, '#servers');
+            this.serversView.setElement(
+                this.$('#servers')
+            ).render();
 
             // Ensure our elements are positioned accordingly
             this.onWindowResize();
