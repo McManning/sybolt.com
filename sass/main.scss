@@ -17,29 +17,29 @@ $light-grey: #E6E6E6;
 $alert-red: #9D2B2B;
 
 // Third party CSS
-@import "select2.css";
+@import "select2";
 
 // LESS Files
-@import "global.scss";
+@import "global";
 
-@import "header.scss";
-@import "footer.scss";
+@import "header";
+@import "footer";
 
-@import "ui/input.scss";
-@import "ui/checkbox.scss";
-@import "ui/button.scss";
+@import "ui/input";
+@import "ui/checkbox";
+@import "ui/button";
 
 // Sybolt Live page styles
-@import "live.scss";
+@import "live";
 
 // Coming soon page
-@import "soon.scss";
+@import "soon";
 
-@import "minecraft.css";
-@import "timeline.css";
-@import "servers.css";
-@import "mumble.scss";
-@import "profile.scss";
-@import "register.scss";
+@import "minecraft";
+@import "timeline";
+@import "servers";
+@import "mumble";
+@import "profile";
+@import "register";
 
 //@import "responsive.css";
