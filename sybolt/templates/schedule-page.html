@@ -1,0 +1,22 @@
+
+{% import 'cards.html' as cards %}
+
+<div class="schedule-page">
+    {% if not movies %}
+    <div class="row no-movies">
+        <h3>No movies have been scheduled</h3>
+    </div>
+    {% else %}
+    <div class="row">
+    {% for movie in movies %}
+        <div class="col s12 l6">
+            {{ cards.movie_card(movie) }}
+        </div>
+        {% if loop.index0 % 2 %}
+        </div>
+        <div class="row">
+        {% endif %}
+    {% endfor %}
+    </div>
+    {% endif %}
+</div>

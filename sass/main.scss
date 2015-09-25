@@ -1,45 +1,442 @@
-
-// Clean up browser differences
-@import "normalize";
+@charset "UTF-8";
 
 // Mixins
-@import "prefixer";
-@import "mixins";
+@import "vendor/materialize";
+@import "vendor/prism";
 
-// TODO: Move these definitions elsewhere
-$light-purple: #977FA6;
-$purple: #685475;
-$green: #14945E; // #17BA75; // #09AD7E;
-$grey: #D0D0D0;
-$primary: #D9D1C7;
-$secondary: #2E2C2A;
-$light-grey: #E6E6E6;
-$alert-red: #9D2B2B;
+// Correction for sticky footer
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background: #D9D1C7;
+}
 
-// Third party CSS
-@import "select2";
+::selection {
+    background: color("purple", "lighten-1");
+}
+::-moz-selection {
+    background: color("purple", "lighten-1");
+}
 
-// LESS Files
-@import "global";
+header {
+    nav {
+        transition: all 0.5s;
+    }
 
-@import "header";
-@import "footer";
+    &.faded nav {
+        background-color: transparentize($primary-color, 0.5);
+        box-shadow: none;
+    }
 
-@import "ui/input";
-@import "ui/checkbox";
-@import "ui/button";
+    &.faded .header-logo .logo-background {
+        background-color: transparentize($primary-color, 0.5);
+        box-shadow: none;
+    }
 
-// Sybolt Live page styles
-@import "live";
+    &.transparent nav {
+        background-color: transparent !important;
+        box-shadow: none;
+    }
 
-// Coming soon page
-@import "soon";
+    &.transparent .header-logo .logo-background {
+        background-color: transparent !important;
+        box-shadow: none;
+    }
 
-@import "minecraft";
-@import "timeline";
-@import "servers";
-@import "mumble";
-@import "profile";
-@import "register";
+    .logo-badge {
+        position: absolute;
+        left: 20px;
+        bottom: 20px;
+        line-height: 1em;
 
-//@import "responsive.css";
+        white-space: nowrap;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 0.2em;
+        border-radius: 4px;
+    }
+}
+
+
+// Correction for sticky footer
+main {
+    flex: 1 0 auto;
+    margin-top: -64px; // offset for the header
+}
+
+h1 {
+    line-height: 6rem;
+    height: 6rem;
+    vertical-align: top;
+}
+
+main {
+    h1 {
+        border-bottom: 5px solid $font-color;
+    }
+}
+
+#hero-container {
+    width: 100%;
+    background: color("tan", "darken-1");
+    margin-bottom: 1.5em;
+
+    &.full-page {
+        height: 100vh;
+    }
+
+    h1 {
+        margin: 0;
+    }
+
+    #hero-inner {
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+        overflow: hidden;
+    }
+
+    #hero-footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: #D9D1C7;
+    }
+}
+
+footer.page-footer {
+    background: #2e2c2a url("/img/footer-logo.png") no-repeat;
+    background-size: contain;
+    background-position: right;
+    padding-top: 0;
+
+    .row {
+        margin-bottom: 0;
+    }
+
+    .footer-copyright a {
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255,255,255,0.3);
+        cursor: pointer;
+    }
+}
+
+.header-logo .logo-background-wrapper {
+    height: 25px;
+    margin: 0 auto;
+    float: left;
+    top: 64px;
+    margin-left: -40px;
+    width: 80px;
+    overflow: hidden;
+    margin-top: 49px; // TODO: No idea why I have to +1 this on chrome... it overlaps otherwise
+}
+
+.header-logo .logo-background {
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    background-color: $primary-color;
+    width: 80px;
+    height: 80px;
+    margin-top: -64px;
+    transition: all 0.5s;
+    @extend .z-depth-1;
+}
+
+.header-logo {
+    margin: 0 50%;
+    width: 1px;
+    height: 52px;
+    position: absolute;
+    padding-top: 15px;
+    transition: all 0.5s;
+}
+
+/* Logo overrides */
+
+/* Left alignment (Live page) */
+.header-logo.left {
+    margin-left: 45px;
+}
+
+.header-logo .logo {
+    background: url('/img/default-logo.png');
+    margin-left: -26px;
+    width: 55px;
+    height: 52px;
+    position: relative;
+}
+
+.header-logo .logo.minecraft {
+    background: url('/img/minecraft/logo.png');
+    margin-left: -24px;
+    width: 48px;
+    height: 48px;
+}
+
+
+// TEMP HACK for minecraft page just to get an idea of the layout updates
+#hero-footer .material-icons {
+    border: 4px solid grey;
+    width: 64px;
+    height: 64px;
+    background: white;
+    border-radius: 4px;
+    padding-top: 15px;
+    margin: 1rem;
+    text-align: center;
+}
+
+
+.row.no-movies h3 {
+    margin: 5em 0;
+    text-align: center;
+}
+
+// Live movie cards, TODO: Scope!
+.card.movie-card {
+
+    .card-content {
+        background-size: cover;
+        background-position: center top;
+        min-height: 300px;
+
+        .card-title {
+            font-size: 3rem !important;
+            padding-left: 20px;
+            background: rgba(0,0,0,0.75);
+            padding-right: 0.5rem;
+        }
+    }
+
+    .card-reveal {
+        .card-title {
+            margin-bottom: 0.5em;
+            
+            i.right {
+                margin-top: 6px;
+            }
+        }
+    }
+
+    .card-action {
+        position: relative;
+    }
+
+    .movie-title {
+        margin-right: 2rem;
+    }
+
+    .movie-title h4 {
+        margin: 0;
+    }
+
+    .movie-title p {
+        margin: 0;
+        margin-top: 0.5rem;
+    }
+
+    .movie-more {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        cursor: pointer;
+    }
+
+    .movie-more a {
+        margin: 0 !important;
+    }
+
+    .movie-more i.material-icons {
+        font-size: 2rem;
+    }
+
+    .card-content {
+        padding: 20px 0 !important;
+    }
+
+    .movie-poster {
+        width: 100%;
+        height: auto;
+        max-width: 150px;
+    }
+
+    h5 {
+        font-weight: 500;
+    }
+}
+
+.social-links img {
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+
+
+// Index hero video style
+iframe.colorblender {
+  filter: url("#colorblender");
+  -webkit-filter: url("#colorblender");
+}
+
+iframe, object, video {
+    max-width: 100%;
+}
+
+iframe {
+  margin-left:auto;
+  margin-right:auto;
+  display:block;
+}
+
+
+.sybolt-title {
+    display: inline-block;
+    position: absolute;
+    top: 10rem;
+    left: 50%;
+    margin-left: -11.5rem;
+    text-align: center;
+}
+
+.sybolt-title h1 {
+    border-bottom: 0;
+    font-weight: 300;
+    font-size: 7rem;
+    color: #FFF; //#9D7EB1;
+    //background: rgba(46, 44, 42, 0.2);
+    //border-radius: 3px;
+    height: 8rem;
+    line-height: 7rem;
+    //padding: 0 2rem;
+    text-shadow: 1px 2px 0 rgba(46, 44, 42, 0.8);
+}
+
+.sybolt-title p {
+    margin-top: 2rem;
+    color: #FFF;
+    font-weight: 300;
+    font-size: 1.5rem;
+    //background: rgba(46, 44, 42, 0.2);
+    //border-radius: 3px;
+    height: 2rem;
+    line-height: 2rem;
+    //padding: 0 2rem;
+    text-shadow: 1px 2px 0 rgba(46, 44, 42, 0.8);
+}
+
+// Front page quotes
+// TOOD: Scope ?
+blockquote:before {
+    display: block;
+    height: 3rem;
+    content: "“";
+    margin-left: -4.5rem;
+    font: italic 8rem Georgia,"Times New Roman", serif;
+}
+
+blockquote {
+    border: none;
+    margin: 0;
+    margin-left: 2em;
+}
+
+blockquote footer {
+    color: grey;
+    float: right;
+}
+
+blockquote p {
+    margin-top: 0;
+}
+
+.container > h2 {
+    margin-top: 1.5em;
+}
+
+
+// Add the ability to use img tags for avatars, without .circle class
+// (because that shouldn't be a UI requirement)
+.collection .collection-item.avatar img {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    overflow: hidden;
+    left: 15px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.collection .collection-item.avatar .title {
+    font-size: 1.25em;
+}
+
+.collection.link-accounts li {
+    cursor: pointer;
+}
+
+/* Support for huge checkboxes */
+
+[type="checkbox"] + label.large:before {
+    width: 32px;
+    height: 32px;
+}
+
+[type="checkbox"]:checked + label.large:before {
+    width: 22px;
+    height: 32px;
+}
+
+// Live Player Container. TODO: Move this to it's own SCSS
+#player-container {
+    width: 100%;
+    max-height: 100%;
+    background: #2e2c2a;
+    margin-bottom: 1.5em;
+}
+
+#live-player {
+    width: 100%;
+    height: 100%;
+}
+
+#live-player-container {
+    margin: 0 auto;
+}
+
+#live-offline {
+    display: table;
+    width: 100%;
+    height: 100%;
+
+    h1 {
+        margin: 0;
+        text-align: center;
+        color: white;
+        display: table-cell;
+        vertical-align: middle;
+    }
+}
+
+#live-error {
+    display: table;
+    width: 100%;
+    height: 100%;
+
+    h1 {
+        margin: 0;
+        text-align: center;
+        color: white;
+        display: table-cell;
+        vertical-align: middle;
+        
+        color: #ffa600;
+        font-size: 1.5em;
+    }
+}
+
+#this-month {
+    font-size: 1.64rem; // Same as H4
+}

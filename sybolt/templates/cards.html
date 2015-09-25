@@ -1,0 +1,51 @@
+
+{% macro movie_card(movie) %}
+
+<div class="movie-card card tan lighten-2">
+    <div class="card-content activator waves-effect waves-block waves-light" 
+        style="background-image: url('http://image.tmdb.org/t/p/w780{{ movie.details.backdrop_path }}');">
+        <span class="card-title white-text activator">{{ movie.date }}</span>
+    </div>
+    <div class="card-action">
+        <div class="movie-title">
+            <h4 class="truncate">{{ movie.details.title }}</h4>
+            <p>Picked by <strong>{{ movie.profile }}</strong></p>
+        </div>
+        <div class="movie-more right activator">
+            <i class="material-icons">more_vert</i>
+        </div>
+    </div>
+    <div class="card-reveal tan lighten-2">
+
+        <span class="card-title tan-text text-darken-4 truncate">
+            {{ movie.details.title }}<i class="material-icons right">close</i>
+        </span>
+        <div class="row">
+            <div class="col s4">
+                <img class="movie-poster z-depth-1" src="http://image.tmdb.org/t/p/w154{{ movie.details.poster_path }}">
+            </div>
+            <div class="col s8">
+                <h5>Synopsis</h5>
+                <p>{{ movie.details.overview }}</p>
+                <h5>Voter Average</h5>
+                {% for i in range(1, 6) %}
+                    {% if (movie.details.vote_average / 2)|round(0, 'ceil') >= i %}
+                    <i class="material-icons">star</i>
+                    {% else %}
+                    <i class="material-icons">star_border</i>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="right-align">
+            {% if movie.details.imdb_id %}
+            <a href="http://www.imdb.com/title/{{ movie.details.imdb_id }}" target="_blank" class="btn orange">imdb</a>
+            {% endif %}
+            {% if movie.videos|length > 0 %}
+            <a href="https://www.youtube.com/watch?v={{ movie.videos[0].key }}" target="_blank" class="btn red">trailer</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endmacro %}

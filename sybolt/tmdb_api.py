@@ -1,0 +1,72 @@
+
+from urllib.request import urlopen
+import json
+import time
+
+API_KEY = '7e02a059c9c5cc263b4db5f4ea7f9222'
+API_URI = 'http://api.themoviedb.org/3/movie'
+
+def get_movie(id):
+    response = urlopen('{uri}/{id}?api_key={key}'.format(
+        uri=API_URI,
+        id=id,
+        key=API_KEY
+    ))
+
+    data = response.readall().decode('utf-8')
+    return json.loads(data)
+
+def get_videos(id):
+    response = urlopen('{uri}/{id}/videos?api_key={key}'.format(
+        uri=API_URI,
+        id=id,
+        key=API_KEY
+    ))
+
+    data = response.readall().decode('utf-8')
+    return json.loads(data)
+
+def cache_movie(id):
+
+    details = get_movie(id)
+    videos = get_videos(id)
+
+    # If we don't have a poster or backdrop, set a default
+    if not details['backdrop_path']:
+        details['backdrop_path'] = '/img/movie-backdrop.png'
+
+    if not details['poster_path']:
+        details['poster_path'] = '/img/movie-poster.png'
+
+    # Cache our TMDB response
+    cache_filename = 'tmdb_cache/{}.json'.format(id)
+    cache_json = dict(
+        details=details,
+        videos=videos['results']
+    )
+
+    with open(cache_filename, 'w') as f:
+        f.write(json.dumps(
+            cache_json, 
+            sort_keys=True, 
+            indent=4
+        ))
+
+    return cache_json
+
+if __name__ == '__main__':
+    
+    movies = [
+        6795, 87436, 9360, 19898, 70338, 9423, 120852, 
+        10999, 110415, 132313, 73, 68718, 8329, 81188, 
+        238636, 285, 137106, 15789, 10822, 120467, 8337, 
+        13258, 193726, 177572, 38541, 49049, 246403, 647, 
+        128, 8848, 106646, 83190, 37707, 33273, 13170, 
+        228165, 14337, 9823, 49010, 112090, 578, 221732, 
+        174772, 137113, 1089, 11551, 11688
+    ]
+
+    for id in movies:
+        print('Caching {}'.format(id))
+        cache_movie(id)
+        time.sleep(1)

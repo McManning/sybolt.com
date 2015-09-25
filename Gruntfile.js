@@ -21,70 +21,15 @@ module.exports = function(grunt) {
                 unused: true
             }
         },
-        requirejs: {
-            test: {
-                options: {
-                    baseDir: 'js/apps',
-                    mainConfigFile: 'js/apps/config.js',
-                    wrap: true,
-                    name: 'test',
-                    optimize: 'none',
-                    out: 'js/apps/build/test.js',
-                    exclude: [
-                        'backbone',
-                        'underscore',
-                        'jquery',
-                        'text'
-                    ]
-                }
-            },
-            live: {
-                options: {
-                    baseDir: 'js/apps',
-                    mainConfigFile: 'js/apps/config.js',
-                    wrap: true,
-                    name: 'live',
-                    optimize: 'none',
-                    out: 'js/apps/build/live.js',
-                    exclude: [
-                        'backbone',
-                        'underscore',
-                        'jquery',
-                        'text',
-                        'isotope',
-                        'flowplayer'
-                    ]
-                }
-            },
-            minecraft: {
-                options: {
-                    baseDir: 'js/apps',
-                    mainConfigFile: 'js/apps/config.js',
-                    wrap: true,
-                    name: 'minecraft',
-                    optimize: 'none',
-                    out: 'js/apps/build/minecraft.js',
-                    exclude: [
-                        'backbone',
-                        'underscore',
-                        'jquery',
-                        'text'
-                    ]
-                }
-            }
-        },
         uglify: {
             options: {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n',
-                preserveComments: false,
-                sourceMap: true
+                preserveComments: false
             },
             dist: {
                 files: {
-                    'js/apps/build/app.min.js': ['js/app.js'],
-                    'js/apps/build/test.min.js': ['js/apps/build/test.js'],
-                    'js/apps/build/live.min.js': ['js/apps/build/live.js'],
-                    'js/apps/build/minecraft.min.js': ['js/apps/build/minecraft.js']
+                    'js/landing.min.js': ['js/landing.js'],
+                    'js/live.min.js': ['js/live.js']
                 }
             }
         },
@@ -116,11 +61,11 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     // Full build task
-    grunt.registerTask('default', ['sass', 'jshint', 'requirejs', 'uglify']);
+    grunt.registerTask('default', ['jshint', /*'uglify',*/ 'sass']);
 };
