@@ -17,30 +17,22 @@ def shutdown_session(exception=None):
 site = Blueprint('site', __name__, url_prefix='')
 root = os.path.join(os.path.dirname(os.path.abspath(__file__)))
 
+# If we're running a debug mode, there may be a chance this is running
+# without Nginx routing. In that case, add some hacky routing for static resources
 if app.config['DEBUG']:
-    # Hacks for running on flask for dev. They're gross. I know. Shut up.
-    @site.route('/css/<path:file>', methods=['GET'])
-    def css(file):
-        return send_from_directory(app.config['ASSETS_PATH'] + '\\css', file)
+    @site.route('/<regex("css|js|img|font"):ftype>/<path:file>')
+    def serve_static(ftype, file):
+        return send_from_directory(
+            app.config['ASSETS_PATH'] + '\\' + ftype, 
+            file
+        )
 
-    @site.route('/js/<path:file>', methods=['GET'])
-    def js(file):
-        return send_from_directory(app.config['ASSETS_PATH'] + '\\js', file)
-
-    @site.route('/img/<path:file>', methods=['GET'])
-    def img(file):
-        return send_from_directory(app.config['ASSETS_PATH'] + '\\img', file)
-
-    @site.route('/font/<path:file>', methods=['GET'])
-    def font(file):
-        return send_from_directory(app.config['ASSETS_PATH'] + '\\font', file)
-
-@site.route('/favicon.ico', methods=['GET'])
+@site.route('/favicon.ico')
 def favicon():
     return ''
 
 # Actual routes
-@site.route('/', methods=['GET'])
+@site.route('/')
 def landing():
 
     # Grab the latest movie played
@@ -54,7 +46,7 @@ def landing():
         latest_movie=movie_data
     )
 
-@site.route('/live', methods=['GET'])
+@site.route('/live')
 def live():
     return render_template(
         'live.html'
@@ -77,7 +69,7 @@ def load_movie_data(id):
 
     return movie
 
-@site.route('/live/schedule/<int:month>/<int:year>', methods=['GET'])
+@site.route('/live/schedule/<int:month>/<int:year>')
 def schedule_page(month, year):
     # grab movie entries for the month
     # load the cached json, or download if we don't have one
