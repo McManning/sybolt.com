@@ -6,7 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sybolt import app
 
 engine = create_engine(
-    app.config['SQLALCHEMY_DATABASE_URI'], 
+    app.config['DATABASE_URI'], 
     convert_unicode=True
 )
 

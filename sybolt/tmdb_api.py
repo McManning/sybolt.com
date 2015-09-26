@@ -3,33 +3,32 @@ from urllib.request import urlopen
 import json
 import time
 
-API_KEY = '7e02a059c9c5cc263b4db5f4ea7f9222'
 API_URI = 'http://api.themoviedb.org/3/movie'
 
-def get_movie(id):
+def get_movie(api_key, id):
     response = urlopen('{uri}/{id}?api_key={key}'.format(
         uri=API_URI,
         id=id,
-        key=API_KEY
+        key=api_key
     ))
 
     data = response.readall().decode('utf-8')
     return json.loads(data)
 
-def get_videos(id):
+def get_videos(api_key, id):
     response = urlopen('{uri}/{id}/videos?api_key={key}'.format(
         uri=API_URI,
         id=id,
-        key=API_KEY
+        key=api_key
     ))
 
     data = response.readall().decode('utf-8')
     return json.loads(data)
 
-def cache_movie(id):
+def cache_movie(api_key, cache_path, id):
 
-    details = get_movie(id)
-    videos = get_videos(id)
+    details = get_movie(api_key, id)
+    videos = get_videos(api_key, id)
 
     # If we don't have a poster or backdrop, set a default
     if not details['backdrop_path']:
@@ -39,7 +38,7 @@ def cache_movie(id):
         details['poster_path'] = '/img/movie-poster.png'
 
     # Cache our TMDB response
-    cache_filename = 'tmdb_cache/{}.json'.format(id)
+    cache_filename = '{}/{}.json'.format(cache_path, id)
     cache_json = dict(
         details=details,
         videos=videos['results']
@@ -68,5 +67,5 @@ if __name__ == '__main__':
 
     for id in movies:
         print('Caching {}'.format(id))
-        cache_movie(id)
+        cache_movie('.', id)
         time.sleep(1)

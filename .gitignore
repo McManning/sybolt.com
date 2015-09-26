@@ -11,3 +11,4 @@
 /tmdb_cache
 *.db
 *.pyc
+*.bat

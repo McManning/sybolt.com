@@ -54,19 +54,25 @@ def live():
 
 def load_movie_data(id):
     movie = {}
+    cache_path = app.config['TMDB_CACHE_PATH']
+
     try:
-        with open('tmdb_cache/{}.json'.format(id)) as f:
+        with open('{}/{}.json'.format(cache_path, id)) as f:
             movie = json.loads(f.read())
+
     except FileNotFoundError:
         # If the movie isn't cached, try to load from TMDB
         try:
             from sybolt.tmdb_api import cache_movie
-            movie = cache_movie(id)
+            movie = cache_movie(
+                app.config['TMDB_API_KEY'], 
+                cache_path, 
+                id
+            )
         except:
             movie = None
 
     # TODO: Handling additional errors
-
     return movie
 
 @site.route('/live/schedule/<int:month>/<int:year>')
