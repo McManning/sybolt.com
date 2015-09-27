@@ -43,7 +43,7 @@ def landing():
 
     return render_template(
         'landing.html',
-        latest_movie=movie_data
+        latest_movie = movie_data
     )
 
 @site.route('/live')

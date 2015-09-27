@@ -79,8 +79,9 @@
 
 {% block script_extras %}{% endblock %}
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="/js/vendor/materialize.min.js"></script>
-<script type="text/javascript" src="/js/{% block js_app %}{% endblock %}.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4{% if config.USE_MINIFIED_JS %}.min{% endif %}.js"></script>
+<script type="text/javascript" src="/js/vendor/materialize{% if config.USE_MINIFIED_JS %}.min{% endif %}.js"></script>
+
+<script type="text/javascript" src="/js/{% block js_app %}{% endblock %}{% if config.USE_MINIFIED_JS %}.min{% endif %}.js"></script>
 </body>
 </html>

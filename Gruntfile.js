@@ -67,5 +67,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
 
     // Full build task
-    grunt.registerTask('default', ['jshint', /*'uglify',*/ 'sass']);
+    grunt.registerTask('default', ['jshint', 'uglify', 'sass']);
 };
