@@ -11001,6 +11001,10 @@ footer.page-footer .footer-copyright a {
   text-align: center;
 }
 
+a .card-panel {
+  color: #2E2C2A;
+}
+
 .row.no-movies h3 {
   margin: 5em 0;
   text-align: center;
@@ -11019,9 +11023,12 @@ footer.page-footer .footer-copyright a {
 }
 .card.movie-card .card-reveal .card-title {
   margin-bottom: 0.5em;
+  margin-right: 1em;
 }
 .card.movie-card .card-reveal .card-title i.right {
-  margin-top: 6px;
+  position: absolute;
+  top: 26px;
+  right: 12px;
 }
 .card.movie-card .card-action {
   position: relative;
