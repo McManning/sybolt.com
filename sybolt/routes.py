@@ -29,7 +29,10 @@ if app.config['DEBUG']:
 
 @site.route('/favicon.ico')
 def favicon():
-    return ''
+    return send_from_directory(
+        app.config['ASSETS_PATH'], 
+        'favicon.ico'
+    )
 
 # Actual routes
 @site.route('/')
