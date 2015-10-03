@@ -402,4 +402,10 @@ $(function() {
         return false;
     });
 
+    $('#stop2spooky').click(function() {
+        $(this).hide();
+        $('.spooky-vision').hide();
+        return false;
+    });
+
 });

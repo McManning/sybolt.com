@@ -1,8 +1,50 @@
 @charset "UTF-8";
 
+// Rather than importing vendor/materialize directly, we import
+// all materialize imports manually, so we can inject custom imports/mods
+// between the others 
+
+@charset "UTF-8";
+
 // Mixins
-@import "vendor/materialize";
-@import "vendor/prism";
+@import "vendor/components/prefixer";
+@import "vendor/components/mixins";
+@import "vendor/components/color";
+
+// October (halloween) overrides for variables
+@import "spooky";
+
+// Variables;
+@import "vendor/components/variables";
+
+// Reset
+@import "vendor/components/normalize";
+
+// components
+@import "vendor/components/global";
+@import "vendor/components/icons-material-design";
+@import "vendor/components/grid";
+@import "vendor/components/navbar";
+@import "vendor/components/roboto";
+@import "vendor/components/typography";
+@import "vendor/components/cards";
+@import "vendor/components/toast";
+@import "vendor/components/tabs";
+@import "vendor/components/tooltip";
+@import "vendor/components/buttons";
+@import "vendor/components/dropdown";
+@import "vendor/components/waves";
+@import "vendor/components/modal";
+@import "vendor/components/collapsible";
+@import "vendor/components/materialbox";
+@import "vendor/components/form";
+@import "vendor/components/table_of_contents";
+@import "vendor/components/sideNav";
+@import "vendor/components/preloader";
+@import "vendor/components/slider";
+@import "vendor/components/date_picker/default.scss";
+@import "vendor/components/date_picker/default.date.scss";
+@import "vendor/components/date_picker/default.time.scss";
 
 // Correction for sticky footer
 body {
@@ -194,7 +236,7 @@ footer.page-footer {
 
 // Landing page clickable cards
 a .card-panel {
-    color: $primary-color;
+    color: $font-color;
 }
 
 .row.no-movies h3 {
@@ -222,6 +264,7 @@ a .card-panel {
         .card-title {
             margin-bottom: 0.5em;
             margin-right: 1em;
+            color: $font-color;
             
             i.right {
                 position: absolute;
@@ -429,6 +472,7 @@ blockquote p {
         color: white;
         display: table-cell;
         vertical-align: middle;
+        border: none;
     }
 }
 

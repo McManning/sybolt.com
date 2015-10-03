@@ -2,9 +2,10 @@
 {% macro movie_card(movie) %}
 
 <div class="movie-card card tan lighten-2">
+    <div class="card-overlay spooky-{{ [1,2,3,4]|random }}"></div>
     <div class="card-content activator waves-effect waves-block waves-light" 
         style="background-image: url('http://image.tmdb.org/t/p/w780{{ movie.details.backdrop_path }}');">
-        <span class="card-title white-text activator">{{ movie.date }}</span>
+        <span class="card-title activator">{{ movie.date }}</span>
     </div>
     <div class="card-action">
         <div class="movie-title">
@@ -17,7 +18,7 @@
     </div>
     <div class="card-reveal tan lighten-2">
 
-        <span class="card-title tan-text text-darken-4 truncate">
+        <span class="card-title truncate">
             {{ movie.details.title }}<i class="material-icons right">close</i>
         </span>
         <div class="row">
