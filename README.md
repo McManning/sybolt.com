@@ -1,2 +1,2 @@
-# loris
-Loris RESTful API framework
+# sybolt.com
+Main website framework
