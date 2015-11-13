@@ -3,9 +3,6 @@ import os
 from flask import Flask, render_template
 from werkzeug.routing import BaseConverter
 
-#from flask.ext.sqlalchemy import SQLAlchemy
-#from sybolt.live.routes import live as live_blueprint
-
 app = Flask(__name__, static_url_path='')
 
 # Adding support for Regex in Flask
@@ -24,12 +21,9 @@ if 'SYBOLT_ENV' not in os.environ:
 
 app.config.from_object('config.' + os.environ['SYBOLT_ENV'])
 
-#db = SQLAlchemy(app)
-
 # Register blueprint routes
 from sybolt.routes import site
 app.register_blueprint(site)
-#app.register_blueprint(live_blueprint)
 
 from sybolt.database import init_db
 init_db()
