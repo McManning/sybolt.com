@@ -21,6 +21,11 @@ class Config(object):
     LOG_FILE = '/path/to/file.log'
     LOG_LEVEL = logging.DEBUG
 
+    # Murmur communication settings
+    MURMUR_HOST = '127.0.0.1'
+    MURMUR_PORT = 6502
+    MURMUR_SECRET = os.environ['MURMUR_SECRET']
+
 class TuningForkProd(Config):
     """ sybolt.com configuration (production)
         Nginx will proxy access to the python process,
