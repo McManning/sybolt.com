@@ -3,12 +3,15 @@ import os
 import glob
 import json
 import datetime
+import requests
 from sybolt import app
-from flask import Blueprint, render_template, send_from_directory, request
+from flask import Blueprint, render_template, send_from_directory, request, jsonify
 
 from sybolt.database import db_session
 from sybolt.models import Movie
-from sybolt.services import MurmurServiceNotifier
+#from sybolt.services import MurmurServiceNotifier
+
+from sybolt.utilities import parse_rtmp_status
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
@@ -169,3 +172,16 @@ def push_play_done():
     app.logger.debug('push play_done: %s', str(request.form))
     return ''
 
+@site.route('/live/status')
+def get_status():
+    """ Retrieve JSON representation of RTMP status
+    """
+    http_response = requests.get(app.config['RTMP_STATUS_URI']).content
+    
+    json = parse_rtmp_status(http_response)
+
+    # Append some additional information
+    json['rtmp_url'] = app.config['RTMP_CONNECTION_URI']
+
+    # TODO: Try to resolve connected clients to logged in users
+    return jsonify(json)

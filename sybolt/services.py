@@ -50,4 +50,3 @@ class MurmurServiceNotifier():
         
         for server in self.meta.getBootedServers():
             server.sendMessageChannel(0, 1, message)
-        

@@ -26,6 +26,9 @@ class Config(object):
     MURMUR_PORT = 6502
     MURMUR_SECRET = os.environ['MURMUR_SECRET']
 
+    RTMP_CONNECTION_URI = 'rtmp://sybolt.com:1935/live'
+    RTMP_STATUS_URI = 'http://localhost/rtmp_status'
+
 class TuningForkProd(Config):
     """ sybolt.com configuration (production)
         Nginx will proxy access to the python process,
@@ -63,3 +66,5 @@ class LocalDev(Config):
     TMDB_CACHE_PATH = 'X:\\Workspace\\Xampp\\htdocs\\sybolt-src\\tmdb_cache'
     LOG_FILE = 'X:\\Workspace\\Xampp\\htdocs\\sybolt-src\\out.log'
     LOG_LEVEL = logging.DEBUG
+
+    RTMP_STATUS_URI = 'http://sybolt.com/rtmp_status'
