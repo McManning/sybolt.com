@@ -22,9 +22,9 @@ class Config(object):
     LOG_LEVEL = logging.DEBUG
 
     # Murmur communication settings
-    MURMUR_HOST = '127.0.0.1'
-    MURMUR_PORT = 6502
-    MURMUR_SECRET = os.environ['MURMUR_SECRET']
+    #MURMUR_HOST = '127.0.0.1'
+    #MURMUR_PORT = 6502
+    #MURMUR_SECRET = os.environ['MURMUR_SECRET']
 
     RTMP_CONNECTION_URI = 'rtmp://sybolt.com:1935/live'
     RTMP_STATUS_URI = 'http://localhost/rtmp_status'
