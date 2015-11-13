@@ -109,4 +109,27 @@ def schedule_page(month, year):
         movies=entries
     )
 
+@site.route('/live/push/publish', methods=['POST'])
+def push_publish():
+
+    # TODO: Notify murmur servers
+    app.logger.debug('push publish: %s', request.form)
+
+    # No content needs to be returned
+    return {}
+
+@site.route('/live/push/publish_done', methods=['POST'])
+def push_publish_done():
+    app.logger.debug('push publish_done: %s', request.form)
+    return {}
+
+@site.route('/live/push/play', methods=['POST'])
+def push_play():
+    app.logger.debug('push play: %s', request.form)
+    return {}
+
+@site.route('/live/push/play_done', methods=['POST'])
+def push_play_done():
+    app.logger.debug('push play_done: %s', request.form)
+    return {}
 
