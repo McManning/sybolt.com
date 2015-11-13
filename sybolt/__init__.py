@@ -1,5 +1,6 @@
 
 import os
+from logging import FileHandler, Formatter
 from flask import Flask, render_template
 from werkzeug.routing import BaseConverter
 
@@ -20,6 +21,15 @@ if 'SYBOLT_ENV' not in os.environ:
     raise Exception('You must specify SYBOLT_ENV')
 
 app.config.from_object('config.' + os.environ['SYBOLT_ENV'])
+
+# Set up logging
+handler = FileHandler(app.config['LOG_FILE'])
+handler.setLevel(app.config['LOG_LEVEL'])
+handler.setFormatter(Formatter(
+    '%(asctime)s %(levelname)s: %(message)s '
+    '[in %(pathname)s:%(lineno)d]'
+))
+app.logger.addHandler(handler)
 
 # Register blueprint routes
 from sybolt.routes import site

@@ -1,5 +1,6 @@
 
 import os
+import logging
 
 class Config(object):
     DEBUG = False
@@ -16,6 +17,10 @@ class Config(object):
     # PKey for The Movie Database (stored on env)
     TMDB_API_KEY = os.environ['TMDB_API_KEY']
 
+    # Logging settings
+    LOG_FILE = '/path/to/file.log'
+    LOG_LEVEL = logging.DEBUG
+
 class TuningForkProd(Config):
     """ sybolt.com configuration (production)
         Nginx will proxy access to the python process,
@@ -27,6 +32,8 @@ class TuningForkProd(Config):
     DATABASE_URI = 'sqlite:////var/local/sybolt/prod.db'
     ASSETS_PATH = '/var/www/prod/sybolt'
     TMDB_CACHE_PATH = '/var/cache/sybolt/tmdb'
+    LOG_FILE = '/var/log/nginx/prod.sybolt.process.log'
+    LOG_LEVEL = logging.DEBUG
 
 class TuningForkDev(Config):
     """ dev.sybolt.com configuration.
@@ -40,6 +47,8 @@ class TuningForkDev(Config):
     DATABASE_URI = 'sqlite:////var/local/sybolt/dev.db'
     ASSETS_PATH = '/var/www/dev/sybolt'
     TMDB_CACHE_PATH = '/var/cache/sybolt/tmdb' # Same as prod (same data)
+    LOG_FILE = '/var/log/nginx/dev.sybolt.process.log'
+    LOG_LEVEL = logging.DEBUG
 
 class LocalDev(Config):
     DEBUG = True
@@ -47,3 +56,5 @@ class LocalDev(Config):
     DATABASE_URI = 'sqlite:///sybolt.db'
     ASSETS_PATH = 'X:\\Workspace\\Xampp\\htdocs\\sybolt-src'
     TMDB_CACHE_PATH = 'X:\\Workspace\\Xampp\\htdocs\\sybolt-src\\tmdb_cache'
+    LOG_FILE = 'X:\\Workspace\\Xampp\\htdocs\\sybolt-src\\out.log'
+    LOG_LEVEL = logging.DEBUG

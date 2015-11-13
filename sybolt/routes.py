@@ -4,7 +4,7 @@ import glob
 import json
 import datetime
 from sybolt import app
-from flask import Blueprint, render_template, send_from_directory
+from flask import Blueprint, render_template, send_from_directory, request
 
 from sybolt.database import db_session
 from sybolt.models import Movie
@@ -112,24 +112,26 @@ def schedule_page(month, year):
 @site.route('/live/push/publish', methods=['POST'])
 def push_publish():
 
+    print(request.form)
+
     # TODO: Notify murmur servers
-    app.logger.debug('push publish: %s', request.form)
+    app.logger.debug('push publish: %s', str(request.form))
 
     # No content needs to be returned
-    return {}
+    return ''
 
 @site.route('/live/push/publish_done', methods=['POST'])
 def push_publish_done():
-    app.logger.debug('push publish_done: %s', request.form)
-    return {}
+    app.logger.debug('push publish_done: %s', str(request.form))
+    return ''
 
 @site.route('/live/push/play', methods=['POST'])
 def push_play():
-    app.logger.debug('push play: %s', request.form)
-    return {}
+    app.logger.debug('push play: %s', str(request.form))
+    return ''
 
 @site.route('/live/push/play_done', methods=['POST'])
 def push_play_done():
-    app.logger.debug('push play_done: %s', request.form)
-    return {}
+    app.logger.debug('push play_done: %s', str(request.form))
+    return ''
 
