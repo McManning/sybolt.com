@@ -27,7 +27,7 @@ class Config(object):
     #MURMUR_SECRET = os.environ['MURMUR_SECRET']
 
     RTMP_CONNECTION_URI = 'rtmp://sybolt.com:1935/live'
-    RTMP_STATUS_URI = 'https://localhost/rtmp_status'
+    RTMP_STATUS_URI = 'http://localhost/rtmp_status'
 
 class TuningForkProd(Config):
     """ sybolt.com configuration (production)
