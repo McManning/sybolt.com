@@ -363,7 +363,31 @@ $(function() {
 
         date.setMonth(date.getMonth() - 2);
         $('#last-month').html(date.format('mmmm yyyy'));
-    
+
+        // Bind events to krampus vote buttons
+        $('i.krampusvote-vote').click(function() {
+
+            var $card = $(this).closest('.movie-card');
+            var voteType = $(this).hasClass('nice') ? 'nice' : 'naughty';
+
+            // Send vote to our service
+            $.post('/krampusvote/vote/movie', { 
+                    type: voteType, 
+                    id: $card.data('movie-id')
+                })
+                .done(function(data) {
+                    if ('error' in data) {
+                        alert(data.error);
+                    } else {
+                        // Apply vote overlay, results, and hide our buttons
+                        $card.find('i.krampusvote-vote').hide();
+                        $card.find('.krampusvote-result').addClass(voteType);
+                        $card.find('p.krampusvote-vote')
+                            .addClass(voteType)
+                            .text(voteType);
+                    }
+                });
+        });
     }
 
     /**

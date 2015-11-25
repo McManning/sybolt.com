@@ -1,0 +1,59 @@
+
+.movie-card {
+    &.krampusvote {
+        // Make room for the vote icons 
+        .movie-title {
+            margin-right: 7rem;
+        }
+    }
+}
+
+// Vote icons on movie cards
+i.krampusvote-vote {
+    &.naughty {
+        color: red;
+    }
+
+    &.nice {
+        color: green;
+    }
+}
+
+// Description text of vote types
+p.krampusvote-vote {
+    text-transform: capitalize;
+
+    &.naughty {
+        color: red;
+    }
+
+    &.nice {
+        color: green;
+    }
+}
+
+// KrampusVote overlay
+.card-overlay.krampusvote-result {
+    width: 100%;
+    height: 75%;
+    min-height: 300px;
+    
+    position: absolute;
+    z-index: 2;
+    opacity: 0.6;
+    
+    &.nice {
+        background: url('/img/krampusvote/nice-overlay.png');
+        background-size: cover;
+    }
+
+    &.naughty {
+        background: url('/img/krampusvote/naughty-overlay.png');
+        background-size: cover;
+    }
+}
+
+// Fix reveal being behind the image overlay
+.card .card-reveal {
+    z-index: 3 !important;
+}

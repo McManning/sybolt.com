@@ -14,6 +14,9 @@
 // October (halloween) overrides for variables
 //@import "spooky";
 
+// Holiday overrides for variables
+@import "krampusvote";
+
 // Variables;
 @import "vendor/components/variables";
 
@@ -280,6 +283,7 @@ a .card-panel {
 
     .movie-title {
         margin-right: 2rem;
+        margin-right: 7rem; // making room for KrampusVote icons
     }
 
     .movie-title h4 {
