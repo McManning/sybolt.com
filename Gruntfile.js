@@ -29,7 +29,8 @@ module.exports = function(grunt) {
             dist: {
                 files: {
                     'js/landing.min.js': ['js/landing.js'],
-                    'js/live.min.js': ['js/live.js']
+                    'js/live.min.js': ['js/live.js'],
+                    'js/krampusvote.min.js': ['js/krampusvote.js']
                 }
             }
         },

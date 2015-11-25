@@ -32,8 +32,11 @@ handler.setFormatter(Formatter(
 app.logger.addHandler(handler)
 
 # Register blueprint routes
-from sybolt.routes import site
-app.register_blueprint(site)
+from .routes import site
+from .krampusvote import group as krampusvote
 
-from sybolt.database import init_db
+app.register_blueprint(site)
+app.register_blueprint(krampusvote)
+
+from .database import init_db
 init_db()
