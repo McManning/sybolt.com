@@ -211,7 +211,7 @@ class KrampusVote(Base):
         """ Apply naughty/nice votes for each movie for the given user """
 
         votes = cls.query\
-            .filter(cls.ip == '127.0.0.1')\
+            .filter(cls.ip == ip)\
             .filter(cls.movie_id.in_([m.id for m in movies]))\
             .all()
 

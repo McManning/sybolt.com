@@ -53,7 +53,6 @@ def vote_movie():
     try:
         movie = Movie.query\
             .filter(Movie.id == request.form['id'])\
-            .filter(Movie.date > '2014-12-26')\
             .one()
     except NoResultFound:
         return jsonify({
