@@ -11094,4 +11094,8 @@ blockquote p {
   font-size: 1.64rem;
 }
 
+.pc-principal {
+  max-height: 300px;
+}
+
 /*# sourceMappingURL=main.css.map */
