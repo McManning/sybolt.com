@@ -3,6 +3,10 @@ import os
 import logging
 
 class Config(object):
+
+    # Application version, used for cachebusting resources
+    VERSION = '1.0.0'
+
     DEBUG = False
     PORT = 5000
     USE_MINIFIED_JS = False
