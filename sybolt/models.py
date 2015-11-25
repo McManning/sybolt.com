@@ -2,7 +2,11 @@
 from datetime import date, datetime
 import json
 
-from sqlalchemy import Column, Integer, String, Date, Enum
+from sqlalchemy import Column, Integer, String, Date, Enum, ForeignKey
+
+from sqlalchemy import cast, func
+from sqlalchemy.orm import relationship
+
 from .database import Base, db_session
 
 from sybolt import app
@@ -13,6 +17,7 @@ class Movie(Base):
     tmdb_id = Column(Integer)
     profile = Column(String(80))
     date = Column(Date)
+    krampus_votes = relationship('KrampusVote')
 
     _tmdb_data = None
 
@@ -54,14 +59,30 @@ class Movie(Base):
         else:
             next_month = date(int(year) + 1, 1, 1)
 
-        # Pull up all movies in our database within the specified month
+        # Create a subquery to also load krampusvote counts for each
+        # subquery = db_session.query(KrampusVote.movie_id, func.count('*')\
+        #     .label('krampusvote_count'))\
+        #     .group_by(KrampusVote.movie_id)\
+        #     .subquery()
+
+        # app.logger.debug(subquery.c)
+
+        # results = db_session.query(cls, subquery.c.krampusvote_count)\
+        #     .filter(cls.date.between(search_month, next_month))\
+        #     .outerjoin(subquery, cls.id==subquery.c.movie_id)\
+        #     .order_by(cls.date)\
+        #     .all()
+
+        # # Merge krampusvote counts into movie data
+        # for movies, counts in results:
+        #     movie.krampus_votes =
+
         movies = cls.query\
             .filter(cls.date.between(search_month, next_month))\
             .order_by(cls.date)\
             .all()
 
         return movies
-
 
     def _load_tmdb_data(self):
         """ Load and cache additional movie data from TMDB """
@@ -86,7 +107,13 @@ class Movie(Base):
 
         self._tmdb_data = data
 
+class KrampusVoteError(Exception):
+    """ Exception class that is thrown by KrampusVote """
+    def __init__(self, message):
+        self.message = message
 
+    def __str__(self):
+        return self.message
 
 class KrampusVote(Base):
     __tablename__ = 'krampusvote'
@@ -111,51 +138,87 @@ class KrampusVote(Base):
     # Movie.date > 12-25-2014
     vote_group = Column(Enum('movie', 'daily'))
 
-    # If vote_type == movie, 
-    movie_id = Column(Integer, nullable=True)
+    # If vote_type == movie, this is set
+    movie_id = Column(Integer, ForeignKey('movie.id'), nullable=True)
 
     @classmethod
-    def votes_today(kv, ip):
-        return kv.query\
-            .filter(kv.date == datetime.now())\
-            .filter(kv.ip == ip)\
+    def votes_today(cls, ip):
+        """ Return the number of daily votes made today """
+        return cls.query\
+            .filter(cls.date == date.today())\
+            .filter(cls.vote_group == 'daily')\
+            .filter(cls.ip == ip)\
             .count()
 
     @classmethod
-    def total_votes(kv, ip):
-        return kv.query\
-            .filter(kv.ip == ip)\
+    def total_votes(cls, ip):
+        return cls.query\
+            .filter(cls.ip == ip)\
             .count()
 
     @classmethod
-    def has_voted_on_movie(kv, ip, movie_id):
-        return kv.query\
-            .filter(kv.ip == ip)\
-            .filter(kv.movie_id == movie_id)\
+    def has_voted_on_movie(cls, ip, movie_id):
+        return cls.query\
+            .filter(cls.ip == ip)\
+            .filter(cls.movie_id == movie_id)\
             .count() > 0
 
     @classmethod
-    def vote(kv, movie, ip, type):
+    def vote_movie(cls, movie, ip, type):
 
-        # Create a new vote entry or edit an existing one
-        vote = kv.query\
-            .filter(kv.movie_id == movie.id)\
-            .filter(kv.ip == ip)\
-            .first()
+        # Ensure they haven't voted on this movie yet
+        if cls.has_voted_on_movie(ip, movie.id):
+            raise KrampusVoteError(
+                'You already voted on this movie'
+            )
 
-        # If we don't have an entry yet, create a new one
-        # and populate fields that don't change between votes
-        if not vote:
-            vote = kv()
-            vote.profile = movie.profile
-            vote.ip = ip
-            vote.vote_group = 'movie'
-            vote.movie_id = movie.id
-            db_session.add(vote)
-
+        vote = cls()
+        vote.profile = movie.profile
+        vote.ip = ip
+        vote.vote_group = 'movie'
+        vote.movie_id = movie.id
         vote.date = datetime.now()
         vote.vote_type = type
-       
+
+        db_session.add(vote)
         db_session.commit()
 
         return vote
+
+    @classmethod
+    def vote_daily(cls, profile, ip, type):
+        
+        # Ensure they can actually vote again
+        if cls.votes_today(ip) > 1:
+            raise KrampusVoteError(
+                'You have reached your maximum (2) votes today'
+            )
+
+        vote = cls()
+        vote.profile = profile
+        vote.ip = ip
+        vote.date = datetime.now()
+        vote.vote_group = 'daily'
+        vote.vote_type = type
+
+        db_session.add(vote)
+        db_session.commit()
+
+        return vote
+
+    @classmethod
+    def apply_votes_to_movies(cls, ip, movies):
+        """ Apply naughty/nice votes for each movie for the given user """
+
+        votes = cls.query\
+            .filter(cls.ip == '127.0.0.1')\
+            .filter(cls.movie_id.in_([m.id for m in movies]))\
+            .all()
+
+        for m in movies:
+            for vote in votes:
+                if vote.movie_id == m.id:
+                    m.krampusvote = vote.vote_type
+                    break
+            else:
+                m.krampusvote = None

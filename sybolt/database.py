@@ -7,7 +7,8 @@ from sybolt import app
 
 engine = create_engine(
     app.config['DATABASE_URI'], 
-    convert_unicode=True
+    convert_unicode=True,
+    echo=True
 )
 
 db_session = scoped_session(

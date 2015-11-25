@@ -2,12 +2,12 @@
 from datetime import datetime
 
 from flask import Blueprint, render_template, request, jsonify
-from sqlalchemy import func
+
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import IntegrityError
 
 from .database import db_session
-from .models import Movie, KrampusVote
+from .models import Movie, KrampusVote, KrampusVoteError
 
 group = Blueprint('krampusvote', __name__, url_prefix='/krampusvote')
 
@@ -39,8 +39,8 @@ def vote_movie():
 
     The movie selected must be after 12/25/2014.
     The profile who picked the movie gets the naughty
-    or nice vote. If the movie was already voted on by
-    this user, then we change their prior vote. 
+    or nice vote. If the movie has already been voted on
+    by the user, it returns a 400 error with error JSON
 
     This method returns an error response if the vote
     does not fall into the parameters, otherwise it will
@@ -50,14 +50,6 @@ def vote_movie():
         type=naughty
         id=10
     """
-
-    if 'id' not in request.form or \
-        'type' not in request.form:
-        
-        return jsonify({
-            'error': 'Missing parameters in post body'
-        }), 400
-
     try:
         movie = Movie.query\
             .filter(Movie.id == request.form['id'])\
@@ -75,7 +67,7 @@ def vote_movie():
 
         try:
             # Apply our vote
-            vote = KrampusVote.vote(
+            vote = KrampusVote.vote_movie(
                 movie, 
                 request.remote_addr, 
                 request.form['type']
@@ -84,6 +76,10 @@ def vote_movie():
         except IntegrityError:
             return jsonify({
                 'error': 'Invalid post data'
+            }), 400
+        except KrampusVoteError as e:
+            return jsonify({
+                'error': str(e)
             }), 400
         else:
             return jsonify({
@@ -95,10 +91,35 @@ def vote_movie():
 
 @group.route('/vote/daily', methods=['POST'])
 def vote_daily():
-    """ Add a daily naughty or nice vote to a person
+    """ Add a daily naughty or nice vote to a person.
 
+    If we've reached the maximum votes allowed for the day,
+    this will return a 400 with error JSON.
 
+    POST
+        profile=Chase
+        type=naughty
     """
-    return jsonify({
-        'ok': 'cool'
-    }), 201
+    try:
+        # Apply our vote
+        vote = KrampusVote.vote_daily(
+            request.form['profile'], 
+            request.remote_addr, 
+            request.form['type']
+        )
+
+    except IntegrityError:
+        return jsonify({
+            'error': 'Invalid post data'
+        }), 400
+    except KrampusVoteError as e:
+        return jsonify({
+            'error': str(e)
+        }), 400
+    else:
+        return jsonify({
+            'date': str(vote.date),
+            'id': vote.id,
+            'profile': vote.profile,
+            'type': vote.vote_type
+        }), 201

@@ -7,7 +7,7 @@ from sybolt import app
 from flask import Blueprint, render_template, send_from_directory, request, jsonify
 
 from sybolt.database import db_session
-from sybolt.models import Movie
+from sybolt.models import Movie, KrampusVote
 #from sybolt.services import MurmurServiceNotifier
 
 from sybolt.utilities import parse_rtmp_status
@@ -70,7 +70,15 @@ def login():
 @site.route('/live/schedule/<int:month>/<int:year>')
 def schedule_page(month, year):
     """ Retrieve all movies for a given period as an HTML partial """
+
     movies = Movie.get_all_for_month(month, year)
+
+    # Apply some additional krampusVote data to our movies
+    # for the current user 
+    KrampusVote.apply_votes_to_movies(
+        request.remote_addr,
+        movies
+    )
 
     return render_template(
         'schedule-page.html',

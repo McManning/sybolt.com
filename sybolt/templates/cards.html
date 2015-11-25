@@ -2,7 +2,9 @@
 {% macro movie_card(movie) %}
 
 <div class="movie-card card tan lighten-2">
-    <div class="card-overlay spooky-{{ [1,2,3,4]|random }}"></div>
+    {% if movie.krampusvote %}
+    <div class="card-overlay krampusvote-{{ movie.krampusvote }}"></div>
+    {% endif %}
     <div class="card-content activator waves-effect waves-block waves-light" 
         style="background-image: url('https://image.tmdb.org/t/p/w780{{ movie.tmdb_data.details.backdrop_path }}');">
         <span class="card-title activator">{{ movie.short_date }}</span>
