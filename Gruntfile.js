@@ -30,7 +30,8 @@ module.exports = function(grunt) {
                 files: {
                     'js/landing.min.js': ['js/landing.js'],
                     'js/live.min.js': ['js/live.js'],
-                    'js/krampusvote.min.js': ['js/krampusvote.js']
+                    'js/krampusvote.min.js': ['js/krampusvote.js'],
+                    'js/safespace.min.js': ['js/safespace.js']
                 }
             }
         },

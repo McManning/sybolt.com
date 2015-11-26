@@ -33,6 +33,9 @@ class Config(object):
     RTMP_CONNECTION_URI = 'rtmp://sybolt.com:1935/live'
     RTMP_STATUS_URI = 'http://localhost/rtmp_status'
 
+    # Salt used for hashing account passwords (stored on env)
+    PASSWORD_SALT = os.environ['PASSWORD_SALT']
+
 class TuningForkProd(Config):
     """ sybolt.com configuration (production)
         Nginx will proxy access to the python process,

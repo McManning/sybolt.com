@@ -1,11 +1,17 @@
 
 from datetime import date, datetime
 import json
+from hashlib import sha256
 
-from sqlalchemy import Column, Integer, String, Date, Enum, ForeignKey
+from sqlalchemy import Column, ForeignKey
+
+# Column data types
+from sqlalchemy import Integer, String, Date, DateTime, Enum
 
 from sqlalchemy import cast, func
 from sqlalchemy.orm import relationship
+
+from flask.ext.login import UserMixin
 
 from .database import Base, db_session
 
@@ -222,3 +228,95 @@ class KrampusVote(Base):
                     break
             else:
                 m.krampusvote = None
+
+class LoginRecord(Base):
+    """ Tracking logins for profiles """
+    __tablename__ = 'login_record'
+    id = Column(Integer, primary_key=True)
+    profile_id = Column(Integer, ForeignKey('profile.id'))
+    profile = relationship('Profile', backref='login_records')
+
+    date = Column(DateTime)
+    ip = Column(String(15))
+
+
+    # TODO: Append geographic information for better display
+    # (i.e. "Login at [time] from [location] [ip]")
+    # Check out http://ip-api.com/docs/api:json
+    # Could probably just do this on the frontend. 
+
+class Profile(Base, UserMixin):
+    """ A user profile """
+    __tablename__ = 'profile'
+    id = Column(Integer, primary_key=True)
+    email = Column(String(200))
+
+    # Display name, changeable by the user
+    nickname = Column(String(64))
+
+    # Sha256 digest of the password + secret
+    _password = Column('password', String(64))
+
+    # Associated account names (eventually DB relationships) 
+    murmur_username = Column(String(32))
+
+    # Generated via https://api.mojang.com/users/profiles/minecraft/{minecraft_username}
+    minecraft_uuid = Column(String(36))
+    minecraft_username = Column(String(16))
+
+    @property
+    def password(self):
+        return self._password
+
+    @password.setter
+    def password(self, password):
+        """ Setter to enforce encryption on stored passwords """
+        self._password = Profile.crypt(password)
+
+    def get_id(self):
+        """ Returns a unicode to uniquely identify the user.
+            
+        Required by Flask-Login UserMixin
+        """
+        return str(self.id)
+
+    # TODO: Move to general utilities
+    @staticmethod
+    def crypt(value):
+        """ Get an encryption digest on a value as a hex digest 
+
+        Params:
+            value: Plaintext string to encode
+        """
+
+        crypted = sha256()
+        crypted.update(value.encode('utf-8'))
+        crypted.update(app.config['PASSWORD_SALT'].encode('utf-8'))
+
+        return crypted.hexdigest()
+
+    def minecraft_body_url(self, scale = 4):
+
+        # Yay for third party APIs
+        return 'https://crafatar.com/renders/body/{}?overlay&scale={}'.format(
+            self.minecraft_uuid, 
+            scale
+        )
+
+    def minecraft_head_url(self, size = 64):
+
+        # Yay for third party APIs
+        return 'https://crafatar.com/avatars/{}?size={}&overlay'.format(
+            self.minecraft_uuid, 
+            size
+        )
+
+    def get_recent_login_records(self, count):
+        """ Returns `count` recent LoginRecord entries for this profile """
+        
+        return LoginRecord.query\
+            .filter(LoginRecord.profile_id == self.id)\
+            .order_by(LoginRecord.date)\
+            .limit(count)\
+            .all()
+

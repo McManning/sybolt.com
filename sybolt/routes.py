@@ -7,7 +7,7 @@ from sybolt import app
 from flask import Blueprint, render_template, send_from_directory, request, jsonify
 
 from sybolt.database import db_session
-from sybolt.models import Movie, KrampusVote
+from sybolt.models import Movie, KrampusVote, Profile
 #from sybolt.services import MurmurServiceNotifier
 
 from sybolt.utilities import parse_rtmp_status
@@ -65,6 +65,12 @@ def safe_space():
 def login():
     return render_template(
         'login.html'
+    )
+
+@site.route('/register', methods=['GET'])
+def get_register():
+    return render_template(
+        'register.html'
     )
 
 @site.route('/live/schedule/<int:month>/<int:year>')
@@ -157,3 +163,52 @@ def get_status():
 
     # TODO: Try to resolve connected clients to logged in users
     return jsonify(json)
+
+
+@site.route('/safespace/register', methods=['POST'])
+def post_register():
+    """ API POST new registration """
+
+    # Ensure they know the secret before registering
+    # if request.form['secret'] != app.config['REGISTRATION_SECRET']:
+    #     return jsonify({
+    #             'error': 'Invalid secret'
+    #     }), 400
+
+    app.logger.debug(request.form)
+
+    profile = Profile()
+    profile.email = request.form['email']
+    profile.password = request.form['password']
+    profile.nickname = request.form['nickname']
+    profile.minecraft_uuid = request.form['minecraftUUID']
+    profile.minecraft_username = request.form['minecraftUsername']
+    profile.murmur_username = request.form['murmurUsername']
+
+    if not profile.email or not profile.password or not profile.nickname\
+        or not profile.minecraft_uuid or not profile.minecraft_username\
+        or not profile.murmur_username:
+        return jsonify({
+            'error': 'You must fill out all fields'
+        }), 400
+
+    if profile.password.find('potato') > -1:
+        return jsonify({
+            'error': 'Shut up Trevor'
+        }), 400
+
+    if request.form['password'] != request.form['passwordConfirm']:
+        return jsonify({
+            'error': 'Passwords do not match'
+        }), 400
+
+    db_session.add(profile)
+
+    # TODO: Better security... but.. meh. Closed system.
+
+    db_session.commit()
+
+    return jsonify({
+        'id': profile.id,
+        'email': profile.email,
+    }), 201

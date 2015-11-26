@@ -34,9 +34,11 @@ app.logger.addHandler(handler)
 # Register blueprint routes
 from .routes import site
 from .krampusvote import group as krampusvote
+from .murmur import group as murmur
 
 app.register_blueprint(site)
 app.register_blueprint(krampusvote)
+app.register_blueprint(murmur)
 
 from .database import init_db
 init_db()

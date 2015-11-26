@@ -505,3 +505,29 @@ blockquote p {
 .pc-principal {
     max-height: 300px;
 }
+
+#registration-form {
+    padding: 2rem;
+}
+
+// Supporting additional help text in form components
+.input-field .prefix ~ p.help {
+    margin-left: 3rem;
+}
+
+.input-field p.help {
+    font-size: 0.8rem;
+    margin: 0;
+    padding-bottom: 1rem;
+}
+
+// Buttons that are inside input areas
+.input-field button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0;
+    font-size: 1rem;
+    padding: 0 1rem;
+    height: 28px;
+    line-height: 28px;
+}

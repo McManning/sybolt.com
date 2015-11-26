@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block js_app %}safespace{% endblock %}
+
+{% block logo_extras %}{% endblock %}
+
+{% block head_extras %}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="container center">
+        <br/>
+        <h2>Sybolt Safe Space</h2>
+
+        <img class="pc-principal" src="/img/pc-principal.png">
+
+        <div class="row">
+            <div class="col s6 offset-s3">
+                <div class="input-field">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="username" type="text">
+                    <label for="username">Username</label>
+                </div>
+                <div class="input-field">
+                    <i class="material-icons prefix">lock</i>
+                    <input id="password" type="password">
+                    <label for="password">Password</label>
+                </div>
+
+                <button class="btn waves-effect waves-light green" type="submit" style="width:100%">
+                    Login
+                </button>
+                <span class="red-text">Check your microaggressions at the door, bro</span>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
