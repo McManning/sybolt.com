@@ -36,6 +36,14 @@ class Config(object):
     # Salt used for hashing account passwords (stored on env)
     PASSWORD_SALT = os.environ['PASSWORD_SALT']
 
+    SECRET_KEY = os.environ['FLASK_SECRET_KEY']
+
+    # Flask-Login cookie settings
+    REMEMBER_COOKIE_NAME = 'remember_me_fondly'
+    REMEMBER_COOKIE_DOMAIN = '.sybolt.com'
+    REMEMBER_COOKIE_SECURE = True
+    REMEMBER_COOKIE_HTTPONLY = True
+
 class TuningForkProd(Config):
     """ sybolt.com configuration (production)
         Nginx will proxy access to the python process,

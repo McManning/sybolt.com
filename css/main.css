@@ -11165,4 +11165,12 @@ blockquote p {
   line-height: 28px;
 }
 
+.pc-delta {
+  bottom: 0;
+  position: absolute;
+  left: 0;
+  padding-left: 100px;
+  padding-bottom: 20px;
+}
+
 /*# sourceMappingURL=main.css.map */

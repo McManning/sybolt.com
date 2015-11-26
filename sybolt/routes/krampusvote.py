@@ -6,8 +6,8 @@ from flask import Blueprint, render_template, request, jsonify
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import IntegrityError
 
-from .database import db_session
-from .models import Movie, KrampusVote, KrampusVoteError
+from sybolt.database import db_session
+from sybolt.models import Movie, KrampusVote, KrampusVoteError
 
 group = Blueprint('krampusvote', __name__, url_prefix='/krampusvote')
 

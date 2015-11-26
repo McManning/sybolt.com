@@ -32,13 +32,17 @@ handler.setFormatter(Formatter(
 app.logger.addHandler(handler)
 
 # Register blueprint routes
-from .routes import site
-from .krampusvote import group as krampusvote
-from .murmur import group as murmur
+from .routes.landing import group as landing
+from .routes.krampusvote import group as krampusvote
+from .routes.murmur import group as murmur
+from .routes.safespace import group as safespace
+from .routes.live import group as live
 
-app.register_blueprint(site)
+app.register_blueprint(landing)
 app.register_blueprint(krampusvote)
 app.register_blueprint(murmur)
+app.register_blueprint(safespace)
+app.register_blueprint(live)
 
 from .database import init_db
 init_db()

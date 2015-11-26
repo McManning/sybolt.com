@@ -88,15 +88,28 @@ $(function() {
             .click(searchMurmurUsername);
 
     $('#registration-form').submit(function() {
-        console.log($(this).serialize());
-
         $.post('/safespace/register', $(this).serialize())
-            .done(function(data) {
-                console.log(data);
-            })
             .done(function(data) {
                 // Awesome, redirect!
                 window.location.href = '/safespace/login';
+            })
+            .fail(function(xhr) {
+                try {
+                    var json = $.parseJSON(xhr.responseText);
+                    alert(json.error);
+                } catch (e) {
+                    alert('Well shit, something weird went wrong.');
+                }
+            });
+
+        return false;
+    });
+
+    $('#login-form').submit(function() {
+        $.post('/safespace/login', $(this).serialize())
+            .done(function(data) {
+                // Awesome, redirect!
+                window.location.href = '/safespace';
             })
             .fail(function(xhr) {
                 try {

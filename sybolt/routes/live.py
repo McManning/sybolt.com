@@ -1,79 +1,22 @@
-# Import flask dependencies
-import os
-import glob
-import datetime
+
+from datetime import datetime
 import requests
+
+from flask import Blueprint, render_template, request, jsonify
 from sybolt import app
-from flask import Blueprint, render_template, send_from_directory, request, jsonify
 
-from sybolt.database import db_session
-from sybolt.models import Movie, KrampusVote, Profile
-#from sybolt.services import MurmurServiceNotifier
-
+from sybolt.models import Movie, KrampusVote
 from sybolt.utilities import parse_rtmp_status
 
-@app.teardown_appcontext
-def shutdown_session(exception=None):
-    db_session.remove()
+group = Blueprint('live', __name__, url_prefix='/live')
 
-# Define the main site blueprint
-site = Blueprint('site', __name__, url_prefix='')
-root = os.path.join(os.path.dirname(os.path.abspath(__file__)))
-
-# If we're running a debug mode, there may be a chance this is running
-# without Nginx routing. In that case, add some hacky routing for static resources
-if app.config['DEBUG']:
-    @site.route('/<regex("css|js|img|font"):ftype>/<path:file>')
-    def serve_static(ftype, file):
-        return send_from_directory(
-            app.config['ASSETS_PATH'] + '\\' + ftype, 
-            file
-        )
-
-@site.route('/favicon.ico')
-def favicon():
-    return send_from_directory(
-        app.config['ASSETS_PATH'], 
-        'favicon.ico'
-    )
-
-# Actual routes
-@site.route('/')
-def landing():
-
-    # Grab the latest movie to display on the landing page
-    latest_movie = Movie.get_latest()
-
-    return render_template(
-        'landing.html',
-        latest_movie = latest_movie
-    )
-
-@site.route('/live')
+@group.route('/')
 def live():
     return render_template(
         'live.html'
     )
 
-@site.route('/safespace')
-def safe_space():
-    return render_template(
-        'safespace.html'
-    )
-
-@site.route('/login')
-def login():
-    return render_template(
-        'login.html'
-    )
-
-@site.route('/register', methods=['GET'])
-def get_register():
-    return render_template(
-        'register.html'
-    )
-
-@site.route('/live/schedule/<int:month>/<int:year>')
+@group.route('/schedule/<int:month>/<int:year>')
 def schedule_page(month, year):
     """ Retrieve all movies for a given period as an HTML partial """
 
@@ -91,7 +34,7 @@ def schedule_page(month, year):
         movies=movies
     )
 
-@site.route('/live/push/publish', methods=['POST'])
+@group.route('/push/publish', methods=['POST'])
 def push_publish():
 
     # The message to send to all murmur servers/channels when we go live
@@ -111,7 +54,7 @@ def push_publish():
     # No content needs to be returned
     return ''
 
-@site.route('/live/push/publish_done', methods=['POST'])
+@group.route('/push/publish_done', methods=['POST'])
 def push_publish_done():
     # notifier = MurmurServiceNotifier(
     #     app.config['MURMUR_HOST'], 
@@ -124,7 +67,7 @@ def push_publish_done():
     app.logger.debug('push publish_done: %s', str(request.form))
     return ''
 
-@site.route('/live/push/play', methods=['POST'])
+@group.route('/push/play', methods=['POST'])
 def push_play():
     # notifier = MurmurServiceNotifier(
     #     app.config['MURMUR_HOST'], 
@@ -137,7 +80,7 @@ def push_play():
     app.logger.debug('push play: %s', str(request.form))
     return ''
 
-@site.route('/live/push/play_done', methods=['POST'])
+@group.route('/push/play_done', methods=['POST'])
 def push_play_done():
     # notifier = MurmurServiceNotifier(
     #     app.config['MURMUR_HOST'], 
@@ -150,7 +93,7 @@ def push_play_done():
     app.logger.debug('push play_done: %s', str(request.form))
     return ''
 
-@site.route('/live/status')
+@group.route('/status')
 def get_status():
     """ Retrieve JSON representation of RTMP status
     """
@@ -163,52 +106,3 @@ def get_status():
 
     # TODO: Try to resolve connected clients to logged in users
     return jsonify(json)
-
-
-@site.route('/safespace/register', methods=['POST'])
-def post_register():
-    """ API POST new registration """
-
-    # Ensure they know the secret before registering
-    # if request.form['secret'] != app.config['REGISTRATION_SECRET']:
-    #     return jsonify({
-    #             'error': 'Invalid secret'
-    #     }), 400
-
-    app.logger.debug(request.form)
-
-    profile = Profile()
-    profile.email = request.form['email']
-    profile.password = request.form['password']
-    profile.nickname = request.form['nickname']
-    profile.minecraft_uuid = request.form['minecraftUUID']
-    profile.minecraft_username = request.form['minecraftUsername']
-    profile.murmur_username = request.form['murmurUsername']
-
-    if not profile.email or not profile.password or not profile.nickname\
-        or not profile.minecraft_uuid or not profile.minecraft_username\
-        or not profile.murmur_username:
-        return jsonify({
-            'error': 'You must fill out all fields'
-        }), 400
-
-    if profile.password.find('potato') > -1:
-        return jsonify({
-            'error': 'Shut up Trevor'
-        }), 400
-
-    if request.form['password'] != request.form['passwordConfirm']:
-        return jsonify({
-            'error': 'Passwords do not match'
-        }), 400
-
-    db_session.add(profile)
-
-    # TODO: Better security... but.. meh. Closed system.
-
-    db_session.commit()
-
-    return jsonify({
-        'id': profile.id,
-        'email': profile.email,
-    }), 201

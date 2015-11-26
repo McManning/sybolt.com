@@ -531,3 +531,12 @@ blockquote p {
     height: 28px;
     line-height: 28px;
 }
+
+// Stick them as a bottom left overlay
+.pc-delta {
+    bottom: 0;
+    position: absolute;
+    left: 0;
+    padding-left: 100px;
+    padding-bottom: 20px;
+}
