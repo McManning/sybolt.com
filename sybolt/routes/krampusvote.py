@@ -6,6 +6,8 @@ from flask import Blueprint, render_template, request, jsonify
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import IntegrityError
 
+from flask.ext.login import current_user, login_required
+
 from sybolt.database import db_session
 from sybolt.models import Movie, KrampusVote, KrampusVoteError
 
@@ -22,12 +24,12 @@ def get_status():
     """ Retrieve the active user's current vote status.
     """
 
-    votes_today = KrampusVote.votes_today(request.remote_addr)
-    total_votes = KrampusVote.total_votes(request.remote_addr)
+    votes_today = KrampusVote.votes_today(current_user)
+    total_votes = KrampusVote.total_votes(current_user)
 
     # TODO: Less hardcoding :)
     return jsonify({
-        'remoteAddr': request.remote_addr,
+        'id': current_user.id,
         'now': datetime.now(),
         'remainingDaily': 2 - votes_today,
         'totalVotes': total_votes
@@ -68,7 +70,7 @@ def vote_movie():
             # Apply our vote
             vote = KrampusVote.vote_movie(
                 movie, 
-                request.remote_addr, 
+                current_user,
                 request.form['type']
             )
 
@@ -84,7 +86,7 @@ def vote_movie():
             return jsonify({
                 'date': str(vote.date),
                 'id': vote.id,
-                'profile': vote.profile,
+                'target': vote.target,
                 'type': vote.vote_type
             }), 201
 
@@ -103,7 +105,7 @@ def vote_daily():
         # Apply our vote
         vote = KrampusVote.vote_daily(
             request.form['profile'], 
-            request.remote_addr, 
+            current_user,
             request.form['type']
         )
 
@@ -119,6 +121,6 @@ def vote_daily():
         return jsonify({
             'date': str(vote.date),
             'id': vote.id,
-            'profile': vote.profile,
+            'target': vote.target,
             'type': vote.vote_type
         }), 201

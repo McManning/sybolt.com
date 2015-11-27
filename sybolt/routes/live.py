@@ -3,6 +3,8 @@ from datetime import datetime
 import requests
 
 from flask import Blueprint, render_template, request, jsonify
+from flask.ext.login import current_user, login_required
+
 from sybolt import app
 
 from sybolt.models import Movie, KrampusVote
@@ -23,11 +25,12 @@ def schedule_page(month, year):
     movies = Movie.get_all_for_month(month, year)
 
     # Apply some additional krampusVote data to our movies
-    # for the current user 
-    KrampusVote.apply_votes_to_movies(
-        request.remote_addr,
-        movies
-    )
+    # if we're logged in
+    if current_user.is_authenticated:
+        KrampusVote.apply_votes_to_movies(
+            current_user,
+            movies
+        )
 
     return render_template(
         'schedule-page.html',

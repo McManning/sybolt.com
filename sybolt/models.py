@@ -124,12 +124,16 @@ class KrampusVoteError(Exception):
 class KrampusVote(Base):
     __tablename__ = 'krampusvote'
     id = Column(Integer, primary_key=True)
-    profile = Column(String(80))
 
-    # Tracker for who voted. This *may* get cross
-    # referenced with Murmur to scope access to only
-    # active members. 
-    ip = Column(String(15))
+    # The voter
+    profile_id = Column(Integer, ForeignKey('profile.id'))
+    profile = relationship('Profile', backref='krampus_votes')
+
+    # The target (eventually a profile ref?)
+    target = Column(String(30))
+
+    # If vote_type == movie, this is set
+    movie_id = Column(Integer, ForeignKey('movie.id'), nullable=True)
 
     # When the vote was added. If they're doing daily
     # votes, we get all matches for the current date to
@@ -144,43 +148,40 @@ class KrampusVote(Base):
     # Movie.date > 12-25-2014
     vote_group = Column(Enum('movie', 'daily'))
 
-    # If vote_type == movie, this is set
-    movie_id = Column(Integer, ForeignKey('movie.id'), nullable=True)
-
     @classmethod
-    def votes_today(cls, ip):
+    def votes_today(cls, profile):
         """ Return the number of daily votes made today """
         return cls.query\
             .filter(cls.date == date.today())\
             .filter(cls.vote_group == 'daily')\
-            .filter(cls.ip == ip)\
+            .filter(cls.profile_id == profile.id)\
             .count()
 
     @classmethod
-    def total_votes(cls, ip):
+    def total_votes(cls, profile):
         return cls.query\
-            .filter(cls.ip == ip)\
+            .filter(cls.profile_id == profile.id)\
             .count()
 
     @classmethod
-    def has_voted_on_movie(cls, ip, movie_id):
+    def has_voted_on_movie(cls, profile, movie):
         return cls.query\
-            .filter(cls.ip == ip)\
-            .filter(cls.movie_id == movie_id)\
+            .filter(cls.profile_id == profile.id)\
+            .filter(cls.movie_id == movie.id)\
             .count() > 0
 
     @classmethod
-    def vote_movie(cls, movie, ip, type):
+    def vote_movie(cls, movie, profile, type):
 
         # Ensure they haven't voted on this movie yet
-        if cls.has_voted_on_movie(ip, movie.id):
+        if cls.has_voted_on_movie(profile, movie):
             raise KrampusVoteError(
                 'You already voted on this movie'
             )
 
         vote = cls()
-        vote.profile = movie.profile
-        vote.ip = ip
+        vote.profile = profile
+        vote.target = movie.profile
         vote.vote_group = 'movie'
         vote.movie_id = movie.id
         vote.date = datetime.now()
@@ -192,17 +193,17 @@ class KrampusVote(Base):
         return vote
 
     @classmethod
-    def vote_daily(cls, profile, ip, type):
+    def vote_daily(cls, username, voter, type):
         
         # Ensure they can actually vote again
-        if cls.votes_today(ip) > 1:
+        if cls.votes_today(voter) > 1:
             raise KrampusVoteError(
                 'You have reached your maximum (2) votes today'
             )
 
         vote = cls()
-        vote.profile = profile
-        vote.ip = ip
+        vote.profile = voter
+        vote.target = username
         vote.date = datetime.now()
         vote.vote_group = 'daily'
         vote.vote_type = type
@@ -213,11 +214,11 @@ class KrampusVote(Base):
         return vote
 
     @classmethod
-    def apply_votes_to_movies(cls, ip, movies):
+    def apply_votes_to_movies(cls, profile, movies):
         """ Apply naughty/nice votes for each movie for the given user """
 
         votes = cls.query\
-            .filter(cls.ip == ip)\
+            .filter(cls.profile_id == profile.id)\
             .filter(cls.movie_id.in_([m.id for m in movies]))\
             .all()
 

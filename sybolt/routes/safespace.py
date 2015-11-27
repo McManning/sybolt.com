@@ -1,10 +1,9 @@
 
 import os
 import glob
-import datetime
-import requests
+from datetime import datetime
+
 from sybolt import app
-from flask.ext.login import LoginManager
 from flask.ext.login import current_user, login_user, logout_user, login_required
 
 from flask import Blueprint, render_template, request, jsonify, flash
@@ -13,24 +12,9 @@ from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import IntegrityError
 
 from sybolt.database import db_session
-from sybolt.models import Profile
+from sybolt.models import Profile, LoginRecord
 
 group = Blueprint('safespace', __name__, url_prefix='/safespace')
-
-# Flask-login stuff:
-login_manager = LoginManager()
-login_manager.init_app(app)
-
-# Customize view routes. If they aren't logged in
-# and access a @login_required route, they are redirected
-# to this view with a notice set (to flask.flash)
-login_manager.login_view = '/safespace/login'
-
-@login_manager.user_loader
-def load_profile(profile_id):
-    return Profile.query\
-        .filter(Profile.id == profile_id)\
-        .one()
 
 @group.route('/')
 @login_required
@@ -61,6 +45,15 @@ def post_login():
             .filter(Profile.email == email)\
             .filter(Profile._password == Profile.crypt(password))\
             .one()
+
+        # Record login attempt
+        record = LoginRecord()
+        record.profile = profile
+        record.date = datetime.now()
+        record.ip = request.remote_addr
+        db_session.add(record)
+        db_session.commit()
+        
     except (IntegrityError, NoResultFound):
         return jsonify({
             'error': 'Username or password is incorrect'

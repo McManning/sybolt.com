@@ -2,7 +2,9 @@
 {% macro movie_card(movie) %}
 
 <div class="movie-card card tan lighten-2" data-movie-id="{{ movie.id }}">
+    {% if current_user.is_authenticated %}
     <div class="card-overlay krampusvote-result {{ movie.krampusvote or '' }}"></div>
+    {% endif %}
     <div class="card-content activator waves-effect waves-block waves-light" 
         style="background-image: url('https://image.tmdb.org/t/p/w780{{ movie.tmdb_data.details.backdrop_path }}');">
         <span class="card-title activator">{{ movie.short_date }}</span>
@@ -13,7 +15,7 @@
             <p>Picked by <strong>{{ movie.profile }}</strong></p>
         </div>
         <div class="movie-more right">
-            {% if not movie.krampusvote %}
+            {% if current_user.is_authenticated and not movie.krampusvote %}
             <i class="material-icons krampusvote-vote nice">close</i></a>
             <i class="material-icons krampusvote-vote naughty">close</i></a>
             {% endif %}
@@ -41,8 +43,10 @@
                     {% endif %}
                 {% endfor %}
 
+                {% if current_user.is_authenticated %}
                 <h5>Your Krampus Vote</h5>
                 <p class="krampusvote-vote {{ movie.krampusvote or '' }}">{{ movie.krampusvote or 'Not yet voted' }}</p>
+                {% endif %}
             </div>
         </div>
         <div class="right-align">
