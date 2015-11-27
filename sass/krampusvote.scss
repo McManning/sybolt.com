@@ -122,6 +122,11 @@ body {
     background: #FFF !important;
 }
 
+h1, h2, h3 {
+    color: color('red', 'darken-4') !important;
+    border-bottom-color: color('red', 'darken-4') !important;
+}
+
 .tan.lighten-2 {
     background-color: #EEE !important;
 }
@@ -148,6 +153,10 @@ div#player-container {
 
 .btn.darktan {
     border-color: color('red', 'darken-4') !important;
+    color: color('red', 'darken-4') !important;
+}
+
+.btn-flat {
     color: color('red', 'darken-4') !important;
 }
 

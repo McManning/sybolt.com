@@ -2422,6 +2422,11 @@ body {
   background: #FFF !important;
 }
 
+h1, h2, h3 {
+  color: #B71C1C !important;
+  border-bottom-color: #B71C1C !important;
+}
+
 .tan.lighten-2 {
   background-color: #EEE !important;
 }
@@ -2448,6 +2453,10 @@ div#player-container {
 
 .btn.darktan, .darktan.btn-large {
   border-color: #B71C1C !important;
+  color: #B71C1C !important;
+}
+
+.btn-flat {
   color: #B71C1C !important;
 }
 
