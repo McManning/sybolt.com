@@ -38,6 +38,8 @@ class Config(object):
 
     SECRET_KEY = os.environ['FLASK_SECRET_KEY']
 
+    MURMUR_SQLITE = '/var/lib/murmur/murmur.sqlite'
+
     # Flask-Login cookie settings
     REMEMBER_COOKIE_NAME = 'remember_me_fondly'
     REMEMBER_COOKIE_DOMAIN = '.sybolt.com'
@@ -83,3 +85,5 @@ class LocalDev(Config):
     LOG_LEVEL = logging.DEBUG
 
     RTMP_STATUS_URI = 'https://sybolt.com/rtmp_status'
+
+    MURMUR_SQLITE = 'murmur.sqlite'

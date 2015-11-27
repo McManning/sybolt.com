@@ -5,6 +5,8 @@ from datetime import datetime
 
 from flask import Blueprint, request, jsonify
 
+from sybolt import app
+
 group = Blueprint('murmur', __name__, url_prefix='/murmur')
 
 @group.route('/search', methods=['POST'])
@@ -15,7 +17,7 @@ def post_search():
 
     # We don't have SQLAlchemy tied to the murmur
     # database, so let's connect directly for now
-    conn = sqlite3.connect('murmur.sqlite')
+    conn = sqlite3.connect(app.config['MURMUR_SQLITE'])
     c = conn.cursor()
 
     c.execute('''
