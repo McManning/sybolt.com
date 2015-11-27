@@ -5,7 +5,8 @@ import logging
 class Config(object):
 
     # Application version, used for cachebusting resources
-    VERSION = '1.0.0'
+    # TODO: Just read from package.json?
+    VERSION = '0.2.0'
 
     DEBUG = False
     PORT = 5000
