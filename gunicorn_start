@@ -11,6 +11,9 @@ DJANGO_WSGI_MODULE=sybolt.wsgi
 
 echo "Starting $NAME"
 
+cd $DJANGO_DIR
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+
 # Create the run directory if it doesn't exist
 RUNDIR=$(dirname $SOCKFILE)
 test -d $RUNDIR || mkdir -p $RUNDIR
