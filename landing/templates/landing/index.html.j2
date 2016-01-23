@@ -1,0 +1,126 @@
+{% extends "shared/layout.html.j2" %}
+
+{% block js_app %}landing{% endblock %}
+
+{% block logo_extras %}{% endblock %}
+
+{% block head_extras %}
+
+{% endblock %}
+
+{% block content %}
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none;">
+      <filter id="colorblender">
+          <feColorMatrix type="matrix"
+                    values="
+    0.55 0.55 0.55 0.0000 0.0000
+    0.50 0.50 0.50 0.0000 0.0000
+    0.45 0.45 0.45 0.0000 0.0000
+    0.0000 0.0000 0.0000 0.5000 0.0000"/>
+      </filter>
+    </svg>
+
+    <div id="hero-container">
+        <div id="hero-inner">
+            <div class="video-container no-controls">
+                <iframe class="colorblender" width="100%" height="100%" src="//www.youtube.com/embed/jdmtTpGtSlE?html5=1&controls=1&showinfo=0&autohide=1&autoplay=0&rel=0&modestbranding=1&iv_load_policy=3" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="sybolt-title">
+                <h1>sybolt</h1>
+                <p>all of us are as good as none of us</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <h2>What We Offer</h2>
+
+        <div class="row what-we-offer">
+            <div class="col s12 m12 l4 ">
+                <div class="card-panel tan lighten-2">
+                    <h2 class="center purple-text"><i class="material-icons large">public</i></h2>
+                    <h4 class="center">Unstable Minecraft</h4>
+                    <p class="light">
+                    Sometimes there is a Minecraft server. And we get bored of it. Then there are adventure maps. And we get bored of those. Then we take a break for a few months. And sometimes there is a Minecraft server...
+                    </p>
+                    <p class="light">
+                    It has been <strong>8 months</strong> since we played Minecraft.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col s12 m12 l4">
+                <div class="card-panel tan lighten-2">
+                    <h2 class="center purple-text"><i class="material-icons large">keyboard_voice</i></h2>
+                    <h4 class="center">Offensive Voice Chat</h4>
+
+                    <p class="light">Rife with racism and shitposting, our Mumble server is home to individuals that hate one another yet keep coming back.</p>
+                    <p class="light">It has been <strong>6 days, 15 minutes</strong> since the last racist remark. Good job, Trevor.</p>
+                </div>
+            </div>
+
+            <div class="col s12 m12 l4">
+                <a href="/live">
+                <div class="card-panel tan lighten-2 hoverable">
+                    <h2 class="center purple-text"><i class="material-icons large">movie</i></h2>
+                    <h4 class="center">Bad Movie Nights</h4>
+
+                    <p class="light">When we aren't playing games, we occassionally watch movies. In most cases, these movies are shit. But it doesn't matter, because the guy running it is usually too drunk to notice anyway.</p>
+                    <p class="light">Our last movie was <strong>{{ latest_movie.tmdb_data.details.title }}</strong>.</p>
+                </div>
+                </a>
+            </div>
+        </div>
+
+        <h2>What Others Are Saying</h2>
+            
+        <div class="row valign-wrapper">
+            <div class="col l2 hide-on-med-and-down">
+                <img src="/img/quote-13yo.jpg" alt="" class="circle responsive-img">
+            </div>
+            <div class="col s12 l10">
+                <blockquote>
+                    <p class="flow-text">
+                    These guys are idiots
+                    </p>
+                    <footer>
+                        &mdash; Some 13 Year Old, Arkansas
+                    </footer>
+                </blockquote>
+            </div>
+        </div>
+        <div class="row valign-wrapper">
+            <div class="col l2 hide-on-med-and-down">
+                <img src="/img/quote-hitbox.png" alt="" class="circle responsive-img">
+            </div>
+            <div class="col s12 l10">
+                <blockquote>
+                    <p class="flow-text">
+                    Hey, just a reminder that hitbox is for video gaming content. Non-gaming content is not allowed. Please switch to a game, or stop your stream. Thanks! Thank you for co-operating
+                    </p>
+                    <footer>
+                        &mdash; OneSavvySiren, Hitbox.tv
+                    </footer>
+                </blockquote>
+            </div>
+        </div>
+        <div class="row valign-wrapper">
+            <div class="col l2 hide-on-med-and-down">
+                <img src="/img/quote-mark.jpg" alt="" class="circle responsive-img">
+            </div>
+            <div class="col s12 l10">
+                <blockquote>
+                    <p class="flow-text">
+                    I don't want to do anything illegal
+                    </p>
+                    <footer>
+                        &mdash; Trevor (Potato Water) Meltzer, New Jersey
+                    </footer>
+                </blockquote>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

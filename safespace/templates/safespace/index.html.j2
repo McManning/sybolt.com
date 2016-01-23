@@ -1,0 +1,17 @@
+
+{% extends "shared/layout.html.j2" %}
+
+{% block js_app %}safespace{% endblock %}
+
+{% block content %}
+
+    <div class="container center">
+        <br>
+        <h2>Sybolt Safe Space</h2>
+        <p>It's fucking nothing! (But it may be something soon)</p>
+        <a href="{{ url('safespace:logout') }}">Logout</a>
+        <br>
+        <img class="pc-delta responsive-img" src="/img/safespace/pc-delta.png">
+    </div>
+
+{% endblock %}

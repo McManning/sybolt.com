@@ -1,0 +1,4 @@
+Django==1.9.1
+Jinja2==2.8
+django-jinja==2.1.1
+requests==2.8.1
