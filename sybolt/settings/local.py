@@ -64,4 +64,4 @@ TMDB_API_KEY = os.environ['TMDB_API_KEY']
 
 # Live application settings
 
-RTMP_STATUS_URI = 'https://sybolt.com/rtmp_status'
+RTMP_STATUS_URI = 'http://sybolt.com:501/status'

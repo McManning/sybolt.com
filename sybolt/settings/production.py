@@ -3,7 +3,7 @@ import os
 from sybolt.settings.shared import *
 
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
-DEBUG = True
+DEBUG = False
 
 # Database
 
@@ -64,4 +64,4 @@ TMDB_API_KEY = os.environ['TMDB_API_KEY']
 
 # Live application settings
 
-RTMP_STATUS_URI = 'http://localhost/rtmp_status'
+RTMP_STATUS_URI = 'http://localhost:501/status'
