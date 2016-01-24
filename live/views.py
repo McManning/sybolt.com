@@ -24,6 +24,12 @@ def schedule_page(request, month, year):
         }
     )
 
+def popout(request):
+    """Render just the player in a popout window
+
+    """
+    return render(request, 'live/popout.html.j2')
+
 @require_http_methods(['POST'])
 def push_publish(request):
     logger.debug('push_publish: {}'.format(request))

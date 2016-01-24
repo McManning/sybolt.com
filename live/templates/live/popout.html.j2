@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <style>
+        html, body {
+            background: #000; 
+            margin: 0;   
+            padding: 0;
+            height: 100%;
+        }
+        div {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="live-player-container">
+    <div id="live-player"></div>
+</div>
+
+<script type="text/javascript" src="https://releases.flowplayer.org/js/flowplayer-3.2.13.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script>
+
+$(function() {
+    $f('live-player', {
+        src:"https://releases.flowplayer.org/swf/flowplayer-3.2.18.swf",
+        wmode: "opaque" // This allows the HTML to hide the flash content
+    }, {
+        clip: {
+            url: 'test',
+            live: true,
+            scaling: "fit",
+            provider: "rtmp",
+            autoPlay: true
+        },
+        onBeforePause: function() {
+            return false;
+        },
+        plugins: {
+            rtmp: {
+                url: "flowplayer.rtmp-3.2.13.swf",
+                netConnectionUrl: 'rtmp://sybolt.com:1935/live',
+                inBufferSeek: false,
+                rtmpt: false // Disable HTTP tunneling (fails for HTTPS)
+            },
+            controls: {
+                backgroundColor: 'transparent',
+                backgroundGradient: 'none',
+                progressColor:'#685475',
+                bufferColor: '#dfcd6a',
+                autoHide: true,
+                
+                // Control hiding 
+                all: false,
+                play: false,
+                volume: true,
+                mute: true,
+                time: false,
+                fullscreen: true,
+                scrubber: true,
+                scrubberHeightRatio: 0.1,
+                scrubberBarHeightRatio: 0.1,
+                sliderColor: '#ffffff'
+            }
+            
+        },
+        canvas: {
+            backgroundColor: '#2e2c2a',
+            backgroundGradient: 'none'
+        }
+    });
+    
+    // FORCE clip playback (as sometimes it doesn't auto-play when loaded)
+    $f('live-player').play({url: 'test'});
+});
+
+</script>
+</body>
+</html>

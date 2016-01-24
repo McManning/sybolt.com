@@ -7,6 +7,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 MEDIA_ROOT = BASE_DIR + '/media/'
 STATIC_ROOT = BASE_DIR + '/static/'
 
+# We use different static directories because I compile 
+# frontend code via grunt (sass compiling, minifying, etc),
+# and most resources are shared among django apps, but django
+# wants to use silly collectstatic stuff to merge it all together
+# for deployment. That's fine and all, but I don't want to commit
+# unnecessary copies of things. EVENTUALLY, I'll come up with a 
+# better deployment setup, something that doesn't involve duplicating
+# resources and works with django without having to collectstatic
+# each deployment run. 
 CSS_ROOT = BASE_DIR + '/css'
 FONT_ROOT = BASE_DIR + '/font'
 JS_ROOT = BASE_DIR + '/js'

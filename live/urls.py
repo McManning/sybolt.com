@@ -16,5 +16,7 @@ urlpatterns = [
     url(r'^status', views.status),
     
     # Schedule page partial (/schedule/month/year)
-    url(r'^schedule/(?P<month>[0-9]{1,2})/(?P<year>[0-9]{4})$', views.schedule_page)
+    url(r'^schedule/(?P<month>[0-9]{1,2})/(?P<year>[0-9]{4})$', views.schedule_page),
+
+    url(r'^popout', views.popout)
 ]
