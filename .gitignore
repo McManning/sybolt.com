@@ -6,8 +6,7 @@
 /node_modules
 /nocommit
 /dist
-/__pycache__
-/sybolt/__pycache__
+/logs
 /tmdb_cache
 *.db
 *.pyc
