@@ -175,7 +175,10 @@ $(function() {
                     rtmp: {
                         url: "flowplayer.rtmp-3.2.13.swf",
                         netConnectionUrl: json.rtmp_url,
-                        inBufferSeek: false
+                        inBufferSeek: false,
+                        // Disable HTTP tunneling support 
+                        // (does not support HTTPS tunneling)
+                        rtmpt: false
                     },
                     controls: {
                         backgroundColor: 'transparent',
