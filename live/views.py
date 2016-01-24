@@ -51,8 +51,9 @@ def status(request):
         rtmp_status = RtmpStatus()
         response = rtmp_status.status
     except Exception as e:
+        logger.error(str(e))
         response = {
-            'error': str(e)
+            'error': 'Error communicating with status service'
         }
 
     return JsonResponse(response)

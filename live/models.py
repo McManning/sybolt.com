@@ -158,10 +158,7 @@ class RtmpStatus:
         parsed = {}
 
         # Parse the status into something we can serve as JSON
-        try:
-            root = ElementTree.fromstring(text)
-        except:
-            raise Exception('Error parsing status XML')
+        root = ElementTree.fromstring(text)
 
         # Assumption is that there is only one application (live)
         # running (for now) as I don't have the bandwidth to 
