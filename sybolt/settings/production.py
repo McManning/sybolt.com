@@ -5,6 +5,8 @@ from sybolt.settings.shared import *
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 DEBUG = False
 
+ALLOWED_HOSTS = ['.sybolt.com']
+
 # Database
 
 DATABASE_PATH = '/var/local/sybolt/production.sqlite3'
