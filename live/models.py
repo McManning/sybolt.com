@@ -169,7 +169,7 @@ class RtmpStatus:
         if stream is not None:
             # stream.find('name') is the Stream Key from OBS (current set to "test")
             # Eventually, this'll be some sort of identifier for who's streaming.
-            parsed['stream_path'] = 'rtmp://sybolt.com:1935/live' #stream.find('name').text
+            parsed['stream_path'] = stream.find('name').text
             parsed['publishing'] = (stream.find('publishing') != None)
             
             # Video/Audio statistics
@@ -213,6 +213,9 @@ class RtmpStatus:
         else: # if !stream
             # The stream is just completely dead (no viewers, no publishers)
             parsed['publishing'] = False
+
+        # Add some additional metadata
+        parsed['rtmp_url'] = 'rtmp://sybolt.com:1935/live'
 
         return parsed
 
