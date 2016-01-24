@@ -22,7 +22,7 @@ JS_ROOT = BASE_DIR + '/js'
 IMG_ROOT = BASE_DIR + '/img'
 
 # Site version number, used for cache busting among other things
-VERSION = '1.0.0'
+VERSION = '1.1.0'
 
 ALLOWED_HOSTS = []
 
