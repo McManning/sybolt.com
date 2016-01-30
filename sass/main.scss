@@ -248,7 +248,7 @@ a .card-panel {
 }
 
 // Live movie cards, TODO: Scope!
-.card.movie-card {
+.card.tmdb-movie-card, .card.placeholder-movie-card {
 
     .card-content {
         background-size: cover;
@@ -314,14 +314,25 @@ a .card-panel {
         padding: 20px 0 !important;
     }
 
+    // Movie details
+
     .movie-poster {
         width: 100%;
         height: auto;
         max-width: 150px;
     }
 
-    h5 {
+    dl {
+        margin: 0;
+    }
+
+    dt {
         font-weight: 500;
+    }
+
+    dd {
+        margin: 0;
+        margin-bottom: 1em;
     }
 }
 
@@ -539,4 +550,54 @@ blockquote p {
     left: 0;
     padding-left: 100px;
     padding-bottom: 20px;
+}
+
+// "Nobody Picked" movie card
+.placeholder-movie-card .row {
+    margin: 0 1rem;
+}
+
+p.nobody-picked {
+    font-size: 1.5em;
+    
+    text-align: center;
+    padding: 1em;
+}
+
+p.last-three {
+    font-size: 0.75em;
+    text-align: center;
+
+    .highlight {
+        font-size: 1.25em;
+    }
+}
+
+p.best-choice {
+    .highlight {
+        font-size: 1.25em;
+    }
+}
+
+p.other-choices {
+    padding: 1em;
+    font-size: 0.8em;
+    text-align: center;
+
+    .highlight {
+        font-size: 1.25em;
+    }
+}
+
+.picked-by {
+    padding-top: 1em;
+
+    .highlight {
+        font-size: 1.25em;
+    }
+}
+
+.recent-picks h4 {
+    margin-top: 1em;
+    font-weight: 300;
 }

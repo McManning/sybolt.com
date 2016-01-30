@@ -1,9 +1,13 @@
 
+import logging
+
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_http_methods
 
 from .models import Movie, RtmpStatus
+
+logger = logging.getLogger('sybolt.live')
 
 def index(request):
     """Render full front page of the Live app.
@@ -15,12 +19,15 @@ def index(request):
 
 def schedule_page(request, month, year):
     """Retrieve an HTML fragment for a page of movie listings """
-    movies = Movie.get_all_for_month(month, year)
 
+    # TODO: Only need suggestions/recent_users if there's a movie
+    # card with no assigned person
     return render(request, 
         'live/schedule-page.html.j2',
         context={
-            'movies': movies
+            'movies': Movie.get_all_for_month(month, year),
+            'suggestions': Movie.get_user_suggestions(),
+            'recent_users': Movie.get_recent_users(3)
         }
     )
 

@@ -1,34 +1,109 @@
 import json
+from datetime import datetime
 
-from django.db import models
+from django.db import models, connection
 from django.conf import settings
 import requests
 
 import xml.etree.ElementTree as ElementTree # For RtmpStatus._parse_response
 
 class Movie(models.Model):
-    tmdb_id = models.IntegerField('TMDB ID')
+    tmdb_id = models.IntegerField('TMDB ID, leave blank for just slotting time', null=True, blank=True)
 
     # TODO: Eventually associate with actual users once registration is up
-    user = models.CharField('Who selected this god awful movie', max_length=80)
-    date = models.DateField('Date Played')
+    user = models.CharField('Who selected this god awful movie', max_length=80, blank=True)
+    date = models.DateField('Date Played', blank=False)
 
     _tmdb_data = None
+    _recent_user_movies = None
 
     @classmethod
-    def get_latest(cls):
+    def get_latest_played(cls):
         """Retrieve the latest movie played """
-        return cls.objects.order_by('-date')[0]
+        return cls.objects.exclude(tmdb_id__isnull=True).order_by('-date')[0]
 
     @classmethod
     def get_all_for_month(cls, month, year):
         """Retrieve movies that have been played within a given month """
-        return cls.objects.filter(date__year=year, date__month=month)
+        return cls.objects.filter(date__year=year, date__month=month).order_by('date')
+
+    @classmethod
+    def get_recent_users(cls, count):
+        """ Retrieve the last count users that picked movies """
+        return [
+            x.user for x in cls.objects \
+                .exclude(tmdb_id__isnull=True) \
+                .exclude(user='') \
+                .order_by('-date') \
+                .only('user')[:3]
+        ]
+
+    def get_recent_movies_for_user(self):
+        """ Retrieve last 3 movies related to the user """
+        if self._recent_user_movies:
+            return self._recent_user_movies
+
+        self._recent_user_movies = Movie.objects \
+            .filter(user=self.user) \
+            .exclude(tmdb_id__isnull=True) \
+            .order_by('-date')[:3]
+
+        return self._recent_user_movies
+
+    @classmethod
+    def get_user_suggestions(cls):
+        """ Retrieve suggestions on who to pick for the next movie
+            
+            The algorithm works as follows:
+            1. Retrieve a list of users that have selected a movie in 
+                the past, along with the last pick date and total number
+                of movies "officially" selected for movie night
+            2. Perform cutoffs of "guest" individuals, who have picked
+                a low number of movies, but aren't consistent enough to
+                be considered in the selection process.
+            3. Perform cutoffs of individuals that have recently picked
+            4. The remaining pool is weighed by combining the distance
+                from today and the inverse of the total number of picks
+            5. Select the top three from that list.  
+        """
+        cursor = connection.cursor()
+
+        cursor.execute("""
+            SELECT 
+                user,        
+                last_date, 
+                frequency,
+                date_distance,
+                (date_distance / frequency) AS weight
+            FROM (
+                -- Calculate frequencies and distances
+                SELECT 
+                    user,       
+                    MAX(date) AS last_date,
+                    COUNT(date) AS frequency,         
+                    (JulianDay('now') - JulianDay(MAX(date))) AS date_distance
+                FROM live_movie
+                WHERE user <> '' AND tmdb_id IS NOT NULL
+                GROUP BY user
+                ORDER BY date_distance ASC  
+                LIMIT -1 OFFSET 4 -- Slice off 4 most recent
+            )
+            WHERE frequency > 2 -- Slice off guests outside aggregate
+            ORDER BY weight DESC -- Apply weight algorithm
+            LIMIT 3; -- Return top 3 results
+        """)
+
+        columns = [col[0] for col in cursor.description]
+        rows = [dict(zip(columns, row)) for row in cursor.fetchall()]
+        for row in rows:
+            row['last_date'] = datetime.strptime(row['last_date'], '%Y-%m-%d')
+
+        return rows
 
     @property
     def tmdb_data(self):
         """ Additional data provided by TMDB """
-        if not self._tmdb_data:
+        if not self._tmdb_data and self.tmdb_id:
             self._load_tmdb_data()
 
         return self._tmdb_data
@@ -45,7 +120,7 @@ class Movie(models.Model):
     def backdrop_url(self):
         """Shorthand for retrieving the backdrop image url """
 
-        if 'backdrop_path' in self.tmdb_data['details']:
+        if self.tmdb_data and 'backdrop_path' in self.tmdb_data['details']:
             return 'https://image.tmdb.org/t/p/w780{}'.format(
                 self.tmdb_data['details']['backdrop_path']
             )
@@ -56,7 +131,7 @@ class Movie(models.Model):
     def poster_url(self):
         """Shorthand for retrieving the backdrop image url """
         
-        if 'poster_path' in self.tmdb_data['details']:
+        if self.tmdb_data and 'poster_path' in self.tmdb_data['details']:
             return 'https://image.tmdb.org/t/p/w154{}'.format(
                 self.tmdb_data['details']['poster_path']
             )
@@ -74,6 +149,9 @@ class Movie(models.Model):
         """
         if self._tmdb_data:
             return self._tmdb_data
+
+        if not self.tmdb_id:
+            return None
 
         cache_path = '{}/{}.json'.format(
             settings.TMDB_CACHE_PATH, 
@@ -127,14 +205,16 @@ class Movie(models.Model):
             
             Used by Django admin to display editable records
         """
-        if 'details' in self.tmdb_data:
+        if not self.tmdb_data:
+            title = 'Literally nothing'
+        elif 'details' in self.tmdb_data:
             title = self.tmdb_data['details']['title']
         else:
             title = 'Unknown TMDB ID ({})'.format(self.tmdb_id)
 
         return '"{title}" picked by {user}'.format(
             title=title,
-            user=self.user
+            user=self.user or 'nobody yet'
         )
 
 

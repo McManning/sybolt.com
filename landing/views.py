@@ -9,7 +9,7 @@ def index(request):
     return render(request, 
         'landing/index.html.j2',
         context={
-            'latest_movie': Movie.get_latest()
+            'latest_movie': Movie.get_latest_played()
         }
     )
 

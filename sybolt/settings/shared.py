@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'safespace.apps.SafespaceConfig',
     'live.apps.LiveConfig',
     'django_jinja',
+    'django_jinja.contrib._humanize',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -10,7 +10,11 @@
     <div class="row">
     {% for movie in movies %}
         <div class="col s12 l6">
-            {{ cards.movie_card(movie) }}
+            {% if movie.tmdb_id %}
+                {{ cards.tmdb_movie_card(movie) }}
+            {% else %}
+                {{ cards.placeholder_movie_card(movie) }}
+            {% endif %}
         </div>
         {% if loop.index0 % 2 %}
         </div>
