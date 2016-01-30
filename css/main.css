@@ -10880,63 +10880,70 @@ a .card-panel {
   text-align: center;
 }
 
-.card.movie-card .card-content {
+.card.tmdb-movie-card .card-content, .card.placeholder-movie-card .card-content {
   background-size: cover;
   background-position: center top;
   min-height: 300px;
 }
-.card.movie-card .card-content .card-title {
+.card.tmdb-movie-card .card-content .card-title, .card.placeholder-movie-card .card-content .card-title {
   font-size: 3rem !important;
   padding-left: 20px;
   background: rgba(0, 0, 0, 0.75);
   padding-right: 0.5rem;
 }
-.card.movie-card .card-reveal .card-title {
+.card.tmdb-movie-card .card-reveal .card-title, .card.placeholder-movie-card .card-reveal .card-title {
   margin-bottom: 0.5em;
   margin-right: 1em;
   color: #2E2C2A;
 }
-.card.movie-card .card-reveal .card-title i.right {
+.card.tmdb-movie-card .card-reveal .card-title i.right, .card.placeholder-movie-card .card-reveal .card-title i.right {
   position: absolute;
   top: 26px;
   right: 12px;
 }
-.card.movie-card .card-action {
+.card.tmdb-movie-card .card-action, .card.placeholder-movie-card .card-action {
   position: relative;
 }
-.card.movie-card .movie-title {
+.card.tmdb-movie-card .movie-title, .card.placeholder-movie-card .movie-title {
   margin-right: 2rem;
   margin-right: 7rem;
 }
-.card.movie-card .movie-title h4 {
+.card.tmdb-movie-card .movie-title h4, .card.placeholder-movie-card .movie-title h4 {
   margin: 0;
 }
-.card.movie-card .movie-title p {
+.card.tmdb-movie-card .movie-title p, .card.placeholder-movie-card .movie-title p {
   margin: 0;
   margin-top: 0.5rem;
 }
-.card.movie-card .movie-more {
+.card.tmdb-movie-card .movie-more, .card.placeholder-movie-card .movie-more {
   position: absolute;
   top: 1rem;
   right: 1rem;
   cursor: pointer;
 }
-.card.movie-card .movie-more a {
+.card.tmdb-movie-card .movie-more a, .card.placeholder-movie-card .movie-more a {
   margin: 0 !important;
 }
-.card.movie-card .movie-more i.material-icons {
+.card.tmdb-movie-card .movie-more i.material-icons, .card.placeholder-movie-card .movie-more i.material-icons {
   font-size: 2rem;
 }
-.card.movie-card .card-content {
+.card.tmdb-movie-card .card-content, .card.placeholder-movie-card .card-content {
   padding: 20px 0 !important;
 }
-.card.movie-card .movie-poster {
+.card.tmdb-movie-card .movie-poster, .card.placeholder-movie-card .movie-poster {
   width: 100%;
   height: auto;
   max-width: 150px;
 }
-.card.movie-card h5 {
+.card.tmdb-movie-card dl, .card.placeholder-movie-card dl {
+  margin: 0;
+}
+.card.tmdb-movie-card dt, .card.placeholder-movie-card dt {
   font-weight: 500;
+}
+.card.tmdb-movie-card dd, .card.placeholder-movie-card dd {
+  margin: 0;
+  margin-bottom: 1em;
 }
 
 .social-links img {
@@ -11129,6 +11136,49 @@ blockquote p {
   left: 0;
   padding-left: 100px;
   padding-bottom: 20px;
+}
+
+.placeholder-movie-card .row {
+  margin: 0 1rem;
+}
+
+p.nobody-picked {
+  font-size: 1.5em;
+  text-align: center;
+  padding: 1em;
+}
+
+p.last-three {
+  font-size: 0.75em;
+  text-align: center;
+}
+p.last-three .highlight {
+  font-size: 1.25em;
+}
+
+p.best-choice .highlight {
+  font-size: 1.25em;
+}
+
+p.other-choices {
+  padding: 1em;
+  font-size: 0.8em;
+  text-align: center;
+}
+p.other-choices .highlight {
+  font-size: 1.25em;
+}
+
+.picked-by {
+  padding-top: 1em;
+}
+.picked-by .highlight {
+  font-size: 1.25em;
+}
+
+.recent-picks h4 {
+  margin-top: 1em;
+  font-weight: 300;
 }
 
 /*# sourceMappingURL=main.css.map */
