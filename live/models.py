@@ -83,7 +83,7 @@ class Movie(models.Model):
                     COUNT(date) AS frequency,         
                     (JulianDay('now') - JulianDay(MAX(date))) AS date_distance
                 FROM live_movie
-                WHERE user <> '' AND tmdb_id IS NOT NULL
+                WHERE user <> ''
                 GROUP BY user
                 ORDER BY date_distance ASC  
                 LIMIT -1 OFFSET 4 -- Slice off 4 most recent
