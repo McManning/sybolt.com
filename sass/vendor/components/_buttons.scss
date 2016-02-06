@@ -39,17 +39,18 @@
 // Raised Button
 .btn {
   text-decoration:none;
-  color: $button-color-raised;
-  background-color: $button-color;
+  color: $button-color;
+  background-color: transparent;
+  border: 1px solid $button-color;
+  border-radius: 5px;
   text-align: center;
   letter-spacing: .5px;
-  @extend .z-depth-1;
   transition: .2s ease-out;
   cursor: pointer;
 
   &:hover {
-    background-color: lighten($button-color, 5%);
-    @extend .z-depth-1-half;
+    background-color: $button-color;
+    color: #FFFFFF;
   }
 }
 
