@@ -39,18 +39,17 @@
 // Raised Button
 .btn {
   text-decoration:none;
-  color: $button-color;
-  background-color: transparent;
-  border: 1px solid $button-color;
-  border-radius: 5px;
+  color: $button-color-raised;
+  background-color: $button-color;
   text-align: center;
   letter-spacing: .5px;
-  @include transition(.2s ease-out);
+  @extend .z-depth-1;
+  transition: .2s ease-out;
   cursor: pointer;
 
   &:hover {
-    background-color: $button-color;
-    color: #FFFFFF;
+    background-color: lighten($button-color, 5%);
+    @extend .z-depth-1-half;
   }
 }
 
@@ -82,6 +81,7 @@
   }
 
   &:hover {
+    background-color: $button-color;
     @extend .z-depth-1-half;
   }
   &:before {
@@ -103,6 +103,28 @@ button.btn-floating {
 
 // Fixed Action Button
 .fixed-action-btn {
+  &.active {
+    ul {
+     visibility: visible;
+    }
+  }
+  &.horizontal {
+    padding: 0 0 0 15px;
+    ul {
+      text-align: right;
+      right: 64px;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 100%;
+      left: initial;
+      width: 500px; /*width 100% only goes to width of button container */
+
+      li {
+        display: inline-block;
+        margin: 15px 15px 0 0;
+      }
+    }
+  }
   position: fixed;
   right: 23px;
   bottom: 23px;
@@ -117,6 +139,7 @@ button.btn-floating {
     position: absolute;
     bottom: 64px;
     margin: 0;
+    visibility: hidden;
 
     li {
       margin-bottom: 15px;
