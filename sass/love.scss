@@ -1,0 +1,233 @@
+span.person {
+    font-size: 1.2em;
+    font-weight: 400;
+}
+
+h1 span.person {
+    font-size: inherit;
+}
+
+.results-details {
+    font-weight: 300;
+}
+
+span.relationship-pair {
+    font-size: 1.2em;
+    font-weight: 400;
+}
+
+span.relationship-single {
+    font-size: 1.2em;
+    font-weight: 400;
+}
+
+.results-title {
+    font-size: 5em;
+}
+
+.success-or-fail > i.material-icons {
+    font-size: 4em;
+    display: block;
+}
+
+.success-or-fail {
+    font-size: 2em;
+    padding-top: 1em;
+}
+
+section.results h1 {
+    border: none;
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-weight: 200;
+}
+
+section.results {
+    padding: 5em;
+}
+
+.more-information p {
+    font-size: 1.3em;
+    font-weight: 100;
+    padding: 1em;
+    margin: 0;
+    margin-left: 2em;
+}
+
+.more-information i {
+    font-size: 3em;
+    float: left;
+    padding-top: 0.5em;
+}
+
+.more-information .col:first-child {
+    border-right: 1px solid rgba(255,255,255,0.5);
+}
+
+a.try-another {
+    color: white;
+    margin-top: 4em;
+}
+
+a.try-another i {
+    display: block;
+    font-size: 3em;
+    line-height: 50%;
+}
+
+section.results .card-panel {
+    height: 15em;
+    position: relative;
+}
+
+section.analysis h1 {
+    border: none;
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-weight: 200;
+}
+
+section.analysis {
+    padding: 5em;
+}
+
+section.side-by-side h1 {
+    border: none;
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-weight: 200;
+    margin-bottom: 0.5em;
+}
+
+section.side-by-side {
+    padding: 5em;
+
+    h2 {
+        color: white;
+        font-weight: 300;
+        font-size: 2em;
+    }
+
+    h2 span.person {
+        font-size: inherit;
+    }
+}
+
+div.shipping {
+    font-size: 4em;
+    color: #FFF;
+    font-weight: 300;
+    padding: 1em;
+}
+
+a.shipping-left {
+    color: color('blue', 'lighten-2');
+    border-bottom: 1px solid color('blue', 'lighten-2');
+}
+
+a.shipping-right {
+    color: color('green', 'lighten-2');
+    border-bottom: 1px solid color('green', 'lighten-2');
+}
+
+section.love-info {
+    height: 630px;
+    background-image: url('/img/love/hero.png');
+    /* background-size: cover; */
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.love-machine p {
+    padding: 1em;
+    margin: 0;
+}
+
+i.material-icons {
+    vertical-align: bottom;
+}
+
+
+.love-info {
+    display: flex;
+    padding: 4em;
+}
+
+.love-info .info {
+    align-self: flex-end;
+    width: 100%;
+
+    // Slight bump upward to have the dark gap 
+    // in the hands image go between lines
+    padding-bottom: 0.5em; 
+}
+
+.love-info .info h1 {
+    border: none;
+    margin: 0;
+    font-size: 4em;
+    font-weight: 300;
+    line-height: 1.25em;
+    height: 100%;
+    margin-left: 7rem;
+    color: color('grey', 'darken-4');
+}
+
+.love-info .info h2 {
+    margin: 0;
+    font-size: 2em;
+    font-weight: 300;
+    line-height: 100%;
+    margin-left: 7rem;
+    color: color('grey', 'darken-4');
+}
+
+i.material-icons.hero-icon {
+    float: left;
+    font-size: 6em;
+    margin-top: 1rem;
+}
+
+.shipping-list.dropdown-content li {
+    min-height: inherit;
+}
+
+.shipping-list.dropdown-content li > a {
+    color: #EF5350;
+    padding: 0.5em 1em;
+    font-size: 1.5rem;
+}
+
+h1.card-title {
+    font-size: 2em;
+    line-height: 1em;
+    height: 1em;
+    font-weight: 300 !important;
+    white-space: nowrap;
+}
+
+#left-chart-container, #right-chart-container {
+    max-height: 300px;
+    height: 300px;
+}
+
+section.side-by-side {
+    font-weight: 300;
+}
+
+section.side-by-side li {
+    color: #FFF;
+}
+
+section.side-by-side li.break {
+    margin: 0.5em;
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+}
+
+.chart-label {
+    font-size: 1.5em;
+    text-align: center;
+}

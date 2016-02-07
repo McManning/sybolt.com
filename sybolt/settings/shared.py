@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'landing.apps.LandingConfig',
     'safespace.apps.SafespaceConfig',
     'live.apps.LiveConfig',
+    'love.apps.LoveConfig',
     'django_jinja',
     'django_jinja.contrib._humanize',
     'django.contrib.admin',
@@ -39,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -134,3 +135,4 @@ LOGIN_REDIRECT_URL = '/safespace'
 # TMDB API settings
 
 TMDB_API_URI = 'http://api.themoviedb.org/3/movie'
+

@@ -1,0 +1,249 @@
+{% extends "shared/layout.html.j2" %}
+
+{% block js_app %}love{% endblock %}
+{% block title %}Love{% endblock %}
+
+{% block logo_extras %}{% endblock %}
+
+{% block script_extras %}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Header information - all about the love machine -->
+    <section class="love-info">
+        <div class="info">
+            <a href="#" class="right"><i class="material-icons hero-icon red-text text-lighten-1">help_outline</i></a>
+            <i class="material-icons hero-icon red-text text-lighten-1">favorite</i>
+            <h1>sybolt love machine</h1>
+            <h2>helping you find that special someone</h2>
+        </div>
+    </section>
+
+    <!-- Love Machine - Pair two people together and find out how well they match up -->
+    <section class="love-machine grey darken-4 center">
+        <div class="shipping">
+            I want to ship 
+            <a class="shipping shipping-left" href="#" data-activates="shipping-left-list">Chase</a>
+            <ul id="shipping-left-list" class="shipping-list dropdown-content">
+                <li><a href="#!">Arii</a></li>
+                <li><a href="#!">Banhammer</a></li>
+                <li><a href="#!">Chase</a></li>
+                <li><a href="#!">Cheese</a></li>
+                <li><a href="#!">DeadFOAM</a></li>
+                <li><a href="#!">Gfro</a></li>
+                <li><a href="#!">Jigs</a></li>
+                <li><a href="#!">MarkMeltzer</a></li>
+                <li><a href="#!">Moontrick</a></li>
+                <li><a href="#!">MrListen</a></li>
+                <li><a href="#!">PhantomTheft</a></li>
+            </ul>
+            and 
+            <a class="shipping shipping-right" href="#" data-activates="shipping-right-list">MarkMeltzer</a>
+            <ul id="shipping-right-list" class="shipping-list dropdown-content">
+                <li><a href="#!">Arii</a></li>
+                <li><a href="#!">Banhammer</a></li>
+                <li><a href="#!">Chase</a></li>
+                <li><a href="#!">Cheese</a></li>
+                <li><a href="#!">DeadFOAM</a></li>
+                <li><a href="#!">Gfro</a></li>
+                <li><a href="#!">Jigs</a></li>
+                <li><a href="#!">MarkMeltzer</a></li>
+                <li><a href="#!">Moontrick</a></li>
+                <li><a href="#!">MrListen</a></li>
+                <li><a href="#!">PhantomTheft</a></li>
+            </ul>
+            together!
+        </div>
+        <p class="red-text text-lighten-1"><i class="material-icons">info_outline</i> Click a name to change the pairing</p>
+    </section>
+
+    <section class="side-by-side red lighten-1">
+        <h1>Individual Analysis</h1>
+
+        <div class="row">
+            <div class="col s6">
+                <h1 class="card-title">Results for <span class="person blue-text text-lighten-3">PhantomTheft</span></h1>
+                <div class="row">
+                    <div class="col s8 card-panel red lighten-3 white-text">
+                        <p>
+                            <span class="person">PhantomTheft</span> is really into 
+                            being a <span class="relationship-single">Brat Tamer</span> and somewhat into
+                            being a <span class="relationship-single">Master/Mistress</span>
+                        </p>
+                        <p>
+                            <span class="person">PhantomTheft</span> is definitely not into 
+                            <span class="relationship-single">Ageplay</span> nor 
+                            being a <span class="relationship-single">Submissive</span>
+                        </p>
+                    </div>
+                    <div class="col s4">
+                        <ul>
+                            <li>
+                                <i class="material-icons green-text text-lighten-2">arrow_upward</i> Non-monogamist
+                            </li>
+                            <li>
+                                <i class="material-icons  green-text text-lighten-2">arrow_upward</i> Experimentalist
+                            </li>
+                            <li class="break"></li>
+                            <li>
+                                <i class="material-icons red-text text-darken-4">arrow_downward</i> Voyeur
+                            </li>
+                            <li>
+                                <i class="material-icons red-text text-darken-4">arrow_downward</i> Degradation Receiver
+                            </li>
+                        </ul>
+                    </div>
+                </div> <!-- .row -->
+                <div id="left-chart-container"></div>
+                <div class="chart-label white-text">PhantomTheft's Top 5</div>
+            </div> <!-- .col.s6 -->
+
+            <div class="col s6">
+
+                <h1 class="card-title">Results for <span class="person green-text text-lighten-3">MarkMeltzer</span></h1>
+                <div class="row">
+                    <div class="col s8 card-panel red lighten-3 white-text">
+                        <p>
+                            <span class="person">MarkMeltzer</span> is really into 
+                            being a <span class="relationship-single">Brat Tamer</span> and somewhat into
+                            being a <span class="relationship-single">Master/Mistress</span>
+                        </p>
+                        <p>
+                            <span class="person">MarkMeltzer</span> is definitely not into 
+                            <span class="relationship-single">Ageplay</span> nor 
+                            being a <span class="relationship-single">Submissive</span>
+                        </p>
+                    </div>
+                    <div class="col s4">
+                        <ul>
+                            <li>
+                                <i class="material-icons green-text text-lighten-2">arrow_upward</i> Non-monogamist
+                            </li>
+                            <li>
+                                <i class="material-icons  green-text text-lighten-2">arrow_upward</i> Experimentalist
+                            </li>
+                            <li class="break"></li>
+                            <li>
+                                <i class="material-icons red-text text-darken-4">arrow_downward</i> Voyeur
+                            </li>
+                            <li>
+                                <i class="material-icons red-text text-darken-4">arrow_downward</i> Degradation Receiver
+                            </li>
+                        </ul>
+                    </div>
+                </div> <!-- .row -->
+                <div id="right-chart-container"></div>
+                <div class="chart-label white-text">MarkMeltzer's Top 5</div>
+            </div> <!-- .col.s6 -->
+
+        {# <button class="btn white pink-text">Show top 5 for both individuals</button>
+                <br>
+                Compare Kinks (Pick 5)
+                <select multiple>
+                    <option value="" disabled selected>Pick 5 kinks</option>
+                    <option value="1">Bondage Giver</option>
+                    <option value="2">Bondage Receiver</option>
+                    <option value="3">Switch</option>
+                </select> #}
+    </section>
+
+    <section class="analysis grey darken-4">
+        <h1>
+            Shipping Analysis of    
+            <span class="blue-text text-lighten-2 person">Chase</span> x 
+            <span class="green-text text-lighten-2 person">MarkMeltzer</span>
+        </h1>
+
+        <div id="shipping-chart-container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+    </section>
+
+    <section class="results red lighten-1">
+        <h1>Final Results</h1>
+
+        <div class="row">
+
+            <div class="col s4">
+
+                <div class="results card-panel red lighten-2 center">
+                    <div class="results-title white-text">
+                        90%
+                    </div>
+                    <div class="results-details white-text">
+                        Chance of success in a <span class="relationship-pair">dominant/submissive</span> 
+                        relationship, with <span class="person">Chase</span> as the dominant
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s4">
+                <div class="results card-panel red lighten-2 center">
+                    <div class="results-title white-text">
+                        70%
+                    </div>
+                    <div class="results-details white-text">
+                        Chance of success in a <span class="relationship-single">switch</span> relationship
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s4">
+                <div class="results card-panel red lighten-2 center">
+                    <div class="results-title white-text">
+                        20%
+                    </div>
+                    <div class="results-details white-text">
+                        Chance of success in a <span class="relationship-pair">parent/child</span> 
+                        relationship, with <span class="person">Cheese</span> as the parent
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- .row -->
+        <div class="more-information white-text row">
+            <div class="col s6">
+                <i class="material-icons">favorite</i>
+                <p>
+                    Both are definitely into having a <span class="relationship-pair">submissive/dominant</span> relationship. 
+                    If they were to bump uglies tonight, this would be the way to go. 
+                </p>
+
+                <i class="material-icons">block</i>
+                <p>
+                    Neither of them seem to enjoy having a <span class="relationship-pair">boy/girl</span> relationship,
+                    and are definitely opposed to acting out <span class="relationship-pair">something/else</span>.
+                </p>
+            </div>
+            <div class="col s6">
+                <p>
+                    <span class="person">MarkMeltzer</span> seems to really enjoy having a 
+                    <span class="relationship-pair">dominant/submissive</span> 
+                    as the <span class="relationship-single">dominant</span> one, 
+                    but <span class="person">Cheese</span> doesn't quite feel that way. 
+                    </p>
+                <p>
+                    Likewise, <span class="person">Cheese</span> is really into 
+                    <span class="relationship-pair">dominant/submissive</span>
+                    but <span class="person">MarkMeltzer</span> is pretty strongly 
+                    opposed to it. 
+                </p>
+            </div>
+        </div>
+        <div class="success-or-fail center white-text">
+            <i class="material-icons">favorite</i>
+            Overall, a huge success! Start writing that fanfic guys!
+        </div>
+
+        <div class="center">
+            <a href="#" class="try-another">
+                <i class="material-icons">keyboard_arrow_up</i>
+                Ship another couple?
+            </a>
+        </div>
+
+    </section>
+
+{% endblock %}

@@ -17,6 +17,9 @@
 // Holiday overrides for variables
 //@import "krampusvote";
 
+// Love application 
+@import "love";
+
 // Variables;
 @import "vendor/components/variables";
 
@@ -259,6 +262,7 @@ a .card-panel {
             font-size: 3rem !important;
             padding-left: 20px;
             background: rgba(0,0,0,0.75);
+            color: #FFF;
             padding-right: 0.5rem;
         }
     }

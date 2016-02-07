@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^safespace/', include('safespace.urls', namespace='safespace')),
     url(r'^live/', include('live.urls', namespace='live')),
+    url(r'^love/', include('love.urls', namespace='love')),
     url(r'', include('landing.urls', namespace='landing')),
 ]
 
