@@ -80,9 +80,11 @@
     </div>
 </div-->
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4{% if settings.USE_MINIFIED_JS %}.min{% endif %}.js"></script>
+
+{# try to keep extras loaded AFTER jQuery, for things that try to detect jQ support #}
 {% block script_extras %}{% endblock %}
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4{% if settings.USE_MINIFIED_JS %}.min{% endif %}.js"></script>
 <script type="text/javascript" src="/js/vendor/materialize{% if settings.USE_MINIFIED_JS %}.min{% endif %}.js"></script>
 
 <script type="text/javascript" src="/js/{% block js_app %}{% endblock %}{% if settings.USE_MINIFIED_JS %}.min{% endif %}.js?v={{ settings.VERSION }}"></script>
