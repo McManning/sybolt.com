@@ -64,79 +64,83 @@
         <h1>Individual Analysis</h1>
 
         <div class="row">
-            <div class="col s6">
-                <h1 class="card-title">Results for <span class="person blue-text text-lighten-3">PhantomTheft</span></h1>
+            <div class="col s6 side-by-side-left">
+                <h1 class="card-title">Results for <span class="person blue-text text-lighten-3"></span></h1>
                 <div class="row">
                     <div class="col s8 card-panel red lighten-3 white-text">
                         <p>
-                            <span class="person">PhantomTheft</span> is really into 
-                            being a <span class="relationship-single">Brat Tamer</span> and somewhat into
-                            being a <span class="relationship-single">Master/Mistress</span>
+                            <span class="person person-right"></span>
+                            <span class="top-phrase"></span>
                         </p>
                         <p>
-                            <span class="person">PhantomTheft</span> is definitely not into 
-                            <span class="relationship-single">Ageplay</span> nor 
-                            being a <span class="relationship-single">Submissive</span>
+                            <span class="person person-right"></span>
+                            <span class="bottom-phrase"></span>
                         </p>
                     </div>
                     <div class="col s4">
                         <ul>
                             <li>
-                                <i class="material-icons green-text text-lighten-2">arrow_upward</i> Non-monogamist
+                                <i class="material-icons green-text text-lighten-2">arrow_upward</i> 
+                                <span class="top-1"></span>
                             </li>
                             <li>
-                                <i class="material-icons  green-text text-lighten-2">arrow_upward</i> Experimentalist
+                                <i class="material-icons  green-text text-lighten-2">arrow_upward</i> 
+                                <span class="top-2"></span>
                             </li>
                             <li class="break"></li>
                             <li>
-                                <i class="material-icons red-text text-darken-4">arrow_downward</i> Voyeur
+                                <i class="material-icons red-text text-darken-4">arrow_downward</i> 
+                                <span class="bottom-2"></span>
                             </li>
                             <li>
-                                <i class="material-icons red-text text-darken-4">arrow_downward</i> Degradation Receiver
+                                <i class="material-icons red-text text-darken-4">arrow_downward</i>
+                                <span class="bottom-1"></span>
                             </li>
                         </ul>
                     </div>
                 </div> <!-- .row -->
-                <div id="left-chart-container"></div>
-                <div class="chart-label white-text">PhantomTheft's Top 5</div>
+                <div class="chart-container"></div>
+                <div class="chart-label white-text"><span class="person person-left">PhantomTheft</span>'s Top 5</div>
             </div> <!-- .col.s6 -->
 
-            <div class="col s6">
+            <div class="col s6 side-by-side-right">
 
-                <h1 class="card-title">Results for <span class="person green-text text-lighten-3">MarkMeltzer</span></h1>
+                <h1 class="card-title">Results for <span class="person green-text text-lighten-3"></span></h1>
                 <div class="row">
                     <div class="col s8 card-panel red lighten-3 white-text">
                         <p>
-                            <span class="person">MarkMeltzer</span> is really into 
-                            being a <span class="relationship-single">Brat Tamer</span> and somewhat into
-                            being a <span class="relationship-single">Master/Mistress</span>
+                            <span class="person person-right"></span>
+                            <span class="top-phrase"></span>
                         </p>
                         <p>
-                            <span class="person">MarkMeltzer</span> is definitely not into 
-                            <span class="relationship-single">Ageplay</span> nor 
-                            being a <span class="relationship-single">Submissive</span>
+                            <span class="person person-right"></span>
+                            <span class="bottom-phrase"></span>
                         </p>
                     </div>
                     <div class="col s4">
                         <ul>
                             <li>
-                                <i class="material-icons green-text text-lighten-2">arrow_upward</i> Non-monogamist
+                                <i class="material-icons green-text text-lighten-2">arrow_upward</i> 
+                                <span class="top-1"></span>
                             </li>
                             <li>
-                                <i class="material-icons  green-text text-lighten-2">arrow_upward</i> Experimentalist
+                                <i class="material-icons  green-text text-lighten-2">arrow_upward</i> 
+                                <span class="top-2"></span>
                             </li>
                             <li class="break"></li>
                             <li>
-                                <i class="material-icons red-text text-darken-4">arrow_downward</i> Voyeur
+                                <i class="material-icons red-text text-darken-4">arrow_downward</i> 
+                                <span class="bottom-2"></span>
                             </li>
                             <li>
-                                <i class="material-icons red-text text-darken-4">arrow_downward</i> Degradation Receiver
+                                <i class="material-icons red-text text-darken-4">arrow_downward</i>
+                                <span class="bottom-1"></span>
                             </li>
                         </ul>
                     </div>
                 </div> <!-- .row -->
-                <div id="right-chart-container"></div>
-                <div class="chart-label white-text">MarkMeltzer's Top 5</div>
+                <div class="chart-container"></div>
+                <div class="chart-label white-text"><span class="person person-right">MarkMeltzer</span>'s Top 5</div>
             </div> <!-- .col.s6 -->
 
         {# <button class="btn white pink-text">Show top 5 for both individuals</button>
@@ -150,15 +154,16 @@
                 </select> #}
     </section>
 
-    <section class="analysis grey darken-4">
+    <section class="analysis grey darken-4 sort-default show-all-categories">
         <h1>
             Shipping Analysis of    
-            <span class="blue-text text-lighten-2 person">Chase</span> x 
-            <span class="green-text text-lighten-2 person">MarkMeltzer</span>
+            <span class="blue-text text-lighten-2 person person-left">Chase</span> x 
+            <span class="green-text text-lighten-2 person person-right">MarkMeltzer</span>
         </h1>
 
         <div id="shipping-chart-container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
+        {# <button class="btn red sort-shipping">sort by averages</button>
+        <button class="btn red top-shipping">show top 10</button> #}
     </section>
 
     <section class="results red lighten-1">

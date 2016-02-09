@@ -209,7 +209,7 @@ h1.card-title {
     white-space: nowrap;
 }
 
-#left-chart-container, #right-chart-container {
+.chart-container {
     max-height: 300px;
     height: 300px;
 }
@@ -230,4 +230,9 @@ section.side-by-side li.break {
 .chart-label {
     font-size: 1.5em;
     text-align: center;
+
+    .person {
+        font-weight: inherit;
+        font-size: inherit;
+    }
 }
