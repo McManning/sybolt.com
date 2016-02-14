@@ -8,7 +8,7 @@ class Bdsm(models.Model):
 
     user = models.CharField('User', max_length=80)
     category = models.CharField('Kink Category', max_length=20)
-    percent = models.IntegerField('Percentage match')
+    percent = models.IntegerField('Percentage Match')
 
     # @classmethod
     # def get_latest(cls):
@@ -35,8 +35,9 @@ class BdsmCategory(models.Model):
     """Extra data associated with BDSM categories """
 
     category = models.CharField('Kink Category', max_length=20)
-    related = models.CharField('Inversely related kink', max_length=20)
+    related = models.CharField('Inversely Related Kink', max_length=20)
     description = models.CharField('Kink Description', max_length=500)
+    average = models.IntegerField('Average Among Users')
 
     @classmethod 
     def get_comparative_categories(cls, left, right):

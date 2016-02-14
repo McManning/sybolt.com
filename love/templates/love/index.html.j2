@@ -1,59 +1,23 @@
-{% extends "shared/layout.html.j2" %}
+{% extends "love/layout.html.j2" %}
 
-{% block js_app %}love{% endblock %}
-{% block title %}Love{% endblock %}
-
-{% block logo_extras %}{% endblock %}
-
-{% block script_extras %}
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/highcharts-more.js"></script>
-{% endblock %}
-
-{% block content %}
-
-    <!-- Header information - all about the love machine -->
-    <section class="love-info">
-        <div class="info">
-            <a href="#" class="right"><i class="material-icons hero-icon red-text text-lighten-1">help_outline</i></a>
-            <i class="material-icons hero-icon red-text text-lighten-1">favorite</i>
-            <h1>sybolt love machine</h1>
-            <h2>helping you find that special someone</h2>
-        </div>
-    </section>
+{% block love_content %}
 
     <!-- Love Machine - Pair two people together and find out how well they match up -->
     <section class="love-machine grey darken-4 center">
         <div class="shipping">
             I want to ship 
-            <a class="shipping shipping-left" href="#" data-activates="shipping-left-list">Chase</a>
+            <a class="shipping shipping-left" href="#" data-activates="shipping-left-list">{{ left }}</a>
             <ul id="shipping-left-list" class="shipping-list dropdown-content">
-                <li><a href="#!">Arii</a></li>
-                <li><a href="#!">Banhammer</a></li>
-                <li><a href="#!">Chase</a></li>
-                <li><a href="#!">Cheese</a></li>
-                <li><a href="#!">DeadFOAM</a></li>
-                <li><a href="#!">Gfro</a></li>
-                <li><a href="#!">Jigs</a></li>
-                <li><a href="#!">MarkMeltzer</a></li>
-                <li><a href="#!">Moontrick</a></li>
-                <li><a href="#!">MrListen</a></li>
-                <li><a href="#!">PhantomTheft</a></li>
+            {% for participant in participants %}
+                <li><a href="#!">{{ participant }}</a></li>
+            {% endfor %}
             </ul>
             and 
-            <a class="shipping shipping-right" href="#" data-activates="shipping-right-list">MarkMeltzer</a>
+            <a class="shipping shipping-right" href="#" data-activates="shipping-right-list">{{ right }}</a>
             <ul id="shipping-right-list" class="shipping-list dropdown-content">
-                <li><a href="#!">Arii</a></li>
-                <li><a href="#!">Banhammer</a></li>
-                <li><a href="#!">Chase</a></li>
-                <li><a href="#!">Cheese</a></li>
-                <li><a href="#!">DeadFOAM</a></li>
-                <li><a href="#!">Gfro</a></li>
-                <li><a href="#!">Jigs</a></li>
-                <li><a href="#!">MarkMeltzer</a></li>
-                <li><a href="#!">Moontrick</a></li>
-                <li><a href="#!">MrListen</a></li>
-                <li><a href="#!">PhantomTheft</a></li>
+            {% for participant in participants %}
+                <li><a href="#!">{{ participant }}</a></li>
+            {% endfor %}
             </ul>
             together!
         </div>
@@ -69,11 +33,11 @@
                 <div class="row">
                     <div class="col s8 card-panel red lighten-3 white-text">
                         <p>
-                            <span class="person person-right"></span>
+                            <span class="person person-left">{{ left }}</span>
                             <span class="top-phrase"></span>
                         </p>
                         <p>
-                            <span class="person person-right"></span>
+                            <span class="person person-left">{{ left }}</span>
                             <span class="bottom-phrase"></span>
                         </p>
                     </div>
@@ -81,26 +45,26 @@
                         <ul>
                             <li>
                                 <i class="material-icons green-text text-lighten-2">arrow_upward</i> 
-                                <span class="top-1"></span>
+                                <span class="top-1 category"></span>
                             </li>
                             <li>
                                 <i class="material-icons  green-text text-lighten-2">arrow_upward</i> 
-                                <span class="top-2"></span>
+                                <span class="top-2 category"></span>
                             </li>
                             <li class="break"></li>
                             <li>
                                 <i class="material-icons red-text text-darken-4">arrow_downward</i> 
-                                <span class="bottom-2"></span>
+                                <span class="bottom-2 category"></span>
                             </li>
                             <li>
                                 <i class="material-icons red-text text-darken-4">arrow_downward</i>
-                                <span class="bottom-1"></span>
+                                <span class="bottom-1 category"></span>
                             </li>
                         </ul>
                     </div>
                 </div> <!-- .row -->
                 <div class="chart-container"></div>
-                <div class="chart-label white-text"><span class="person person-left">PhantomTheft</span>'s Top 5</div>
+                <div class="chart-label white-text"><span class="person person-left">{{ left }}</span>'s Top 5</div>
             </div> <!-- .col.s6 -->
 
             <div class="col s6 side-by-side-right">
@@ -109,11 +73,11 @@
                 <div class="row">
                     <div class="col s8 card-panel red lighten-3 white-text">
                         <p>
-                            <span class="person person-right"></span>
+                            <span class="person person-right">{{ right }}</span>
                             <span class="top-phrase"></span>
                         </p>
                         <p>
-                            <span class="person person-right"></span>
+                            <span class="person person-right">{{ right }}</span>
                             <span class="bottom-phrase"></span>
                         </p>
                     </div>
@@ -121,26 +85,26 @@
                         <ul>
                             <li>
                                 <i class="material-icons green-text text-lighten-2">arrow_upward</i> 
-                                <span class="top-1"></span>
+                                <span class="top-1 category"></span>
                             </li>
                             <li>
                                 <i class="material-icons  green-text text-lighten-2">arrow_upward</i> 
-                                <span class="top-2"></span>
+                                <span class="top-2 category"></span>
                             </li>
                             <li class="break"></li>
                             <li>
                                 <i class="material-icons red-text text-darken-4">arrow_downward</i> 
-                                <span class="bottom-2"></span>
+                                <span class="bottom-2 category"></span>
                             </li>
                             <li>
                                 <i class="material-icons red-text text-darken-4">arrow_downward</i>
-                                <span class="bottom-1"></span>
+                                <span class="bottom-1 category"></span>
                             </li>
                         </ul>
                     </div>
                 </div> <!-- .row -->
                 <div class="chart-container"></div>
-                <div class="chart-label white-text"><span class="person person-right">MarkMeltzer</span>'s Top 5</div>
+                <div class="chart-label white-text"><span class="person person-right">{{ right }}</span>'s Top 5</div>
             </div> <!-- .col.s6 -->
 
         {# <button class="btn white pink-text">Show top 5 for both individuals</button>
@@ -157,13 +121,13 @@
     <section class="analysis grey darken-4 sort-default show-all-categories">
         <h1>
             Shipping Analysis of    
-            <span class="blue-text text-lighten-2 person person-left">Chase</span> x 
-            <span class="green-text text-lighten-2 person person-right">MarkMeltzer</span>
+            <span class="blue-text text-lighten-2 person person-left">{{ left }}</span> x 
+            <span class="green-text text-lighten-2 person person-right">{{ right }}</span>
         </h1>
 
         <div id="shipping-chart-container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        {# <button class="btn red sort-shipping">sort by averages</button>
-        <button class="btn red top-shipping">show top 10</button> #}
+        <button class="btn red sort-shipping right">sort by averages</button>
+        {# <button class="btn red top-shipping">show top 10</button> #}
     </section>
 
     <section class="results red lighten-1">
@@ -174,36 +138,22 @@
             <div class="col s4">
 
                 <div class="results card-panel red lighten-2 center">
-                    <div class="results-title white-text">
-                        90%
-                    </div>
-                    <div class="results-details white-text">
-                        Chance of success in a <span class="relationship-pair">dominant/submissive</span> 
-                        relationship, with <span class="person">Chase</span> as the dominant
-                    </div>
+                    <div class="results-title white-text"><span id="top-1-percent">0</span>%</div>
+                    <div class="results-details white-text top-1-info"></div>
                 </div>
             </div>
 
             <div class="col s4">
                 <div class="results card-panel red lighten-2 center">
-                    <div class="results-title white-text">
-                        70%
-                    </div>
-                    <div class="results-details white-text">
-                        Chance of success in a <span class="relationship-single">switch</span> relationship
-                    </div>
+                    <div class="results-title white-text"><span id="top-2-percent">0</span>%</div>
+                    <div class="results-details white-text top-2-info"></div>
                 </div>
             </div>
 
             <div class="col s4">
                 <div class="results card-panel red lighten-2 center">
-                    <div class="results-title white-text">
-                        20%
-                    </div>
-                    <div class="results-details white-text">
-                        Chance of success in a <span class="relationship-pair">parent/child</span> 
-                        relationship, with <span class="person">Cheese</span> as the parent
-                    </div>
+                    <div class="results-title white-text"><span id="top-3-percent">0</span>%</div>
+                    <div class="results-details white-text top-3-info"></div>
                 </div>
             </div>
 
@@ -211,35 +161,19 @@
         <div class="more-information white-text row">
             <div class="col s6">
                 <i class="material-icons">favorite</i>
-                <p>
-                    Both are definitely into having a <span class="relationship-pair">submissive/dominant</span> relationship. 
-                    If they were to bump uglies tonight, this would be the way to go. 
-                </p>
+                <p class="top-details"></p>
 
                 <i class="material-icons">block</i>
-                <p>
-                    Neither of them seem to enjoy having a <span class="relationship-pair">boy/girl</span> relationship,
-                    and are definitely opposed to acting out <span class="relationship-pair">something/else</span>.
-                </p>
+                <p class="bottom-details"></p>
             </div>
             <div class="col s6">
-                <p>
-                    <span class="person">MarkMeltzer</span> seems to really enjoy having a 
-                    <span class="relationship-pair">dominant/submissive</span> 
-                    as the <span class="relationship-single">dominant</span> one, 
-                    but <span class="person">Cheese</span> doesn't quite feel that way. 
-                    </p>
-                <p>
-                    Likewise, <span class="person">Cheese</span> is really into 
-                    <span class="relationship-pair">dominant/submissive</span>
-                    but <span class="person">MarkMeltzer</span> is pretty strongly 
-                    opposed to it. 
-                </p>
+                <p class="left-difference"></p>
+                <p class="right-difference"></p>
             </div>
         </div>
         <div class="success-or-fail center white-text">
             <i class="material-icons">favorite</i>
-            Overall, a huge success! Start writing that fanfic guys!
+            <p></p>
         </div>
 
         <div class="center">
@@ -249,6 +183,32 @@
             </a>
         </div>
 
+        <a class="credits right" href="http://bdsmtest.org/" target="_BLANK">Test results courtesy of bdsmtest.org</a>
+        <div class="clearfix"></div>
     </section>
+
+    <!-- More information modal for each category -->
+
+    {% for c in categories %}
+    <div class="modal modal-tmyk bottom-sheet" data-category="{{ c.category }}">
+        <div class="modal-content grey darken-4">
+            <div class="row">
+                <div class="col s2">
+                    <img class="responsive-img" src="/img/love/tmyk.png">
+                </div>
+                <div class="col s10">
+                    <h1>{{ c.category }}<i class="material-icons modal-action modal-close right">close</i></h1>
+                    <h3>
+                        {{ c.average }}% Average Interest.
+                        {% if c.related != c.category %}
+                        Related to <span class="category">{{ c.related }}</span>
+                        {% endif %}
+                    </h3> 
+                    <p class="description">{{ c.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 
 {% endblock %}

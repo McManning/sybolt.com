@@ -6,6 +6,6 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
 
-    # Get a comparison dataset (/ship/leftPerson/with/rightPerson)
-    url(r'^ship/(?P<leftPerson>\w+)/with/(?P<rightPerson>\w+)$', views.shipping),
+    # Get a comparison dataset (/leftPerson/x/rightPerson)
+    url(r'^(?P<leftPerson>\w+)/x/(?P<rightPerson>\w+)$', views.shipping),
 ]

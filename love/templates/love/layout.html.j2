@@ -1,0 +1,90 @@
+{% extends "shared/layout.html.j2" %}
+
+{% block js_app %}love{% endblock %}
+{% block title %}Love{% endblock %}
+
+{% block logo_extras %}love{% endblock %}
+
+{% block script_extras %}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="/js/vendor/countUp.min.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Header information - all about the love machine -->
+    <section class="love-info">
+        <div class="info">
+            <a href="#modal-about" class="right modal-trigger"><i class="material-icons hero-icon red-text text-lighten-1">help_outline</i></a>
+            <i class="material-icons hero-icon red-text text-lighten-1">favorite</i>
+            <h1>sybolt love machine</h1>
+            <h2>helping you find that special someone</h2>
+        </div>
+    </section>
+
+    <!-- Modal Structure -->
+    <div id="modal-about" class="modal modal-fixed-footer grey darken-4">
+        <div class="modal-content">
+            <h1>About the Love Machine</h1>
+            <p>
+                Sybolt Love Machine is a special Valentines Day project to find 
+                that special someone for everyone in the Sybolt Mumble. Using advanced 
+                statistical analysis, the Sybolt Love Machine can determine whether two
+                individuals will be sexually compatible within 99.69%<sup>1</sup> accuracy.   
+            </p>
+            <h2>How to use it</h2>
+            <p>
+                Simply click on the <span class="blue-text text-lighten-3">blue</span> 
+                or <span class="green-text text-lighten-3">green</span> names at the top
+                of the page and select the individuals you want to ship together. The 
+                Love Machine will then perform analysis on their likes and dislikes,
+                and provide a detailed report on their sexual compatibility.
+            </p>
+            <p>
+                At any time, if you encounter a term you do not understand, simply click it
+                and additional information will be displayed. 
+            </p>
+            <h2>How it works</h2>
+            <p>
+                In November 2015 members of Sybolt Mumble filled out a questionnaire on 
+                <a href="http://bdsmtest.org" target="_BLANK">bdsmtest.org</a> to determine 
+                which BDSM kinks best matched their personalities. The results were then collected
+                and analyzed to construct an algorithm for mapping individuals together based on
+                their kinks versus compatible kinks of others (for example, matching those with a strong
+                inclination towards being a Master/Mistress to those strongly inclined to live out their 
+                Slave fantasies).
+            </p>
+            <p>
+                To determine compatibility between individuals, a kink of the left individual is matched to the
+                converse kink of the right individual (or in cases of a kink's converse being itself, simply the 
+                same kink as the left individual) and then a weighted average is applied between the two percentages
+                of interest. The weighted average (avg<sub>w</sub>) is determined by the equation:
+            </p>
+            <p>
+            <em>avg<sub>w</sub> = avg<sub>p</sub> - (avg<sub>p</sub> - min<sub>p</sub>)(1 - w*min<sub>p</sub>)</em>
+            </p>
+            <p>
+                Where <em>avg<sub>p</sub></em> is the arithmetic mean of the left kink and right kink 
+                (<em>left<sub>p</sub></em> and <em>right<sub>p</sub></em>, respectively), <em>min<sub>p</sub></em>
+                is the minimum of the two kinks, and <em>w</em> is a weight applied to minimum. 
+            </p>
+            <p>
+                The equation ensures that <em>avg<sub>w</sub></em> will not fall outside of the range 
+                <em>[left<sub>p</sub>, right<sub>p</sub>]</em> and creates a low average, favoring 
+                <em>min<sub>p</sub></em> as the less inclined individual to act out the kink. The weight 
+                <em>w</em> supplies an additional increase in <em>avg<sub>w</sub></em> as 
+                <em>min<sub>p</sub></em> increases. The logic behind this final condition is that 
+                as an individual's likelihood to try a kink increases, so too does the ability for 
+                them to be willing to experiment with that kink. 
+            <p>
+        </div>
+        <div class="modal-footer grey darken-4">
+            <sup>1</sup> These estimations are not guaranteed to be accurate.
+            <button class="modal-action modal-close btn red">close</button>
+        </div>
+    </div>
+
+    {% block love_content %}{% endblock %}
+
+{% endblock %}
