@@ -14,134 +14,59 @@ h1 span.person {
     font-size: inherit;
 }
 
-.results-details {
-    font-weight: 300;
-}
-
 span.category {
     font-size: 1.2em;
     font-weight: 400;
     cursor: help;
 }
 
-.results-title {
-    font-size: 5em;
-}
-
-.success-or-fail {
-    font-size: 2em;
-    padding-top: 1em;
-
-    // Cupid Me!
-    .teehee {
-        transition: all .2s ease-in-out;
-        cursor: pointer;
-
-        &:hover {
-            transform: scale(1.25);
-        }
-    }
-
-    i.material-icons {
-        font-size: 4em;
-    }
-}
-
-section.results h1 {
-    border: none;
-    padding: 0;
-    margin: 0;
-    color: #FFF;
-    font-weight: 200;
-}
-
-section.results {
-    padding: 5em;
-    padding-bottom: 1em;
-}
-
-section.results {
-    .credits {
-        margin-top: 4em;
-        color: color('red', 'lighten-4') !important;
-    }
-}
-
-.more-information p {
-    font-size: 1.25em;
-    font-weight: 100;
-    padding: 1em;
-    margin: 0;
-    margin-left: 2em;
-}
-
-.more-information i {
-    font-size: 3em;
-    float: left;
-    padding-top: 0.5em;
-}
-
-.more-information .col:first-child {
-    border-right: 1px solid rgba(255,255,255,0.5);
-}
-
-a.try-another {
-    color: #FFF;
-    margin-top: 4em;
-}
-
-a.try-another i {
-    display: block;
-    font-size: 3em;
-    line-height: 50%;
-}
-
-section.results .card-panel {
-    height: 15em;
-    position: relative;
-}
-
-section.analysis h1 {
-    border: none;
-    padding: 0;
-    margin: 0;
-    color: #FFF;
-    font-weight: 200;
-}
-
-section.analysis {
-    padding: 5em;
-}
-
-section.side-by-side h1 {
-    border: none;
-    padding: 0;
-    margin: 0;
-    color: #FFF;
-    font-weight: 200;
-    margin-bottom: 0.5em;
-}
-
-section.side-by-side {
-    padding: 5em;
-
-    h2 {
-        color: #FFF;
-        font-weight: 300;
-        font-size: 2em;
-    }
-
-    h2 span.person {
-        font-size: inherit;
-    }
+i.material-icons {
+    vertical-align: bottom;
 }
 
 section.love-info {
+    display: flex;
+    padding: 4em;
     height: 630px;
     background-image: url('/img/love/hero.png');
     /* background-size: cover; */
     background-position: center;
     background-repeat: no-repeat;
+
+    .info {
+        align-self: flex-end;
+        width: 100%;
+
+        // Slight bump upward to have the dark gap 
+        // in the hands image go between lines
+        padding-bottom: 0.5em; 
+    }
+
+    h1 {
+        border: none;
+        margin: 0 7rem;
+        font-size: 4em;
+        font-weight: 300;
+        line-height: 1.25em;
+        height: 100%;
+        color: #400000;
+        mix-blend-mode: color-burn;
+    }
+
+    h2 {
+        margin: 0;
+        font-size: 2em;
+        font-weight: 300;
+        line-height: 100%;
+        color: #400000;
+        mix-blend-mode: color-burn;
+    }
+
+    i.material-icons.hero-icon {
+        float: left;
+        font-size: 6em;
+        margin-top: 1rem;
+    }
 }
 
 // Section for picking two individuals 
@@ -181,6 +106,166 @@ section.love-machine {
     }
 }
 
+section.side-by-side {
+    padding: 5em;
+    font-weight: 300;
+
+    h1 {
+        border: none;
+        padding: 0;
+        margin: 0;
+        color: #FFF;
+        font-weight: 200;
+        margin-bottom: 0.5em;
+
+        &.card-title {
+            font-size: 2em;
+            line-height: 1em;
+            height: 1em;
+            font-weight: 300 !important;
+            white-space: nowrap;
+        }
+    }
+
+    h2 {
+        color: #FFF;
+        font-weight: 300;
+        font-size: 2em;
+
+        span.person {
+            font-size: inherit;
+        }
+    }
+
+    li {
+        color: #FFF;
+
+        &.break {
+            margin: 0.5em;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+        }
+    }
+
+    .card-panel {
+        min-height: 160px;
+    }
+
+    .chart-container {
+        max-height: 300px;
+        height: 300px;
+    }
+
+    .chart-label {
+        font-size: 1.5em;
+        text-align: center;
+
+        .person {
+            font-weight: inherit;
+            font-size: inherit;
+        }
+    }
+}
+
+section.analysis {
+    padding: 5em;
+
+    h1 {
+        border: none;
+        padding: 0;
+        margin: 0;
+        color: #FFF;
+        font-weight: 200;
+    }
+
+    #shipping-chart-container {
+        // Highcharts sets no margin and expects the SVG to handle it.
+        // I'm not a fan :|
+        margin-bottom: 1em !important; 
+    }
+}
+
+section.results {
+    padding: 5em;
+    padding-bottom: 1em;
+
+    h1 {
+        border: none;
+        padding: 0;
+        margin: 0;
+        color: #FFF;
+        font-weight: 200;
+    }
+
+    .results-title {
+        font-size: 5em;
+    }
+
+    .results-details {
+        font-weight: 300;
+    }
+
+    .credits {
+        margin-top: 4em;
+        color: color('red', 'lighten-4') !important;
+    }
+
+    .card-panel {
+        height: 15em;
+        position: relative;
+    }
+
+    .success-or-fail {
+        font-size: 2em;
+        padding-top: 1em;
+
+        // Cupid Me!
+        .teehee {
+            transition: all .2s ease-in-out;
+            cursor: pointer;
+
+            &:hover {
+                transform: scale(1.25);
+            }
+        }
+
+        i.material-icons {
+            font-size: 4em;
+        }
+    }
+
+    .more-information {
+
+        i {
+            font-size: 3em;
+            float: left;
+            padding-top: 0.5em;
+        }
+
+        p {
+            font-size: 1.25em;
+            font-weight: 100;
+            padding: 1em;
+            margin: 0;
+            margin-left: 2em;
+        }
+
+        .col:first-child {
+            border-right: 1px solid rgba(255,255,255,0.5);
+        }
+    }
+
+    a.try-another {
+        color: #FFF;
+        margin-top: 4em;
+
+        i {
+            display: block;
+            font-size: 3em;
+            line-height: 50%;
+        }
+    }
+}
+
 section.heartbroken {
     border-bottom: 3px solid #EF5350;
 
@@ -207,94 +292,6 @@ section.heartbroken {
     }
 }
 
-i.material-icons {
-    vertical-align: bottom;
-}
-
-#shipping-chart-container {
-    // Highcharts sets no margin and expects the SVG to handle it.
-    // I'm not a fan :|
-    margin-bottom: 1em !important; 
-}
-.love-info {
-    display: flex;
-    padding: 4em;
-
-    .info {
-        align-self: flex-end;
-        width: 100%;
-
-        // Slight bump upward to have the dark gap 
-        // in the hands image go between lines
-        padding-bottom: 0.5em; 
-    }
-
-    h1 {
-        border: none;
-        margin: 0 7rem;
-        font-size: 4em;
-        font-weight: 300;
-        line-height: 1.25em;
-        height: 100%;
-        color: #400000;
-        mix-blend-mode: color-burn;
-    }
-
-    h2 {
-        margin: 0;
-        font-size: 2em;
-        font-weight: 300;
-        line-height: 100%;
-        color: #400000;
-        mix-blend-mode: color-burn;
-    }
-}
-
-i.material-icons.hero-icon {
-    float: left;
-    font-size: 6em;
-    margin-top: 1rem;
-}
-
-h1.card-title {
-    font-size: 2em;
-    line-height: 1em;
-    height: 1em;
-    font-weight: 300 !important;
-    white-space: nowrap;
-}
-
-.chart-container {
-    max-height: 300px;
-    height: 300px;
-}
-
-section.side-by-side {
-    font-weight: 300;
-}
-
-section.side-by-side li {
-    color: #FFF;
-}
-
-section.side-by-side .card-panel {
-    min-height: 160px;
-}
-
-section.side-by-side li.break {
-    margin: 0.5em;
-    border-bottom: 1px solid rgba(255,255,255,0.5);
-}
-
-.chart-label {
-    font-size: 1.5em;
-    text-align: center;
-
-    .person {
-        font-weight: inherit;
-        font-size: inherit;
-    }
-}
 
 // Custom dark modal styling 
 // The More You Know modals are class based, because
